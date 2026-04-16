@@ -3,11 +3,6 @@
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 
-// Pre-fetch so useCategories and useQuestions get hydrated data immediately
-await useAsyncData(
-  `questions-meta-${locale.value}`,
-  () => queryCollection('questions').all()
-)
 const { filtered, activeTag } = useQuestions()
 const { categories } = useCategories()
 
