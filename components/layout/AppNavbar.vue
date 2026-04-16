@@ -3,6 +3,7 @@
 const { locale, locales, setLocale, t } = useI18n()
 const localePath = useLocalePath()
 const isDrawerOpen = ref(false)
+const user = useSupabaseUser()
 
 const otherLocale = computed(() =>
   locales.value.find(l => l.code !== locale.value)
@@ -56,10 +57,9 @@ function toggleLocale() {
       {{ t('nav.toggle_lang') }}
     </button>
 
-    <!-- Desktop login -->
-    <AppButton variant="primary" size="sm" class="hidden lg:inline-flex">
-      {{ t('nav.login') }}
-    </AppButton>
+    <!-- Desktop auth (conditional) -->
+    <UserMenu v-if="user" class="hidden lg:flex" />
+    <LoginButton v-else class="hidden lg:inline-flex" />
 
     <!-- Mobile hamburger -->
     <button
