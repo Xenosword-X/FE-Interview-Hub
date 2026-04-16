@@ -1,1 +1,74 @@
-{}
+{
+  "nav": {
+    "questions": "Questions",
+    "ai_interview": "AI Interview",
+    "login": "Login",
+    "toggle_lang": "ZH"
+  },
+  "home": {
+    "badge": "AI Mock Interview · Instant Feedback",
+    "title": "Frontend Engineer",
+    "title_accent": "Interview Hub",
+    "description": "200+ curated frontend interview questions covering JS, Vue, CSS, TypeScript and more — with AI-powered answer analysis.",
+    "stat_questions": "Questions",
+    "stat_categories": "Categories",
+    "stat_ai": "AI Scoring",
+    "section_categories": "Browse by Category",
+    "section_hot": "Top Questions",
+    "view_all": "All Questions →",
+    "cta_title": "Get AI Feedback on Your Answers",
+    "cta_desc": "Type your answer and get instant AI analysis: accuracy, missing points, and an optimised example",
+    "cta_btn": "Try AI Interview"
+  },
+  "questions": {
+    "page_title": "Question Bank",
+    "search_placeholder": "Search questions...",
+    "all_categories": "All",
+    "no_results": "No questions found"
+  },
+  "detail": {
+    "home": "Home",
+    "bookmark": "Bookmark",
+    "share": "Share",
+    "ai_practice": "AI Practice",
+    "toc": "On this page",
+    "prev": "Previous",
+    "next": "Next",
+    "ai_section_title": "AI Mock Interview",
+    "ai_section_desc": "Type your answer and get instant AI feedback",
+    "ai_placeholder": "Answer in your own words...",
+    "ai_submit": "Submit for AI Scoring",
+    "ai_login_hint": "Log in to save practice history"
+  },
+  "difficulty": {
+    "basic": "Basic",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced"
+  },
+  "categories": {
+    "javascript": "JavaScript",
+    "vue": "Vue 3",
+    "css": "CSS",
+    "typescript": "TypeScript",
+    "react": "React",
+    "web-vitals": "Web Vitals",
+    "browser": "Browser Internals",
+    "http": "HTTP / Networking"
+  },
+  "footer": {
+    "copyright": "© 2025 FE Interview Hub · MIT License",
+    "about": "About",
+    "github": "GitHub"
+  },
+  "error": {
+    "not_found_title": "Page Not Found",
+    "not_found_desc": "Browse questions by category:",
+    "back_home": "Back to Home"
+  },
+  "bottom_nav": {
+    "home": "Home",
+    "questions": "Questions",
+    "ai": "AI",
+    "profile": "Profile"
+  }
+}
