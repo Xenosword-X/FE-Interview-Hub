@@ -25,23 +25,32 @@ export function useBookmarks() {
   async function toggleBookmark(slug: string): Promise<void> {
     if (!user.value || pending.value) return
     pending.value = true
-    try {
-      if (isBookmarked(slug)) {
-        await client.from('bookmarks')
-          .delete()
-          .eq('user_id', user.value.id)
-          .eq('question_slug', slug)
-        bookmarkedSlugs.value = new Set(
-          [...bookmarkedSlugs.value].filter(s => s !== slug)
-        )
-      } else {
-        await client.from('bookmarks')
-          .insert({ user_id: user.value.id, question_slug: slug })
+
+    if (isBookmarked(slug)) {
+      // Optimistic remove
+      bookmarkedSlugs.value = new Set([...bookmarkedSlugs.value].filter(s => s !== slug))
+      const { error } = await client.from('bookmarks')
+        .delete()
+        .eq('user_id', user.value.id)
+        .eq('question_slug', slug)
+      if (error) {
+        // Revert on failure
         bookmarkedSlugs.value = new Set([...bookmarkedSlugs.value, slug])
+        console.error('[useBookmarks] delete failed:', error.message)
       }
-    } finally {
-      pending.value = false
+    } else {
+      // Optimistic add
+      bookmarkedSlugs.value = new Set([...bookmarkedSlugs.value, slug])
+      const { error } = await client.from('bookmarks')
+        .insert({ user_id: user.value.id, question_slug: slug })
+      if (error) {
+        // Revert on failure
+        bookmarkedSlugs.value = new Set([...bookmarkedSlugs.value].filter(s => s !== slug))
+        console.error('[useBookmarks] insert failed:', error.message)
+      }
     }
+
+    pending.value = false
   }
 
   return { bookmarkedSlugs, pending, fetchBookmarks, toggleBookmark, isBookmarked }
