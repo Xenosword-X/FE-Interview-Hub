@@ -5,6 +5,9 @@ const localePath = useLocalePath()
 const route = useRoute()
 const slug = route.params.slug as string
 
+// Resolve component in setup context so ContentRenderer can use it
+const AppCalloutComp = resolveComponent('AppCallout')
+
 // Fetch current question
 const { data: question } = await useAsyncData(
   `question-${locale.value}-${slug}`,
@@ -147,7 +150,7 @@ useHead({
         <ContentRenderer
           v-if="question"
           :value="question"
-          :components="{ callout: resolveComponent('AppCallout') }"
+          :components="{ callout: AppCalloutComp }"
         />
       </div>
 
