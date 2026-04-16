@@ -64,7 +64,7 @@ useHead({
   ],
   script: [{
     type: 'application/ld+json',
-    children: JSON.stringify({
+    innerHTML: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Article',
       name: question.value?.title,
@@ -136,10 +136,10 @@ useHead({
       <div class="
         prose prose-slate max-w-none
         prose-headings:font-bold prose-headings:text-[--color-text-primary]
-        prose-h2:text-base prose-h2:mt-6 prose-h2:mb-2.5
-        prose-h3:text-sm prose-h3:mt-4 prose-h3:mb-2
-        prose-p:text-sm prose-p:text-[--color-text-secondary] prose-p:leading-relaxed
-        prose-li:text-sm prose-li:text-[--color-text-secondary]
+        prose-h2:text-lg prose-h2:mt-6 prose-h2:mb-2.5
+        prose-h3:text-base prose-h3:mt-4 prose-h3:mb-2
+        prose-p:text-base prose-p:text-[--color-text-secondary] prose-p:leading-relaxed
+        prose-li:text-base prose-li:text-[--color-text-secondary]
         prose-code:text-[11px] prose-code:font-mono prose-code:bg-slate-100 prose-code:text-indigo-700 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
         prose-pre:bg-slate-50 prose-pre:border prose-pre:border-[--color-border] prose-pre:rounded-lg prose-pre:text-[12px]
         prose-table:text-sm prose-th:text-[--color-text-primary] prose-td:text-[--color-text-secondary]

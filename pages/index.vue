@@ -42,7 +42,7 @@ useHead({
   ],
   script: [{
     type: 'application/ld+json',
-    children: JSON.stringify({
+    innerHTML: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: 'FE Interview Hub',
@@ -118,7 +118,7 @@ useHead({
           >
             <span class="text-xs font-bold text-indigo-200 min-w-[24px]">{{ String(idx + 1).padStart(2, '0') }}</span>
             <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-[--color-text-primary] group-hover:text-[--color-primary] truncate">{{ q.title }}</p>
+              <p class="text-base font-medium text-[--color-text-primary] group-hover:text-[--color-primary] truncate">{{ q.title }}</p>
               <div class="flex gap-1.5 mt-1">
                 <TagBadge :category="q.category" />
                 <DifficultyBadge :difficulty="q.difficulty" />
