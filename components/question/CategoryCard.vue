@@ -1,8 +1,20 @@
 <!-- components/question/CategoryCard.vue -->
 <script setup lang="ts">
 import type { Category } from '~/composables/useCategories'
-defineProps<{ category: Category }>()
+const props = defineProps<{ category: Category }>()
 const localePath = useLocalePath()
+
+const iconBgMap: Record<string, string> = {
+  javascript:   'bg-yellow-100 text-yellow-700',
+  vue:          'bg-green-100  text-green-700',
+  css:          'bg-pink-100   text-pink-700',
+  typescript:   'bg-blue-100   text-blue-700',
+  react:        'bg-sky-100    text-sky-700',
+  'web-vitals': 'bg-purple-100 text-purple-700',
+  browser:      'bg-orange-100 text-orange-700',
+  http:         'bg-cyan-100   text-cyan-700',
+}
+const iconClass = computed(() => iconBgMap[props.category.key] ?? 'bg-slate-100 text-slate-600')
 </script>
 
 <template>
@@ -10,8 +22,8 @@ const localePath = useLocalePath()
     :to="`${localePath('/questions')}?tag=${category.key}`"
     class="group border border-[--color-border] rounded-[10px] p-4 bg-white hover:border-[--color-border-hover] hover:shadow-[0_4px_16px_rgba(99,102,241,0.08)] transition-all duration-150 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-[--color-primary] focus-visible:outline-none block"
   >
-    <div class="w-9 h-9 rounded-[9px] flex items-center justify-center mb-2.5 bg-slate-100">
-      <svg class="w-5 h-5 text-[--color-text-secondary]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+    <div :class="['w-9 h-9 rounded-[9px] flex items-center justify-center mb-2.5', iconClass]">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" :d="category.icon" />
       </svg>
     </div>
