@@ -70,5 +70,21 @@
     "questions": "題庫",
     "ai": "AI 面試",
     "profile": "我的"
+  },
+  "auth": {
+    "sign_in_google": "使用 Google 登入",
+    "sign_out": "登出",
+    "my_bookmarks": "我的收藏"
+  },
+  "bookmark": {
+    "add": "收藏",
+    "added": "已收藏",
+    "remove": "移除",
+    "login_to_bookmark": "登入後即可收藏題目",
+    "page_title": "我的收藏",
+    "empty_title": "還沒有收藏的題目",
+    "empty_desc": "收藏感興趣的題目，方便之後複習",
+    "browse": "瀏覽題庫",
+    "remove_failed": "移除收藏失敗，請再試一次"
   }
 }

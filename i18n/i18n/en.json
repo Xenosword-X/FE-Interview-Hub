@@ -70,5 +70,21 @@
     "questions": "Questions",
     "ai": "AI",
     "profile": "Profile"
+  },
+  "auth": {
+    "sign_in_google": "Sign in with Google",
+    "sign_out": "Sign out",
+    "my_bookmarks": "My Bookmarks"
+  },
+  "bookmark": {
+    "add": "Bookmark",
+    "added": "Bookmarked",
+    "remove": "Remove",
+    "login_to_bookmark": "Sign in to bookmark questions",
+    "page_title": "My Bookmarks",
+    "empty_title": "No bookmarks yet",
+    "empty_desc": "Bookmark questions you want to revisit later",
+    "browse": "Browse Questions",
+    "remove_failed": "Failed to remove bookmark, please try again"
   }
 }
