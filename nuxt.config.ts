@@ -1,10 +1,18 @@
 // nuxt.config.ts
 import tailwindcss from '@tailwindcss/vite'
 
+const SITE_URL = process.env.NUXT_PUBLIC_SITE_URL ?? 'https://fe-interview-hub.example.com'
+
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   future: { compatibilityVersion: 4 },
+
+  runtimeConfig: {
+    public: {
+      siteUrl: SITE_URL,
+    },
+  },
 
   modules: [
     '@nuxt/content',
@@ -48,14 +56,14 @@ export default defineNuxtConfig({
     head: {
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { property: 'og:image', content: 'https://fe-interview-hub.example.com/og-image.png' },
+        // og:image: set per-page via useSeoMeta when a real image is available
         { name: 'twitter:card', content: 'summary_large_image' },
       ],
     },
   },
 
   site: {
-    url: 'https://fe-interview-hub.example.com',
+    url: SITE_URL,
     name: 'FE Interview Hub',
   },
 

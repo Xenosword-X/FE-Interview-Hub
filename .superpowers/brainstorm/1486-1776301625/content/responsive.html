@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsive Design</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#e2e8f0; font-family:'Inter',sans-serif; padding:24px; }
+
+  .page-label { font-size:11px; font-weight:600; color:#64748b; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .page-title { font-size:18px; font-weight:700; color:#1e293b; margin-bottom:4px; }
+  .page-sub   { font-size:13px; color:#64748b; margin-bottom:24px; }
+
+  /* ── Breakpoint legend ── */
+  .bp-legend { display:flex; gap:12px; margin-bottom:24px; flex-wrap:wrap; }
+  .bp-chip { font-size:11px; font-weight:600; padding:4px 12px; border-radius:20px; }
+  .bp-chip.mobile  { background:#fce7f3; color:#9d174d; }
+  .bp-chip.tablet  { background:#fef9c3; color:#854d0e; }
+  .bp-chip.desktop { background:#dbeafe; color:#1e40af; }
+
+  /* ── Comparison grid ── */
+  .compare { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:32px; }
+  .compare-full { margin-bottom:32px; }
+  .screen-label { font-size:12px; font-weight:600; color:#475569; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+  .screen-label .badge { font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600; }
+  .badge.mobile  { background:#fce7f3; color:#9d174d; }
+  .badge.desktop { background:#dbeafe; color:#1e40af; }
+
+  /* Browser frames */
+  .device-desktop { background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 4px 24px rgba(0,0,0,0.1); }
+  .device-mobile  {
+    background:#fff; border-radius:20px; overflow:hidden;
+    box-shadow:0 4px 24px rgba(0,0,0,0.12);
+    width:280px; margin:0 auto;
+    border:6px solid #1e293b;
+  }
+  .device-mobile-notch { height:24px; background:#1e293b; display:flex; align-items:center; justify-content:center; }
+  .notch-pill { width:60px; height:10px; background:#0f172a; border-radius:10px; }
+
+  /* ━━━━ DESKTOP HOMEPAGE ━━━━ */
+  .d-nav { height:44px; background:#fff; border-bottom:1px solid #e2e8f0; display:flex; align-items:center; padding:0 16px; gap:10px; }
+  .d-logo-icon { width:22px; height:22px; background:linear-gradient(135deg,#6366f1,#8b5cf6); border-radius:5px; }
+  .d-logo-text { font-size:12px; font-weight:700; color:#1e293b; flex:1; }
+  .d-nav-link { font-size:11px; color:#64748b; padding:4px 8px; border-radius:5px; }
+  .d-lang { font-size:10px; color:#6366f1; padding:3px 8px; border:1px solid #e0e7ff; border-radius:5px; background:#f5f3ff; }
+  .d-login { font-size:11px; color:#fff; background:#6366f1; padding:4px 10px; border-radius:5px; }
+
+  .d-hero { padding:24px 20px 16px; text-align:center; background:#fafafa; border-bottom:1px solid #f1f5f9; }
+  .d-hero-badge { display:inline-block; background:#eff6ff; color:#4f46e5; font-size:9px; font-weight:600; padding:3px 10px; border-radius:20px; margin-bottom:8px; border:1px solid #e0e7ff; }
+  .d-hero-title { font-size:18px; font-weight:700; color:#0f172a; margin-bottom:6px; }
+  .d-hero-title span { color:#6366f1; }
+  .d-hero-desc { font-size:10px; color:#64748b; line-height:1.5; margin-bottom:10px; }
+  .d-stats { display:flex; justify-content:center; gap:24px; }
+  .d-stat-num { font-size:14px; font-weight:700; color:#1e293b; }
+  .d-stat-label { font-size:9px; color:#94a3b8; }
+
+  .d-section { padding:14px 20px; }
+  .d-section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .d-section-title { font-size:12px; font-weight:700; color:#0f172a; }
+  .d-section-link { font-size:10px; color:#6366f1; }
+  .d-cat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+  .d-cat-card { border:1px solid #e2e8f0; border-radius:7px; padding:10px 8px; background:#fff; }
+  .d-cat-icon { font-size:14px; margin-bottom:5px; }
+  .d-cat-name { font-size:10px; font-weight:600; color:#1e293b; }
+  .d-cat-count { font-size:9px; color:#94a3b8; }
+
+  /* ━━━━ MOBILE HOMEPAGE ━━━━ */
+  .m-nav { height:44px; background:#fff; border-bottom:1px solid #e2e8f0; display:flex; align-items:center; padding:0 14px; }
+  .m-logo-icon { width:22px; height:22px; background:linear-gradient(135deg,#6366f1,#8b5cf6); border-radius:5px; margin-right:7px; }
+  .m-logo-text { font-size:12px; font-weight:700; color:#1e293b; flex:1; }
+  .m-hamburger { display:flex; flex-direction:column; gap:3px; cursor:pointer; padding:4px; }
+  .m-hamburger span { width:18px; height:2px; background:#64748b; border-radius:2px; }
+
+  .m-hero { padding:20px 14px 14px; text-align:center; background:#fafafa; }
+  .m-hero-badge { display:inline-block; background:#eff6ff; color:#4f46e5; font-size:9px; font-weight:600; padding:3px 10px; border-radius:20px; margin-bottom:8px; border:1px solid #e0e7ff; }
+  .m-hero-title { font-size:20px; font-weight:700; color:#0f172a; line-height:1.2; margin-bottom:8px; }
+  .m-hero-title span { color:#6366f1; }
+  .m-hero-desc { font-size:12px; color:#64748b; line-height:1.5; margin-bottom:12px; }
+  .m-search { background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:9px 12px; font-size:12px; color:#94a3b8; margin-bottom:12px; display:flex; align-items:center; gap:6px; }
+  .m-search-icon { color:#94a3b8; font-size:12px; }
+
+  .m-section { padding:14px; }
+  .m-section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .m-section-title { font-size:13px; font-weight:700; color:#0f172a; }
+  .m-section-link { font-size:11px; color:#6366f1; }
+  /* 2-col grid on mobile */
+  .m-cat-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+  .m-cat-card { border:1px solid #e2e8f0; border-radius:9px; padding:12px 10px; background:#fff; display:flex; align-items:center; gap:8px; }
+  .m-cat-icon { font-size:18px; }
+  .m-cat-info {}
+  .m-cat-name { font-size:12px; font-weight:600; color:#1e293b; }
+  .m-cat-count { font-size:10px; color:#94a3b8; }
+
+  .m-q-list { padding:0 14px 8px; }
+  .m-q-item { display:flex; align-items:center; gap:10px; padding:11px 0; border-bottom:1px solid #f1f5f9; }
+  .m-q-body { flex:1; }
+  .m-q-title { font-size:12px; font-weight:500; color:#1e293b; margin-bottom:3px; line-height:1.4; }
+  .m-q-meta { display:flex; gap:5px; }
+  .m-q-tag { font-size:9px; padding:1px 6px; border-radius:3px; }
+  .m-q-tag.js { background:#fef9c3; color:#854d0e; }
+  .m-q-arr { font-size:14px; color:#cbd5e1; }
+
+  /* Bottom Nav — mobile only */
+  .m-bottom-nav {
+    height:56px; background:#fff; border-top:1px solid #e2e8f0;
+    display:flex; align-items:center; justify-content:space-around;
+    padding-bottom:4px;
+  }
+  .m-bnav-item { display:flex; flex-direction:column; align-items:center; gap:3px; padding:4px 12px; cursor:pointer; }
+  .m-bnav-icon { font-size:18px; }
+  .m-bnav-label { font-size:9px; color:#94a3b8; font-weight:500; }
+  .m-bnav-item.active .m-bnav-label { color:#6366f1; }
+
+  /* ━━━━ DETAIL PAGE COMPARISON ━━━━ */
+  .d-layout { display:flex; }
+  .d-sidebar-sm { width:120px; background:#fafafa; border-right:1px solid #f1f5f9; padding:10px 0; flex-shrink:0; }
+  .d-cat-item { font-size:10px; color:#64748b; padding:5px 10px; cursor:pointer; border-left:2px solid transparent; }
+  .d-cat-item.active { color:#6366f1; font-weight:600; border-left-color:#6366f1; background:#eff6ff; }
+  .d-main { flex:1; padding:14px 16px; }
+  .d-toc { width:110px; border-left:1px solid #f1f5f9; padding:10px; flex-shrink:0; }
+  .d-toc-title { font-size:9px; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; }
+  .d-toc-item { font-size:9px; color:#64748b; padding:3px 0; border-left:2px solid transparent; padding-left:6px; margin-bottom:2px; }
+  .d-toc-item.active { color:#6366f1; border-left-color:#6366f1; }
+
+  .d-bc { display:flex; gap:4px; margin-bottom:8px; }
+  .d-bc span { font-size:9px; color:#94a3b8; }
+  .d-q-title { font-size:13px; font-weight:700; color:#0f172a; margin-bottom:8px; line-height:1.4; }
+  .d-tag { display:inline-block; font-size:9px; padding:2px 6px; border-radius:3px; margin-right:4px; margin-bottom:8px; }
+  .d-tag.js { background:#fef9c3; color:#854d0e; }
+  .d-tag.adv { background:#f5f3ff; color:#6d28d9; }
+  .d-p { font-size:10px; color:#475569; line-height:1.6; margin-bottom:8px; }
+  .d-code { background:#f6f8fa; border:1px solid #e2e8f0; border-radius:6px; padding:8px 10px; font-family:'JetBrains Mono',monospace; font-size:9px; color:#334155; line-height:1.6; margin-bottom:8px; }
+  .d-ai-bar { background:#f5f3ff; border-top:1px solid #e0e7ff; padding:10px 14px; display:flex; align-items:center; gap:10px; }
+  .d-ai-input { flex:1; background:#fff; border:1px solid #e0e7ff; border-radius:6px; padding:6px 10px; font-size:10px; color:#94a3b8; }
+  .d-ai-btn { background:#6366f1; color:#fff; font-size:10px; font-weight:600; padding:6px 10px; border-radius:5px; white-space:nowrap; }
+
+  /* Mobile detail */
+  .m-detail-nav { height:44px; background:#fff; border-bottom:1px solid #e2e8f0; display:flex; align-items:center; padding:0 14px; gap:10px; }
+  .m-back-btn { font-size:12px; color:#6366f1; display:flex; align-items:center; gap:4px; }
+  .m-detail-title { font-size:12px; font-weight:600; color:#1e293b; flex:1; text-align:center; }
+  .m-bookmark { font-size:16px; color:#94a3b8; }
+
+  /* Scrollable tag bar */
+  .m-tag-bar { display:flex; gap:6px; padding:10px 14px; border-bottom:1px solid #f1f5f9; overflow-x:auto; }
+  .m-tag-bar::-webkit-scrollbar { display:none; }
+  .m-filter-tag { font-size:10px; padding:4px 10px; border-radius:16px; border:1px solid #e2e8f0; white-space:nowrap; color:#64748b; background:#fff; flex-shrink:0; }
+  .m-filter-tag.active { background:#eff6ff; color:#6366f1; border-color:#c7d2fe; font-weight:600; }
+
+  .m-detail-content { padding:16px 14px; }
+  .m-detail-q-title { font-size:16px; font-weight:700; color:#0f172a; line-height:1.35; margin-bottom:10px; }
+  .m-detail-tag { display:inline-block; font-size:10px; padding:3px 8px; border-radius:4px; margin-right:5px; margin-bottom:10px; }
+  .m-detail-tag.js { background:#fef9c3; color:#854d0e; }
+  .m-detail-tag.adv { background:#f5f3ff; color:#6d28d9; }
+  .m-detail-p { font-size:14px; color:#334155; line-height:1.7; margin-bottom:12px; }
+  .m-detail-code { background:#f6f8fa; border:1px solid #e2e8f0; border-radius:8px; padding:12px; font-family:'JetBrains Mono',monospace; font-size:11px; color:#334155; line-height:1.6; margin-bottom:12px; overflow-x:auto; }
+  .m-ic { background:#f1f5f9; color:#6366f1; font-family:'JetBrains Mono',monospace; font-size:11px; padding:1px 5px; border-radius:3px; }
+
+  /* Sticky AI input at bottom */
+  .m-ai-sticky {
+    position:sticky; bottom:0;
+    background:#fff; border-top:1px solid #e2e8f0;
+    padding:10px 14px; display:flex; gap:8px; align-items:center;
+  }
+  .m-ai-input { flex:1; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:9px 12px; font-size:12px; color:#94a3b8; min-height:44px; }
+  .m-ai-send { width:44px; height:44px; background:#6366f1; border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .m-ai-send-icon { color:#fff; font-size:18px; }
+
+  .section-divider { height:1px; background:#cbd5e1; margin:32px 0 28px; }
+  .section-heading { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:6px; }
+  .section-hint { font-size:12px; color:#64748b; margin-bottom:20px; }
+
+  /* UX notes */
+  .ux-notes { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:20px; }
+  .ux-note { background:#fff; border-radius:8px; padding:14px; border:1px solid #e2e8f0; }
+  .ux-note-title { font-size:11px; font-weight:700; color:#1e293b; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+  .ux-note-badge { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .ux-note-body { font-size:10px; color:#64748b; line-height:1.5; }
+</style>
+</head>
+<body>
+
+<div class="page-label">Responsive Design</div>
+<div class="page-title">響應式版型 — 三個斷點設計</div>
+<div class="page-sub">Mobile-first，從 375px 手機向上擴展到 768px 平板、1024px+ 桌面</div>
+
+<div class="bp-legend">
+  <div class="bp-chip mobile">Mobile ≤ 767px（375px 基準）</div>
+  <div class="bp-chip tablet">Tablet 768–1023px</div>
+  <div class="bp-chip desktop">Desktop ≥ 1024px</div>
+</div>
+
+<!-- ═══ Section 1: Homepage ═══ -->
+<div class="section-heading">首頁（Homepage）</div>
+<div class="section-hint">左側桌面版 vs 右側手機版</div>
+
+<div class="compare">
+
+  <!-- Desktop Homepage -->
+  <div>
+    <div class="screen-label">桌面版（1280px）<span class="badge desktop">Desktop</span></div>
+    <div class="device-desktop">
+      <div class="d-nav">
+        <div class="d-logo-icon"></div>
+        <div class="d-logo-text">FE Interview Hub</div>
+        <div class="d-nav-link">題庫</div>
+        <div class="d-nav-link">AI 面試</div>
+        <div class="d-lang">ZH ⇌ EN</div>
+        <div class="d-login">登入</div>
+      </div>
+      <div class="d-hero">
+        <div class="d-hero-badge">AI 模擬面試 · 即時評分</div>
+        <div class="d-hero-title">前端工程師 <span>面試題庫</span></div>
+        <div class="d-hero-desc">精選 50+ 道高頻前端面試題，AI 即時診斷答題品質</div>
+        <div class="d-stats">
+          <div><div class="d-stat-num">50+</div><div class="d-stat-label">精選題目</div></div>
+          <div><div class="d-stat-num">8</div><div class="d-stat-label">技術分類</div></div>
+          <div><div class="d-stat-num">AI</div><div class="d-stat-label">即時評分</div></div>
+        </div>
+      </div>
+      <div class="d-section">
+        <div class="d-section-header">
+          <div class="d-section-title">依分類複習</div>
+          <div class="d-section-link">全部 →</div>
+        </div>
+        <div class="d-cat-grid">
+          <div class="d-cat-card"><div class="d-cat-icon">🟡</div><div class="d-cat-name">JavaScript</div><div class="d-cat-count">68 題</div></div>
+          <div class="d-cat-card"><div class="d-cat-icon">💚</div><div class="d-cat-name">Vue 3</div><div class="d-cat-count">34 題</div></div>
+          <div class="d-cat-card"><div class="d-cat-icon">🎨</div><div class="d-cat-name">CSS</div><div class="d-cat-count">28 題</div></div>
+          <div class="d-cat-card"><div class="d-cat-icon">🔷</div><div class="d-cat-name">TypeScript</div><div class="d-cat-count">22 題</div></div>
+          <div class="d-cat-card"><div class="d-cat-icon">⚛️</div><div class="d-cat-name">React</div><div class="d-cat-count">18 題</div></div>
+          <div class="d-cat-card"><div class="d-cat-icon">⚡</div><div class="d-cat-name">Web Vitals</div><div class="d-cat-count">16 題</div></div>
+          <div class="d-cat-card"><div class="d-cat-icon">🌐</div><div class="d-cat-name">瀏覽器原理</div><div class="d-cat-count">14 題</div></div>
+          <div class="d-cat-card"><div class="d-cat-icon">🔗</div><div class="d-cat-name">HTTP</div><div class="d-cat-count">12 題</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Homepage -->
+  <div style="display:flex;flex-direction:column;align-items:center;">
+    <div class="screen-label">手機版（375px）<span class="badge mobile">Mobile</span></div>
+    <div class="device-mobile">
+      <div class="device-mobile-notch"><div class="notch-pill"></div></div>
+      <div style="background:#fff;overflow:hidden;">
+        <div class="m-nav">
+          <div class="m-logo-icon"></div>
+          <div class="m-logo-text">FE Interview Hub</div>
+          <div class="m-hamburger"><span></span><span></span><span></span></div>
+        </div>
+        <div class="m-hero">
+          <div class="m-hero-badge">AI 模擬面試 · 即時評分</div>
+          <div class="m-hero-title">前端<span>面試題庫</span></div>
+          <div class="m-hero-desc">50+ 道高頻題，AI 即時評分</div>
+          <div class="m-search">
+            <span class="m-search-icon">🔍</span>
+            <span>搜尋題目關鍵字...</span>
+          </div>
+        </div>
+        <div class="m-section">
+          <div class="m-section-header">
+            <div class="m-section-title">依分類複習</div>
+            <div class="m-section-link">全部 →</div>
+          </div>
+          <!-- 2-col grid on mobile -->
+          <div class="m-cat-grid">
+            <div class="m-cat-card"><div class="m-cat-icon">🟡</div><div class="m-cat-info"><div class="m-cat-name">JavaScript</div><div class="m-cat-count">68 題</div></div></div>
+            <div class="m-cat-card"><div class="m-cat-icon">💚</div><div class="m-cat-info"><div class="m-cat-name">Vue 3</div><div class="m-cat-count">34 題</div></div></div>
+            <div class="m-cat-card"><div class="m-cat-icon">🎨</div><div class="m-cat-info"><div class="m-cat-name">CSS</div><div class="m-cat-count">28 題</div></div></div>
+            <div class="m-cat-card"><div class="m-cat-icon">🔷</div><div class="m-cat-info"><div class="m-cat-name">TypeScript</div><div class="m-cat-count">22 題</div></div></div>
+          </div>
+        </div>
+        <div class="m-q-list">
+          <div class="m-section-header" style="padding:0 0 8px;">
+            <div class="m-section-title">高頻題目</div>
+          </div>
+          <div class="m-q-item">
+            <div class="m-q-body"><div class="m-q-title">什麼是 Event Loop？</div><div class="m-q-meta"><span class="m-q-tag js">JavaScript</span></div></div>
+            <div class="m-q-arr">›</div>
+          </div>
+          <div class="m-q-item">
+            <div class="m-q-body"><div class="m-q-title">解釋 Closure 的概念</div><div class="m-q-meta"><span class="m-q-tag js">JavaScript</span></div></div>
+            <div class="m-q-arr">›</div>
+          </div>
+        </div>
+        <!-- Bottom Navigation -->
+        <div class="m-bottom-nav">
+          <div class="m-bnav-item active">
+            <div class="m-bnav-icon">🏠</div>
+            <div class="m-bnav-label" style="color:#6366f1;">首頁</div>
+          </div>
+          <div class="m-bnav-item">
+            <div class="m-bnav-icon">📚</div>
+            <div class="m-bnav-label">題庫</div>
+          </div>
+          <div class="m-bnav-item">
+            <div class="m-bnav-icon">✦</div>
+            <div class="m-bnav-label">AI 面試</div>
+          </div>
+          <div class="m-bnav-item">
+            <div class="m-bnav-icon">👤</div>
+            <div class="m-bnav-label">我的</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ═══ Section 2: Question Detail ═══ -->
+<div class="section-heading">題目詳情頁（Question Detail）</div>
+<div class="section-hint">桌面三欄 → 手機單欄，側欄收起，TOC 消失，AI 輸入框固定底部</div>
+
+<div class="compare">
+
+  <!-- Desktop Detail -->
+  <div>
+    <div class="screen-label">桌面版（1280px）<span class="badge desktop">Desktop</span></div>
+    <div class="device-desktop">
+      <div class="d-nav">
+        <div class="d-logo-icon"></div>
+        <div class="d-logo-text">FE Interview Hub</div>
+        <div style="flex:1"></div>
+        <div class="d-lang">ZH ⇌ EN</div>
+        <div class="d-login">登入</div>
+      </div>
+      <div class="d-layout">
+        <div class="d-sidebar-sm">
+          <div style="font-size:9px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;padding:0 10px 6px;">分類</div>
+          <div class="d-cat-item active">JavaScript</div>
+          <div class="d-cat-item">Vue 3</div>
+          <div class="d-cat-item">CSS</div>
+          <div class="d-cat-item">TypeScript</div>
+          <div class="d-cat-item">Web Vitals</div>
+        </div>
+        <div class="d-main">
+          <div class="d-bc"><span>首頁</span><span>›</span><span>JS</span><span>›</span><span style="color:#475569;font-weight:500;">Event Loop</span></div>
+          <div class="d-tag js">JavaScript</div>
+          <div class="d-tag adv">進階</div>
+          <div class="d-q-title">什麼是 Event Loop？請說明 Call Stack 與 Task Queue 的關係</div>
+          <div class="d-p">JavaScript 是單執行緒語言，Event Loop 是讓 JS 處理非同步操作的核心機制，由 Call Stack、Web APIs 與 Task Queue 組成...</div>
+          <div class="d-code">console.log('1')
+setTimeout(() => console.log('3'), 0)
+Promise.resolve().then(() => console.log('2'))
+// 輸出：1 → 2 → 3</div>
+          <div class="d-ai-bar">
+            <div class="d-ai-input">輸入你的答案，AI 即時評分...</div>
+            <div class="d-ai-btn">送出評分</div>
+          </div>
+        </div>
+        <div class="d-toc">
+          <div class="d-toc-title">目錄</div>
+          <div class="d-toc-item active">核心概念</div>
+          <div class="d-toc-item">Call Stack</div>
+          <div class="d-toc-item">Task Queue</div>
+          <div class="d-toc-item">Microtask</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Detail -->
+  <div style="display:flex;flex-direction:column;align-items:center;">
+    <div class="screen-label">手機版（375px）<span class="badge mobile">Mobile</span></div>
+    <div class="device-mobile">
+      <div class="device-mobile-notch"><div class="notch-pill"></div></div>
+      <div style="background:#fff;overflow:hidden;">
+        <!-- 手機詳情頁：Navbar 改成 Back + 標題 -->
+        <div class="m-detail-nav">
+          <div class="m-back-btn">‹ 返回</div>
+          <div class="m-detail-title">JavaScript</div>
+          <div class="m-bookmark">🔖</div>
+        </div>
+        <!-- 橫向滑動 Tag Filter 取代左側欄 -->
+        <div class="m-tag-bar">
+          <div class="m-filter-tag active">JavaScript</div>
+          <div class="m-filter-tag">Vue 3</div>
+          <div class="m-filter-tag">CSS</div>
+          <div class="m-filter-tag">TypeScript</div>
+        </div>
+        <!-- 文章內容，全寬 -->
+        <div class="m-detail-content">
+          <div class="m-detail-tag js">JavaScript</div>
+          <div class="m-detail-tag adv">進階</div>
+          <div class="m-detail-q-title">什麼是 Event Loop？請說明 Call Stack 與 Task Queue 的關係</div>
+          <div class="m-detail-p">JavaScript 是單執行緒語言，Event Loop 是讓 JS 處理非同步操作的核心機制，由 Call Stack、Web APIs 與 Task Queue 三部分組成。</div>
+          <div class="m-detail-code">console.log('1')
+setTimeout(() => console.log('3'), 0)
+Promise.resolve().then(
+  () => console.log('2')
+)
+// 1 → 2 → 3</div>
+          <div class="m-detail-p">Call Stack 清空後，Event Loop 先清空所有 <span class="m-ic">Microtask</span>，再取一個 Macrotask 執行。</div>
+        </div>
+        <!-- AI 輸入框固定在底部（sticky） -->
+        <div class="m-ai-sticky">
+          <div class="m-ai-input">輸入你的答案...</div>
+          <div class="m-ai-send"><div class="m-ai-send-icon">↑</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section-divider"></div>
+
+<!-- UX Notes -->
+<div class="section-heading">響應式關鍵決策（ui-ux-pro-max）</div>
+<div class="ux-notes">
+  <div class="ux-note">
+    <div class="ux-note-title"><div class="ux-note-badge" style="background:#6366f1"></div>導覽模式切換</div>
+    <div class="ux-note-body">桌面：固定左側分類欄。手機：左側欄收起，改用頂部橫向滑動 Tag Bar + 返回鍵導覽，保持 44px touch target。</div>
+  </div>
+  <div class="ux-note">
+    <div class="ux-note-title"><div class="ux-note-badge" style="background:#22c55e"></div>分類卡片格柵</div>
+    <div class="ux-note-body">桌面 4 欄 → 平板 3 欄 → 手機 2 欄。卡片最小高度 64px，確保觸控面積 ≥ 44px。</div>
+  </div>
+  <div class="ux-note">
+    <div class="ux-note-title"><div class="ux-note-badge" style="background:#f59e0b"></div>TOC 右欄</div>
+    <div class="ux-note-body">手機隱藏，改在文章頂部顯示折疊式目錄 (Disclosure)，不佔版面。</div>
+  </div>
+  <div class="ux-note">
+    <div class="ux-note-title"><div class="ux-note-badge" style="background:#ec4899"></div>AI 輸入框</div>
+    <div class="ux-note-body">桌面嵌在文章底部。手機改為 sticky bottom bar，隨時可輸入，不需滾到底部，send 按鈕 44×44px。</div>
+  </div>
+  <div class="ux-note">
+    <div class="ux-note-title"><div class="ux-note-badge" style="background:#3b82f6"></div>Bottom Navigation</div>
+    <div class="ux-note-body">手機獨有，4 個 Tab（首頁/題庫/AI面試/我的），圖示 + 文字標籤，符合 ui-ux-pro-max bottom-nav-limit ≤5 規則。</div>
+  </div>
+  <div class="ux-note">
+    <div class="ux-note-title"><div class="ux-note-badge" style="background:#8b5cf6"></div>排版優化</div>
+    <div class="ux-note-body">手機 body 字體 14px（≥ 14px 避免 iOS 自動縮放），line-height 1.7，每行 35–55 字符，符合閱讀舒適範圍。</div>
+  </div>
+</div>
+
+</body>
+</html>

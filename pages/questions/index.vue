@@ -6,7 +6,7 @@ const localePath = useLocalePath()
 const { filtered, activeTag } = useQuestions()
 const { categories } = useCategories()
 
-const siteUrl = 'https://fe-interview-hub.example.com'
+const siteUrl = useSiteUrl()
 
 useSeoMeta({
   title: `${t('questions.page_title')} | FE Interview Hub`,

@@ -17,7 +17,7 @@ const { data: allQuestions } = await useAsyncData(
 
 const hotQuestions = computed(() => allQuestions.value?.slice(0, 5) ?? [])
 
-const siteUrl = 'https://fe-interview-hub.example.com'
+const siteUrl = useSiteUrl()
 useSeoMeta({
   title: `${t('home.title_accent')} | FE Interview Hub`,
   description: t('home.description'),
@@ -65,7 +65,7 @@ useHead({
       </p>
       <div class="flex justify-center gap-8">
         <div class="text-center">
-          <p class="text-[22px] font-bold text-[--color-text-primary]">200+</p>
+          <p class="text-[22px] font-bold text-[--color-text-primary]">50+</p>
           <p class="text-xs text-[--color-text-muted] mt-0.5">{{ t('home.stat_questions') }}</p>
         </div>
         <div class="text-center">

@@ -8,53 +8,37 @@ const slug = route.params.slug as string
 // Resolve component in setup context so ContentRenderer can use it
 const AppCalloutComp = resolveComponent('AppCallout')
 
-// Fetch current question
-const { data: question } = await useAsyncData(
-  `question-${locale.value}-${slug}`,
-  async () => {
-    const all = await queryCollection('questions').all()
-    return all.find(q => q.path?.includes(`/${locale.value}/`) && q.slug === slug) ?? null
-  }
-)
-
-if (!question.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Question not found' })
-}
-
-// Fetch all questions for prev/next navigation
-const { data: allQuestions } = await useAsyncData(
-  `all-questions-nav-${locale.value}`,
+// Single query — fetches all locale questions once, derives current + prev/next
+const { data: localeQuestions } = await useAsyncData(
+  `questions-${locale.value}`,
   async () => {
     const all = await queryCollection('questions').all()
     return all.filter(q => q.path?.includes(`/${locale.value}/`))
   }
 )
 
-const currentIndex = computed(() =>
-  allQuestions.value?.findIndex(q => q.slug === slug) ?? -1
-)
-const prevQuestion = computed(() =>
-  currentIndex.value > 0 ? (allQuestions.value?.[currentIndex.value - 1] ?? null) : null
-)
-const nextQuestion = computed(() =>
-  currentIndex.value < (allQuestions.value?.length ?? 0) - 1
-    ? (allQuestions.value?.[currentIndex.value + 1] ?? null)
-    : null
-)
+const question = localeQuestions.value?.find(q => q.slug === slug) ?? null
 
-// TOC links from content body
-const tocLinks = computed(() => {
-  const toc = (question.value as any)?.body?.toc?.links
-  return Array.isArray(toc) ? toc as Array<{ id: string; text: string; depth: number }> : []
-})
+if (!question) {
+  throw createError({ statusCode: 404, statusMessage: 'Question not found' })
+}
+
+const currentIndex = localeQuestions.value?.findIndex(q => q.slug === slug) ?? -1
+const prevQuestion = currentIndex > 0 ? (localeQuestions.value?.[currentIndex - 1] ?? null) : null
+const nextQuestion = currentIndex < (localeQuestions.value?.length ?? 0) - 1
+  ? (localeQuestions.value?.[currentIndex + 1] ?? null)
+  : null
+
+// TOC links from content body (question is a plain object, not a Ref)
+const tocLinks = (question as any)?.body?.toc?.links as Array<{ id: string; text: string; depth: number }> ?? []
 
 // SEO
-const siteUrl = 'https://fe-interview-hub.example.com'
+const siteUrl = useSiteUrl()
 
 useSeoMeta({
-  title: `${question.value?.title} | FE Interview Hub`,
-  description: question.value?.title,
-  ogTitle: question.value?.title,
+  title: `${question.title} | FE Interview Hub`,
+  description: question.title,
+  ogTitle: question.title,
   ogUrl: `${siteUrl}/${locale.value}/questions/${slug}`,
   twitterCard: 'summary',
 })
@@ -70,7 +54,7 @@ useHead({
     innerHTML: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Article',
-      name: question.value?.title,
+      name: question.title,
       inLanguage: locale.value === 'zh' ? 'zh-TW' : 'en-US',
       url: `${siteUrl}/${locale.value}/questions/${slug}`,
     })
@@ -87,21 +71,21 @@ useHead({
       <nav class="flex items-center gap-1.5 text-xs text-[--color-text-muted] mb-5" aria-label="Breadcrumb">
         <NuxtLink :to="localePath('/')" class="hover:text-[--color-primary]">{{ t('detail.home') }}</NuxtLink>
         <span>›</span>
-        <NuxtLink :to="`${localePath('/questions')}?tag=${question!.category}`" class="hover:text-[--color-primary]">
-          {{ t(`categories.${question!.category}`) }}
+        <NuxtLink :to="`${localePath('/questions')}?tag=${question.category}`" class="hover:text-[--color-primary]">
+          {{ t(`categories.${question.category}`) }}
         </NuxtLink>
         <span>›</span>
-        <span class="text-[--color-text-secondary] font-medium truncate max-w-[200px]">{{ question!.title }}</span>
+        <span class="text-[--color-text-secondary] font-medium truncate max-w-[200px]">{{ question.title }}</span>
       </nav>
 
       <!-- Question header -->
       <header class="mb-6 pb-6 border-b border-[--color-border]">
         <div class="flex items-center gap-2 mb-3">
-          <TagBadge :category="question!.category" />
-          <DifficultyBadge :difficulty="question!.difficulty" />
+          <TagBadge :category="question.category" />
+          <DifficultyBadge :difficulty="question.difficulty" />
         </div>
         <h1 class="text-[22px] font-bold text-[--color-text-primary] leading-snug mb-4">
-          {{ question!.title }}
+          {{ question.title }}
         </h1>
         <div class="flex items-center gap-2 flex-wrap">
           <!-- Bookmark (placeholder) -->

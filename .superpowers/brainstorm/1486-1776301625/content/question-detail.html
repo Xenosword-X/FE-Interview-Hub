@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question Detail Mockup</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#e2e8f0; font-family:'Inter',sans-serif; padding:24px; }
+
+  .page-label { font-size:11px; font-weight:600; color:#64748b; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+  .page-title { font-size:18px; font-weight:700; color:#1e293b; margin-bottom:4px; }
+  .page-sub   { font-size:13px; color:#64748b; margin-bottom:20px; }
+
+  /* ── Browser Chrome ── */
+  .browser { background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 40px rgba(0,0,0,0.12); max-width:1080px; margin:0 auto; }
+  .browser-bar { background:#f1f5f9; padding:10px 14px; display:flex; align-items:center; gap:8px; border-bottom:1px solid #e2e8f0; }
+  .dot { width:10px; height:10px; border-radius:50%; }
+  .dot.r{background:#ff5f57;} .dot.y{background:#febc2e;} .dot.g{background:#28c840;}
+  .url-bar { flex:1; background:#fff; border:1px solid #e2e8f0; border-radius:6px; padding:4px 12px; font-size:11px; color:#94a3b8; margin:0 8px; }
+
+  /* ── Navbar ── */
+  .navbar {
+    height:52px; background:#fff; border-bottom:1px solid #e2e8f0;
+    display:flex; align-items:center; padding:0 20px; gap:14px;
+  }
+  .nav-logo { display:flex; align-items:center; gap:8px; }
+  .nav-logo-icon { width:26px; height:26px; background:linear-gradient(135deg,#6366f1,#8b5cf6); border-radius:6px; }
+  .nav-logo-text { font-size:14px; font-weight:700; color:#1e293b; }
+  .nav-spacer { flex:1; }
+  .nav-link { font-size:13px; color:#64748b; padding:5px 10px; border-radius:6px; cursor:pointer; }
+  .nav-link:hover { background:#f8fafc; }
+  .nav-divider { width:1px; height:18px; background:#e2e8f0; }
+  .lang-btn { font-size:11px; font-weight:600; color:#6366f1; padding:5px 10px; border:1px solid #e0e7ff; border-radius:6px; background:#f5f3ff; cursor:pointer; }
+  .login-btn { font-size:13px; font-weight:500; color:#fff; padding:6px 14px; background:#6366f1; border-radius:7px; cursor:pointer; }
+
+  /* ── Layout ── */
+  .layout { display:flex; min-height:600px; }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width:220px; border-right:1px solid #f1f5f9; padding:20px 0;
+    flex-shrink:0; background:#fafafa;
+  }
+  .sidebar-section { margin-bottom:20px; }
+  .sidebar-title { font-size:10px; font-weight:600; color:#94a3b8; text-transform:uppercase; letter-spacing:0.8px; padding:0 16px 8px; }
+  .sidebar-item {
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:#475569; padding:7px 16px;
+    cursor:pointer; border-radius:0; transition:background 0.1s;
+    border-left:2px solid transparent;
+  }
+  .sidebar-item:hover { background:#f1f5f9; color:#1e293b; }
+  .sidebar-item.active { background:#eff6ff; color:#4f46e5; font-weight:600; border-left-color:#6366f1; }
+  .sidebar-dot { width:6px; height:6px; border-radius:50%; background:#e2e8f0; flex-shrink:0; }
+  .sidebar-dot.js  { background:#eab308; }
+  .sidebar-dot.vue { background:#22c55e; }
+  .sidebar-dot.css { background:#ec4899; }
+  .sidebar-dot.ts  { background:#3b82f6; }
+  .sidebar-count { margin-left:auto; font-size:10px; color:#cbd5e1; }
+
+  /* ── Main Content ── */
+  .main { flex:1; padding:24px 32px; max-width:760px; }
+
+  /* Breadcrumb */
+  .breadcrumb { display:flex; align-items:center; gap:6px; margin-bottom:16px; }
+  .bc-item { font-size:12px; color:#94a3b8; cursor:pointer; }
+  .bc-item:hover { color:#6366f1; }
+  .bc-sep { font-size:11px; color:#cbd5e1; }
+  .bc-current { font-size:12px; color:#475569; font-weight:500; }
+
+  /* Question Header */
+  .q-header { margin-bottom:20px; padding-bottom:20px; border-bottom:1px solid #f1f5f9; }
+  .q-meta-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+  .q-tag { font-size:11px; font-weight:500; padding:3px 9px; border-radius:5px; }
+  .q-tag.js  { background:#fef9c3; color:#854d0e; }
+  .q-tag.adv { background:#f5f3ff; color:#6d28d9; }
+  .q-title { font-size:22px; font-weight:700; color:#0f172a; line-height:1.3; margin-bottom:10px; }
+  .q-actions { display:flex; align-items:center; gap:8px; }
+  .q-action-btn {
+    display:flex; align-items:center; gap:5px; font-size:12px; color:#64748b;
+    padding:6px 12px; border:1px solid #e2e8f0; border-radius:7px; background:#fff; cursor:pointer;
+    transition:border-color 0.15s, color 0.15s;
+  }
+  .q-action-btn:hover { border-color:#c7d2fe; color:#6366f1; }
+  .q-action-btn svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:1.8; }
+  .ai-btn {
+    margin-left:auto; display:flex; align-items:center; gap:6px;
+    font-size:12px; font-weight:600; color:#fff;
+    padding:7px 14px; background:#6366f1; border-radius:7px; cursor:pointer;
+  }
+  .ai-btn-dot { width:6px; height:6px; background:#a5f3fc; border-radius:50%; }
+
+  /* Article */
+  .article { font-size:14px; color:#334155; line-height:1.75; }
+  .article h2 { font-size:16px; font-weight:700; color:#0f172a; margin:24px 0 10px; }
+  .article h3 { font-size:14px; font-weight:600; color:#1e293b; margin:18px 0 8px; }
+  .article p  { margin-bottom:14px; }
+  .article ul { padding-left:20px; margin-bottom:14px; }
+  .article li { margin-bottom:6px; }
+
+  /* Code block — Shiki "github-light" theme simulation */
+  .code-block {
+    background:#f6f8fa; border:1px solid #e2e8f0; border-radius:8px;
+    overflow:hidden; margin:14px 0;
+  }
+  .code-header {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:7px 14px; border-bottom:1px solid #e2e8f0; background:#f1f5f9;
+  }
+  .code-lang { font-size:10px; font-weight:600; color:#64748b; text-transform:uppercase; letter-spacing:0.5px; }
+  .code-copy { font-size:10px; color:#94a3b8; cursor:pointer; }
+  .code-body { padding:14px 16px; font-family:'JetBrains Mono', monospace; font-size:12px; line-height:1.7; overflow-x:auto; }
+  .kw  { color:#d63384; font-weight:500; }  /* keyword */
+  .fn  { color:#6f42c1; }                   /* function */
+  .str { color:#032f62; }                   /* string */
+  .cmt { color:#6e7781; font-style:italic; }/* comment */
+  .num { color:#005cc5; }                   /* number */
+  .var { color:#24292f; }                   /* variable */
+
+  /* Callout */
+  .callout {
+    background:#eff6ff; border-left:3px solid #6366f1; border-radius:0 8px 8px 0;
+    padding:12px 16px; margin:14px 0; font-size:13px; color:#1e40af; line-height:1.6;
+  }
+  .callout strong { color:#4338ca; }
+
+  /* Inline code */
+  .ic { background:#f1f5f9; color:#6366f1; font-family:'JetBrains Mono',monospace; font-size:12px; padding:1px 5px; border-radius:4px; }
+
+  /* ── AI Practice Section ── */
+  .ai-section {
+    margin-top:32px; border:1px solid #e0e7ff; border-radius:12px;
+    overflow:hidden; background:#fafafe;
+  }
+  .ai-section-header {
+    padding:14px 18px; background:linear-gradient(135deg,#6366f1,#8b5cf6);
+    display:flex; align-items:center; gap:10px;
+  }
+  .ai-section-title { font-size:14px; font-weight:700; color:#fff; }
+  .ai-section-sub { font-size:11px; color:rgba(255,255,255,0.75); margin-top:1px; }
+  .ai-textarea {
+    width:100%; background:#fff; border:none; border-bottom:1px solid #e2e8f0;
+    padding:14px 18px; font-size:13px; color:#334155; line-height:1.6;
+    font-family:'Inter',sans-serif; resize:none; height:80px;
+    outline:none;
+  }
+  .ai-textarea::placeholder { color:#cbd5e1; }
+  .ai-footer { display:flex; align-items:center; padding:10px 18px; gap:10px; }
+  .ai-hint { font-size:11px; color:#94a3b8; flex:1; }
+  .ai-submit { font-size:13px; font-weight:600; color:#fff; background:#6366f1; padding:7px 18px; border-radius:7px; cursor:pointer; border:none; }
+
+  /* ── Prev / Next ── */
+  .nav-arrows { display:flex; gap:12px; margin-top:28px; padding-top:20px; border-top:1px solid #f1f5f9; }
+  .nav-arrow-btn {
+    flex:1; padding:12px 16px; border:1px solid #e2e8f0; border-radius:9px;
+    cursor:pointer; transition:border-color 0.15s; background:#fff;
+  }
+  .nav-arrow-btn:hover { border-color:#c7d2fe; }
+  .nav-arrow-label { font-size:10px; color:#94a3b8; margin-bottom:4px; }
+  .nav-arrow-title { font-size:13px; font-weight:500; color:#1e293b; }
+  .nav-arrow-btn.next { text-align:right; }
+
+  /* ── Right TOC ── */
+  .toc { width:180px; padding:20px 16px; border-left:1px solid #f1f5f9; flex-shrink:0; }
+  .toc-title { font-size:10px; font-weight:600; color:#94a3b8; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:12px; }
+  .toc-item { font-size:11px; color:#64748b; padding:4px 0; cursor:pointer; border-left:2px solid transparent; padding-left:8px; margin-bottom:2px; }
+  .toc-item:hover { color:#6366f1; }
+  .toc-item.active { color:#6366f1; border-left-color:#6366f1; font-weight:500; }
+</style>
+</head>
+<body>
+
+<div class="page-label">Section 3 — 題目詳情頁 (Question Detail) Mockup</div>
+<div class="page-title">方案 A — 簡潔學術白 · 詳情頁版型</div>
+<div class="page-sub">三欄布局：左側分類導覽 + 中央內容（max-width 720px）+ 右側 TOC，底部 AI 練習區</div>
+
+<div class="browser">
+  <div class="browser-bar">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+    <div class="url-bar">localhost:3000/zh/questions/event-loop</div>
+  </div>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="nav-logo">
+      <div class="nav-logo-icon"></div>
+      <span class="nav-logo-text">FE Interview Hub</span>
+    </div>
+    <div class="nav-spacer"></div>
+    <div class="nav-link">題庫</div>
+    <div class="nav-link">AI 面試</div>
+    <div class="nav-divider"></div>
+    <div class="lang-btn">ZH ⇌ EN</div>
+    <div class="login-btn">登入</div>
+  </div>
+
+  <!-- Body -->
+  <div class="layout">
+
+    <!-- Left Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title">分類</div>
+        <div class="sidebar-item active">
+          <div class="sidebar-dot js"></div>JavaScript
+          <span class="sidebar-count">68</span>
+        </div>
+        <div class="sidebar-item">
+          <div class="sidebar-dot vue"></div>Vue 3
+          <span class="sidebar-count">34</span>
+        </div>
+        <div class="sidebar-item">
+          <div class="sidebar-dot css"></div>CSS
+          <span class="sidebar-count">28</span>
+        </div>
+        <div class="sidebar-item">
+          <div class="sidebar-dot ts"></div>TypeScript
+          <span class="sidebar-count">22</span>
+        </div>
+        <div class="sidebar-item">
+          <div class="sidebar-dot" style="background:#a855f7"></div>Web Vitals
+          <span class="sidebar-count">16</span>
+        </div>
+        <div class="sidebar-item">
+          <div class="sidebar-dot" style="background:#f97316"></div>瀏覽器原理
+          <span class="sidebar-count">14</span>
+        </div>
+        <div class="sidebar-item">
+          <div class="sidebar-dot" style="background:#06b6d4"></div>HTTP / 網路
+          <span class="sidebar-count">12</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+      <!-- Breadcrumb -->
+      <div class="breadcrumb">
+        <span class="bc-item">首頁</span>
+        <span class="bc-sep">›</span>
+        <span class="bc-item">JavaScript</span>
+        <span class="bc-sep">›</span>
+        <span class="bc-current">Event Loop</span>
+      </div>
+
+      <!-- Question Header -->
+      <div class="q-header">
+        <div class="q-meta-row">
+          <span class="q-tag js">JavaScript</span>
+          <span class="q-tag adv">進階</span>
+        </div>
+        <div class="q-title">什麼是 Event Loop？請說明 Call Stack 與 Task Queue 的運作機制</div>
+        <div class="q-actions">
+          <button class="q-action-btn">
+            <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            收藏
+          </button>
+          <button class="q-action-btn">
+            <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            分享
+          </button>
+          <div class="ai-btn">
+            <div class="ai-btn-dot"></div>
+            AI 練習作答
+          </div>
+        </div>
+      </div>
+
+      <!-- Article -->
+      <div class="article">
+        <h2>核心概念</h2>
+        <p>JavaScript 是<strong>單執行緒（Single-threaded）</strong>語言，同一時間只能執行一件事。<strong>Event Loop</strong> 是讓 JS 能處理非同步操作的核心機制，由以下幾個部分組成：</p>
+
+        <div class="callout">
+          <strong>重點：</strong>Event Loop 本身不在 JS 引擎中，而是由執行環境（瀏覽器 / Node.js）提供的機制。
+        </div>
+
+        <h3>1. Call Stack（呼叫堆疊）</h3>
+        <p>同步程式碼的執行區域，採用 LIFO（後進先出）結構。函式被呼叫時推入，執行完畢後彈出。</p>
+
+        <h3>2. Web APIs / Node APIs</h3>
+        <p>處理 <span class="ic">setTimeout</span>、<span class="ic">fetch</span>、DOM 事件等非同步操作的環境 API。</p>
+
+        <h3>3. Task Queue（巨集任務佇列）</h3>
+        <p>非同步回呼（如 <span class="ic">setTimeout</span> callback）完成後排隊的地方，等待 Call Stack 清空後執行。</p>
+
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">JavaScript</span>
+            <span class="code-copy">複製</span>
+          </div>
+          <div class="code-body"><span class="cmt">// 範例：理解執行順序</span>
+<span class="var">console</span>.<span class="fn">log</span>(<span class="str">'1. 同步開始'</span>)
+
+<span class="fn">setTimeout</span>(() <span class="kw">=></span> {
+  <span class="var">console</span>.<span class="fn">log</span>(<span class="str">'3. 巨集任務（setTimeout）'</span>)
+}, <span class="num">0</span>)
+
+<span class="kw">new</span> <span class="fn">Promise</span>((resolve) <span class="kw">=></span> {
+  resolve()
+}).<span class="fn">then</span>(() <span class="kw">=></span> {
+  <span class="var">console</span>.<span class="fn">log</span>(<span class="str">'2. 微任務（Promise.then）'</span>)
+})
+
+<span class="cmt">// 輸出順序：1 → 2 → 3</span></div>
+        </div>
+
+        <h2>Microtask vs Macrotask</h2>
+        <p>除了 Task Queue，還有優先層級更高的 <strong>Microtask Queue</strong>（微任務佇列）：</p>
+        <ul>
+          <li><strong>Microtask</strong>：<span class="ic">Promise.then</span>、<span class="ic">queueMicrotask</span>、<span class="ic">MutationObserver</span></li>
+          <li><strong>Macrotask</strong>：<span class="ic">setTimeout</span>、<span class="ic">setInterval</span>、<span class="ic">I/O</span> 事件</li>
+        </ul>
+        <p>每次 Call Stack 清空後，Event Loop 會<strong>先清空所有 Microtask</strong>，再取一個 Macrotask 執行。</p>
+      </div>
+
+      <!-- AI Practice -->
+      <div class="ai-section">
+        <div class="ai-section-header">
+          <div>
+            <div class="ai-section-title">✦ AI 模擬面試</div>
+            <div class="ai-section-sub">輸入你的答案，AI 即時分析精準度與改進空間</div>
+          </div>
+        </div>
+        <textarea class="ai-textarea" placeholder="請用自己的話解釋 Event Loop 的運作機制…"></textarea>
+        <div class="ai-footer">
+          <span class="ai-hint">登入後可儲存練習紀錄</span>
+          <button class="ai-submit">送出給 AI 評分</button>
+        </div>
+      </div>
+
+      <!-- Prev / Next -->
+      <div class="nav-arrows">
+        <div class="nav-arrow-btn">
+          <div class="nav-arrow-label">← 上一題</div>
+          <div class="nav-arrow-title">var、let、const 的差異</div>
+        </div>
+        <div class="nav-arrow-btn next">
+          <div class="nav-arrow-label">下一題 →</div>
+          <div class="nav-arrow-title">解釋 Closure 的概念</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right TOC -->
+    <div class="toc">
+      <div class="toc-title">本頁目錄</div>
+      <div class="toc-item active">核心概念</div>
+      <div class="toc-item">Call Stack</div>
+      <div class="toc-item">Web APIs</div>
+      <div class="toc-item">Task Queue</div>
+      <div class="toc-item">Microtask vs Macrotask</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

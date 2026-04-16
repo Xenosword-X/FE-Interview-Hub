@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homepage Mockup</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  /* ── Frame ── */
+  body { background:#e2e8f0; font-family:'Inter',sans-serif; padding:24px; }
+  .page-label { font-size:11px; font-weight:600; color:#64748b; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+  .page-title { font-size:18px; font-weight:700; color:#1e293b; margin-bottom:4px; }
+  .page-sub { font-size:13px; color:#64748b; margin-bottom:20px; }
+
+  /* ── Browser Chrome ── */
+  .browser { background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 40px rgba(0,0,0,0.12); max-width:960px; margin:0 auto; }
+  .browser-bar { background:#f1f5f9; padding:10px 14px; display:flex; align-items:center; gap:8px; border-bottom:1px solid #e2e8f0; }
+  .dot { width:10px; height:10px; border-radius:50%; }
+  .dot.red{background:#ff5f57;} .dot.yellow{background:#febc2e;} .dot.green{background:#28c840;}
+  .url-bar { flex:1; background:#fff; border:1px solid #e2e8f0; border-radius:6px; padding:4px 12px; font-size:11px; color:#94a3b8; margin:0 8px; }
+
+  /* ── Navbar ── */
+  .navbar {
+    height:56px; background:#fff; border-bottom:1px solid #e2e8f0;
+    display:flex; align-items:center; padding:0 24px; gap:16px;
+    position:sticky; top:0; z-index:10;
+  }
+  .nav-logo { display:flex; align-items:center; gap:8px; text-decoration:none; }
+  .nav-logo-icon { width:28px; height:28px; background:linear-gradient(135deg,#6366f1,#8b5cf6); border-radius:7px; display:flex; align-items:center; justify-content:center; }
+  .nav-logo-icon svg { width:16px; height:16px; fill:#fff; }
+  .nav-logo-text { font-size:14px; font-weight:700; color:#1e293b; }
+  .nav-spacer { flex:1; }
+  .nav-links { display:flex; align-items:center; gap:4px; }
+  .nav-link { font-size:13px; color:#64748b; padding:6px 10px; border-radius:6px; cursor:pointer; transition:background 0.15s; }
+  .nav-link:hover { background:#f1f5f9; color:#1e293b; }
+  .nav-divider { width:1px; height:20px; background:#e2e8f0; margin:0 4px; }
+  .lang-btn { font-size:12px; font-weight:500; color:#6366f1; padding:5px 10px; border:1px solid #e0e7ff; border-radius:6px; background:#f5f3ff; cursor:pointer; }
+  .login-btn { font-size:13px; font-weight:500; color:#fff; padding:6px 16px; background:#6366f1; border-radius:7px; cursor:pointer; }
+
+  /* ── Hero ── */
+  .hero { padding:48px 24px 32px; text-align:center; background:linear-gradient(180deg,#fafafa 0%,#fff 100%); }
+  .hero-badge { display:inline-flex; align-items:center; gap:6px; background:#eff6ff; color:#4f46e5; font-size:11px; font-weight:600; padding:4px 12px; border-radius:20px; margin-bottom:16px; border:1px solid #e0e7ff; }
+  .hero-badge-dot { width:6px; height:6px; background:#6366f1; border-radius:50%; }
+  .hero-title { font-size:32px; font-weight:700; color:#0f172a; line-height:1.2; margin-bottom:12px; }
+  .hero-title span { color:#6366f1; }
+  .hero-desc { font-size:15px; color:#475569; line-height:1.6; max-width:480px; margin:0 auto 28px; }
+  .hero-stats { display:flex; justify-content:center; gap:32px; margin-bottom:0; }
+  .stat { text-align:center; }
+  .stat-num { font-size:22px; font-weight:700; color:#1e293b; }
+  .stat-label { font-size:11px; color:#94a3b8; margin-top:2px; }
+
+  /* ── Category Section ── */
+  .section { padding:32px 24px; }
+  .section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+  .section-title { font-size:16px; font-weight:700; color:#0f172a; }
+  .section-link { font-size:12px; color:#6366f1; font-weight:500; cursor:pointer; }
+
+  .cat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .cat-card {
+    border:1px solid #e2e8f0; border-radius:10px; padding:16px 14px;
+    cursor:pointer; transition:border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+    background:#fff;
+  }
+  .cat-card:hover { border-color:#c7d2fe; box-shadow:0 4px 16px rgba(99,102,241,0.08); transform:translateY(-1px); }
+  .cat-icon { width:36px; height:36px; border-radius:9px; display:flex; align-items:center; justify-content:center; margin-bottom:10px; font-size:16px; }
+  .cat-icon.js { background:#fef9c3; }
+  .cat-icon.vue { background:#dcfce7; }
+  .cat-icon.css { background:#ffe4e6; }
+  .cat-icon.ts { background:#dbeafe; }
+  .cat-icon.react { background:#f0f9ff; }
+  .cat-icon.web { background:#f5f3ff; }
+  .cat-icon.browser { background:#fff7ed; }
+  .cat-icon.http { background:#fce7f3; }
+  .cat-name { font-size:13px; font-weight:600; color:#1e293b; margin-bottom:3px; }
+  .cat-count { font-size:11px; color:#94a3b8; }
+
+  /* ── Divider ── */
+  .divider { height:1px; background:#f1f5f9; margin:0 24px; }
+
+  /* ── Featured Questions ── */
+  .q-list { display:flex; flex-direction:column; gap:1px; }
+  .q-item {
+    display:flex; align-items:center; gap:12px; padding:13px 0;
+    border-bottom:1px solid #f1f5f9; cursor:pointer;
+    transition:background 0.1s;
+  }
+  .q-item:last-child { border-bottom:none; }
+  .q-num { font-size:11px; font-weight:600; color:#c7d2fe; min-width:24px; }
+  .q-body { flex:1; }
+  .q-title { font-size:13px; font-weight:500; color:#1e293b; margin-bottom:3px; }
+  .q-title:hover { color:#6366f1; }
+  .q-meta { display:flex; gap:6px; align-items:center; }
+  .q-tag { font-size:10px; padding:1px 7px; border-radius:4px; font-weight:500; }
+  .q-tag.js { background:#fef9c3; color:#854d0e; }
+  .q-tag.vue { background:#dcfce7; color:#166534; }
+  .q-tag.css { background:#ffe4e6; color:#9f1239; }
+  .q-diff { font-size:10px; color:#94a3b8; }
+  .q-arrow { color:#cbd5e1; font-size:14px; }
+
+  /* ── CTA Banner ── */
+  .cta-banner {
+    margin:0 24px 24px; background:linear-gradient(135deg,#6366f1 0%,#8b5cf6 100%);
+    border-radius:12px; padding:24px; display:flex; align-items:center; gap:20px;
+  }
+  .cta-text { flex:1; }
+  .cta-title { font-size:15px; font-weight:700; color:#fff; margin-bottom:4px; }
+  .cta-desc { font-size:12px; color:rgba(255,255,255,0.75); line-height:1.5; }
+  .cta-btn { background:#fff; color:#6366f1; font-size:13px; font-weight:600; padding:10px 20px; border-radius:8px; cursor:pointer; white-space:nowrap; }
+
+  /* ── Footer ── */
+  .footer { padding:16px 24px; border-top:1px solid #f1f5f9; display:flex; justify-content:space-between; align-items:center; }
+  .footer-text { font-size:11px; color:#94a3b8; }
+  .footer-links { display:flex; gap:16px; }
+  .footer-link { font-size:11px; color:#94a3b8; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<div class="page-label">Section 2 — 首頁 (Homepage) Mockup</div>
+<div class="page-title">方案 A — 簡潔學術白 · 首頁版型</div>
+<div class="page-sub">Hero 以分類卡片矩陣為主視覺，下方展示高頻題目，底部 AI 功能 CTA</div>
+
+<div class="browser">
+  <div class="browser-bar">
+    <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+    <div class="url-bar">localhost:3000/zh/</div>
+  </div>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <span class="nav-logo-text">FE Interview Hub</span>
+    </div>
+    <div class="nav-spacer"></div>
+    <div class="nav-links">
+      <div class="nav-link">題庫</div>
+      <div class="nav-link">AI 面試</div>
+      <div class="nav-divider"></div>
+      <div class="lang-btn">ZH ⇌ EN</div>
+      <div class="login-btn">登入</div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge"><div class="hero-badge-dot"></div>AI 模擬面試 · 即時評分</div>
+    <div class="hero-title">前端工程師<br><span>面試題庫</span></div>
+    <div class="hero-desc">精選 50+ 道高頻前端面試題，涵蓋 JS、Vue、CSS、TypeScript 等核心領域，搭配 AI 即時診斷你的答題品質。</div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">精選題目</div></div>
+      <div class="stat"><div class="stat-num">8</div><div class="stat-label">技術分類</div></div>
+      <div class="stat"><div class="stat-num">AI</div><div class="stat-label">即時評分</div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Category Grid -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">依分類複習</div>
+      <div class="section-link">全部題目 →</div>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card">
+        <div class="cat-icon js">🟡</div>
+        <div class="cat-name">JavaScript</div>
+        <div class="cat-count">68 道題目</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon vue">💚</div>
+        <div class="cat-name">Vue 3</div>
+        <div class="cat-count">34 道題目</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon css">🎨</div>
+        <div class="cat-name">CSS</div>
+        <div class="cat-count">28 道題目</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon ts">🔷</div>
+        <div class="cat-name">TypeScript</div>
+        <div class="cat-count">22 道題目</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon react">⚛️</div>
+        <div class="cat-name">React</div>
+        <div class="cat-count">18 道題目</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon web">⚡</div>
+        <div class="cat-name">Web Vitals</div>
+        <div class="cat-count">16 道題目</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon browser">🌐</div>
+        <div class="cat-name">瀏覽器原理</div>
+        <div class="cat-count">14 道題目</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon http">🔗</div>
+        <div class="cat-name">HTTP / 網路</div>
+        <div class="cat-count">12 道題目</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Hot Questions -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">高頻面試題</div>
+      <div class="section-link">查看全部 →</div>
+    </div>
+    <div class="q-list">
+      <div class="q-item">
+        <div class="q-num">01</div>
+        <div class="q-body">
+          <div class="q-title">什麼是 Event Loop？請說明 Call Stack 與 Task Queue 的關係</div>
+          <div class="q-meta"><span class="q-tag js">JavaScript</span><span class="q-diff">進階</span></div>
+        </div>
+        <div class="q-arrow">›</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">02</div>
+        <div class="q-body">
+          <div class="q-title">解釋 Closure（閉包）的概念與實際應用場景</div>
+          <div class="q-meta"><span class="q-tag js">JavaScript</span><span class="q-diff">基礎</span></div>
+        </div>
+        <div class="q-arrow">›</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">03</div>
+        <div class="q-body">
+          <div class="q-title">Vue 3 的 Composition API 相較 Options API 有哪些優勢？</div>
+          <div class="q-meta"><span class="q-tag vue">Vue</span><span class="q-diff">中階</span></div>
+        </div>
+        <div class="q-arrow">›</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">04</div>
+        <div class="q-body">
+          <div class="q-title">CSS BEM 命名規範是什麼？為什麼要使用它？</div>
+          <div class="q-meta"><span class="q-tag css">CSS</span><span class="q-diff">基礎</span></div>
+        </div>
+        <div class="q-arrow">›</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">05</div>
+        <div class="q-body">
+          <div class="q-title">什麼是 LCP？如何優化以達到 Core Web Vitals 標準？</div>
+          <div class="q-meta"><span class="q-tag" style="background:#f5f3ff;color:#6d28d9;">Web Vitals</span><span class="q-diff">進階</span></div>
+        </div>
+        <div class="q-arrow">›</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Banner -->
+  <div class="cta-banner">
+    <div class="cta-text">
+      <div class="cta-title">用 AI 診斷你的答題品質</div>
+      <div class="cta-desc">輸入你的答案，AI 即時分析精準度、指出缺漏、給出優化範例</div>
+    </div>
+    <div class="cta-btn">立即試用 AI 面試</div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-text">© 2026 FE Interview Hub · MIT License</div>
+    <div class="footer-links">
+      <div class="footer-link">關於</div>
+      <div class="footer-link">GitHub</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<h2>整體視覺風格</h2>
+<p class="subtitle">選一個最符合你對這個面試複習平台的感覺</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fff;border:1px solid #e5e7eb;padding:16px;border-radius:8px;font-family:sans-serif;">
+      <div style="display:flex;gap:12px;height:120px;">
+        <div style="width:140px;background:#f9fafb;border-right:1px solid #e5e7eb;padding:10px;font-size:11px;">
+          <div style="font-weight:700;margin-bottom:8px;color:#111;">分類</div>
+          <div style="color:#6b7280;margin-bottom:4px;">JavaScript</div>
+          <div style="color:#6b7280;margin-bottom:4px;">Vue / React</div>
+          <div style="color:#6b7280;margin-bottom:4px;">CSS</div>
+          <div style="color:#3b82f6;font-weight:600;">Web Vitals</div>
+        </div>
+        <div style="flex:1;padding:10px;">
+          <div style="font-size:13px;font-weight:600;color:#111;margin-bottom:6px;">什麼是 Event Loop？</div>
+          <div style="font-size:11px;color:#6b7280;line-height:1.5;">JavaScript 的 Event Loop 是一個不斷輪詢的機制，負責管理...</div>
+          <div style="margin-top:8px;display:flex;gap:4px;">
+            <span style="background:#eff6ff;color:#3b82f6;font-size:10px;padding:2px 6px;border-radius:4px;">JS</span>
+            <span style="background:#f0fdf4;color:#16a34a;font-size:10px;padding:2px 6px;border-radius:4px;">進階</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — 簡潔學術風</h3>
+      <p>白底、左側分類欄、淡灰邊框。類似 ExplainThis 參考站的閱讀體驗，適合長時間複習。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0f172a;padding:16px;border-radius:8px;font-family:sans-serif;">
+      <div style="height:120px;padding:8px;">
+        <div style="color:#94a3b8;font-size:10px;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Frontend Interview Hub</div>
+        <div style="color:#f1f5f9;font-size:13px;font-weight:700;margin-bottom:6px;">什麼是 Event Loop？</div>
+        <div style="background:#1e293b;border-radius:6px;padding:8px;font-size:11px;color:#7dd3fc;font-family:monospace;">
+          // Call Stack → Web APIs → Callback Queue<br>
+          <span style="color:#86efac;">setTimeout</span>(<span style="color:#fcd34d;">() => </span>console.log(<span style="color:#f9a8d4;">'hello'</span>), 0)
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — 暗色開發者風</h3>
+      <p>深色底、螢光強調色、程式碼優先。讓人有打開 IDE 的感覺，適合開發者受眾。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:16px;border-radius:8px;font-family:sans-serif;">
+      <div style="height:120px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;">
+        <div style="color:rgba(255,255,255,0.8);font-size:11px;margin-bottom:6px;">今日挑戰</div>
+        <div style="color:#fff;font-size:14px;font-weight:700;margin-bottom:10px;">什麼是 Event Loop？</div>
+        <div style="display:flex;gap:8px;">
+          <div style="background:rgba(255,255,255,0.2);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:6px 12px;font-size:11px;color:#fff;">JavaScript</div>
+          <div style="background:rgba(255,255,255,0.2);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:6px 12px;font-size:11px;color:#fff;">進階</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — 現代漸層卡片風</h3>
+      <p>紫藍漸層、玻璃態效果、卡片佈局。視覺衝擊強，適合作為技術展示作品集。</p>
+    </div>
+  </div>
+
+</div>

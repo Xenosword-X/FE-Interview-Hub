@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visual Style Options</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Inter', sans-serif; background: #0f1117; color: #e2e8f0; padding: 24px; }
+
+  h1 { font-size: 18px; font-weight: 600; color: #f1f5f9; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #94a3b8; margin-bottom: 28px; }
+
+  .options-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+  .option-card {
+    border-radius: 12px; border: 2px solid #1e293b; overflow: hidden;
+    cursor: pointer; transition: border-color 0.15s, transform 0.15s;
+  }
+  .option-card:hover { border-color: #6366f1; transform: translateY(-2px); }
+  .option-card.selected { border-color: #6366f1; box-shadow: 0 0 0 4px rgba(99,102,241,0.2); }
+
+  .mockup-area { height: 280px; overflow: hidden; position: relative; }
+
+  /* Option label */
+  .option-label {
+    padding: 14px 16px;
+    background: #1e293b;
+  }
+  .option-label h3 { font-size: 13px; font-weight: 600; color: #f1f5f9; margin-bottom: 3px; }
+  .option-label p { font-size: 11px; color: #64748b; line-height: 1.4; }
+
+  /* ── Style A: Clean Light Minimalism ── */
+  .style-a {
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-family: 'Inter', -apple-system, sans-serif;
+  }
+  .a-nav {
+    height: 44px; background: #fff; border-bottom: 1px solid #e2e8f0;
+    display: flex; align-items: center; padding: 0 16px; gap: 10px;
+    flex-shrink: 0;
+  }
+  .a-logo { width: 20px; height: 20px; background: #6366f1; border-radius: 5px; }
+  .a-logo-text { font-size: 12px; font-weight: 700; color: #1e293b; flex: 1; }
+  .a-nav-btn { font-size: 10px; color: #64748b; padding: 3px 8px; border: 1px solid #e2e8f0; border-radius: 5px; }
+  .a-body { display: flex; flex: 1; overflow: hidden; }
+  .a-sidebar {
+    width: 130px; background: #f8fafc; border-right: 1px solid #e2e8f0;
+    padding: 12px 10px; flex-shrink: 0;
+  }
+  .a-sidebar-title { font-size: 9px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .a-cat { font-size: 11px; color: #475569; padding: 4px 8px; border-radius: 5px; margin-bottom: 2px; cursor: pointer; }
+  .a-cat.active { background: #eff6ff; color: #6366f1; font-weight: 600; }
+  .a-main { flex: 1; padding: 12px; overflow: hidden; }
+  .a-search { width: 100%; height: 28px; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 6px; margin-bottom: 10px; display: flex; align-items: center; padding: 0 10px; }
+  .a-search-text { font-size: 10px; color: #94a3b8; }
+  .a-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 12px; margin-bottom: 7px; }
+  .a-card-title { font-size: 11px; font-weight: 600; color: #1e293b; margin-bottom: 4px; }
+  .a-card-desc { font-size: 10px; color: #64748b; line-height: 1.4; margin-bottom: 6px; }
+  .a-tag { display: inline-block; background: #eff6ff; color: #6366f1; font-size: 9px; padding: 2px 6px; border-radius: 4px; margin-right: 3px; }
+  .a-tag.green { background: #f0fdf4; color: #16a34a; }
+
+  /* ── Style B: Dark Developer ── */
+  .style-b {
+    background: #0d1117;
+    display: flex; flex-direction: column; height: 100%;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .b-nav {
+    height: 44px; background: #161b22; border-bottom: 1px solid #30363d;
+    display: flex; align-items: center; padding: 0 14px; gap: 10px; flex-shrink: 0;
+  }
+  .b-logo { width: 20px; height: 20px; background: linear-gradient(135deg,#7c3aed,#2563eb); border-radius: 5px; }
+  .b-logo-text { font-size: 11px; font-weight: 700; color: #e6edf3; flex: 1; font-family: 'Inter', sans-serif; }
+  .b-badge { font-size: 9px; color: #58a6ff; border: 1px solid #30363d; padding: 2px 7px; border-radius: 12px; font-family: 'Inter', sans-serif; }
+  .b-body { display: flex; flex: 1; overflow: hidden; }
+  .b-sidebar { width: 130px; background: #161b22; border-right: 1px solid #30363d; padding: 12px 10px; flex-shrink: 0; }
+  .b-sidebar-title { font-size: 9px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-family: 'Inter', sans-serif; }
+  .b-cat { font-size: 10px; color: #8b949e; padding: 4px 8px; border-radius: 5px; margin-bottom: 2px; font-family: 'Inter', sans-serif; }
+  .b-cat.active { background: #1f2937; color: #58a6ff; font-weight: 600; }
+  .b-main { flex: 1; padding: 12px; overflow: hidden; }
+  .b-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 10px 12px; margin-bottom: 7px; }
+  .b-card-title { font-size: 11px; font-weight: 600; color: #e6edf3; margin-bottom: 4px; font-family: 'Inter', sans-serif; }
+  .b-code { font-size: 9px; color: #7ee787; background: #0d1117; padding: 5px 8px; border-radius: 4px; border-left: 2px solid #238636; margin-bottom: 5px; }
+  .b-tag { display: inline-block; background: #1f3a5f; color: #58a6ff; font-size: 9px; padding: 2px 6px; border-radius: 4px; margin-right: 3px; font-family: 'Inter', sans-serif; }
+  .b-tag.green { background: #1a3a26; color: #3fb950; }
+
+  /* ── Style C: Warm Neutral Professional ── */
+  .style-c {
+    background: #fafaf9;
+    display: flex; flex-direction: column; height: 100%;
+    font-family: 'Inter', -apple-system, sans-serif;
+  }
+  .c-nav {
+    height: 44px; background: #1c1917; border-bottom: none;
+    display: flex; align-items: center; padding: 0 16px; gap: 10px; flex-shrink: 0;
+  }
+  .c-logo { width: 20px; height: 20px; background: #f97316; border-radius: 5px; }
+  .c-logo-text { font-size: 12px; font-weight: 700; color: #fafaf9; flex: 1; }
+  .c-nav-btn { font-size: 10px; color: #a8a29e; padding: 3px 8px; border: 1px solid #44403c; border-radius: 5px; }
+  .c-hero { background: linear-gradient(180deg, #1c1917 0%, #292524 100%); padding: 16px 16px; }
+  .c-hero-title { font-size: 14px; font-weight: 700; color: #fafaf9; margin-bottom: 3px; }
+  .c-hero-sub { font-size: 10px; color: #a8a29e; margin-bottom: 10px; }
+  .c-search { background: #3c3632; border: 1px solid #57534e; border-radius: 8px; height: 28px; display: flex; align-items: center; padding: 0 10px; }
+  .c-search-text { font-size: 10px; color: #78716c; }
+  .c-tags { display: flex; gap: 5px; padding: 8px 14px; background: #fff; border-bottom: 1px solid #e7e5e4; flex-shrink: 0; flex-wrap: wrap; }
+  .c-tag-btn { font-size: 9px; color: #78716c; padding: 3px 8px; border: 1px solid #e7e5e4; border-radius: 12px; background: #fafaf9; }
+  .c-tag-btn.active { background: #fff7ed; color: #f97316; border-color: #fed7aa; font-weight: 600; }
+  .c-main { flex: 1; padding: 10px 14px; overflow: hidden; }
+  .c-card { background: #fff; border: 1px solid #e7e5e4; border-radius: 8px; padding: 10px 12px; margin-bottom: 7px; display: flex; gap: 10px; align-items: flex-start; }
+  .c-num { font-size: 10px; font-weight: 700; color: #d6d3d1; min-width: 20px; margin-top: 1px; }
+  .c-card-body { flex: 1; }
+  .c-card-title { font-size: 11px; font-weight: 600; color: #1c1917; margin-bottom: 3px; }
+  .c-card-desc { font-size: 10px; color: #78716c; line-height: 1.4; }
+  .c-chip { display: inline-block; background: #fff7ed; color: #f97316; font-size: 9px; padding: 1px 6px; border-radius: 10px; margin-top: 4px; }
+  .c-chip.slate { background: #f1f5f9; color: #64748b; }
+
+  /* Selection overlay */
+  .selected-overlay {
+    position: absolute; top: 8px; right: 8px;
+    width: 22px; height: 22px; background: #6366f1; border-radius: 50%;
+    display: none; align-items: center; justify-content: center;
+    font-size: 12px; color: #fff; font-weight: 700;
+  }
+  .option-card.selected .selected-overlay { display: flex; }
+
+  /* Bottom bar */
+  .bottom-bar {
+    margin-top: 24px; padding: 14px 16px; background: #1e293b; border-radius: 10px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .bottom-hint { font-size: 12px; color: #64748b; }
+  .confirm-btn {
+    background: #6366f1; color: #fff; font-size: 12px; font-weight: 600;
+    padding: 8px 20px; border-radius: 8px; border: none; cursor: pointer;
+    display: none;
+  }
+  .confirm-btn.visible { display: block; }
+</style>
+</head>
+<body>
+
+<h1>整體視覺風格 — 題目列表頁</h1>
+<p class="subtitle">點選最符合你期待的設計方向（可換頁繼續討論細節）</p>
+
+<div class="options-grid">
+
+  <!-- Option A -->
+  <div class="option-card" onclick="select(this,'A')">
+    <div class="mockup-area">
+      <div class="selected-overlay">✓</div>
+      <div class="style-a">
+        <div class="a-nav">
+          <div class="a-logo"></div>
+          <div class="a-logo-text">FE Interview Hub</div>
+          <div class="a-nav-btn">ZH / EN</div>
+          <div class="a-nav-btn">登入</div>
+        </div>
+        <div class="a-body">
+          <div class="a-sidebar">
+            <div class="a-sidebar-title">分類</div>
+            <div class="a-cat">全部</div>
+            <div class="a-cat active">JavaScript</div>
+            <div class="a-cat">Vue / React</div>
+            <div class="a-cat">CSS</div>
+            <div class="a-cat">TypeScript</div>
+            <div class="a-cat">Web Vitals</div>
+            <div class="a-cat">瀏覽器原理</div>
+          </div>
+          <div class="a-main">
+            <div class="a-search"><span class="a-search-text">🔍 搜尋題目...</span></div>
+            <div class="a-card">
+              <div class="a-card-title">什麼是 Event Loop？</div>
+              <div class="a-card-desc">說明 JS 的 Call Stack、Web APIs 與 Callback Queue 的運作機制</div>
+              <span class="a-tag">JS</span><span class="a-tag green">進階</span>
+            </div>
+            <div class="a-card">
+              <div class="a-card-title">解釋 Closure 的概念</div>
+              <div class="a-card-desc">Closure 是指函式能記住並存取其詞法作用域的能力...</div>
+              <span class="a-tag">JS</span><span class="a-tag">基礎</span>
+            </div>
+            <div class="a-card">
+              <div class="a-card-title">Vue 3 的 Composition API 優勢</div>
+              <div class="a-card-desc">相較於 Options API 在邏輯複用、TypeScript 支援...</div>
+              <span class="a-tag" style="background:#fdf4ff;color:#9333ea;">Vue</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="option-label">
+      <h3>A — 簡潔學術白</h3>
+      <p>白底 + 左側分類欄 + Indigo 主色。閱讀體驗極佳，最像 ExplainThis 參考站。適合長時間複習。</p>
+    </div>
+  </div>
+
+  <!-- Option B -->
+  <div class="option-card" onclick="select(this,'B')">
+    <div class="mockup-area">
+      <div class="selected-overlay">✓</div>
+      <div class="style-b">
+        <div class="b-nav">
+          <div class="b-logo"></div>
+          <div class="b-logo-text">FE Interview Hub</div>
+          <div class="b-badge">ZH / EN</div>
+          <div class="b-badge">登入</div>
+        </div>
+        <div class="b-body">
+          <div class="b-sidebar">
+            <div class="b-sidebar-title">Topics</div>
+            <div class="b-cat">All</div>
+            <div class="b-cat active">JavaScript</div>
+            <div class="b-cat">Vue / React</div>
+            <div class="b-cat">CSS</div>
+            <div class="b-cat">TypeScript</div>
+            <div class="b-cat">Web Vitals</div>
+            <div class="b-cat">Browser</div>
+          </div>
+          <div class="b-main">
+            <div class="b-card">
+              <div class="b-card-title">什麼是 Event Loop？</div>
+              <div class="b-code">// Call Stack → Web APIs → Task Queue</div>
+              <span class="b-tag">JS</span><span class="b-tag green">進階</span>
+            </div>
+            <div class="b-card">
+              <div class="b-card-title">解釋 Closure 的概念</div>
+              <div class="b-code">const fn = () => { let x = 1; return () => x }</div>
+              <span class="b-tag">JS</span><span class="b-tag">基礎</span>
+            </div>
+            <div class="b-card">
+              <div class="b-card-title">Prototype Chain 原型鏈</div>
+              <div class="b-code">Object.getPrototypeOf(arr) === Array.prototype</div>
+              <span class="b-tag">JS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="option-label">
+      <h3>B — 暗色開發者</h3>
+      <p>GitHub Dark 色調 + 程式碼片段展示。讓人有 IDE 即視感，開發者最有親切感。</p>
+    </div>
+  </div>
+
+  <!-- Option C -->
+  <div class="option-card" onclick="select(this,'C')">
+    <div class="mockup-area">
+      <div class="selected-overlay">✓</div>
+      <div class="style-c">
+        <div class="c-nav">
+          <div class="c-logo"></div>
+          <div class="c-logo-text">FE Interview Hub</div>
+          <div class="c-nav-btn">ZH / EN</div>
+          <div class="c-nav-btn">登入</div>
+        </div>
+        <div class="c-hero">
+          <div class="c-hero-title">前端面試題庫</div>
+          <div class="c-hero-sub">收錄 50+ 道高頻前端面試題，AI 即時評分</div>
+          <div class="c-search"><span class="c-search-text">搜尋題目、技術關鍵字...</span></div>
+        </div>
+        <div class="c-tags">
+          <div class="c-tag-btn active">JavaScript</div>
+          <div class="c-tag-btn">Vue</div>
+          <div class="c-tag-btn">CSS</div>
+          <div class="c-tag-btn">TypeScript</div>
+          <div class="c-tag-btn">HTTP</div>
+        </div>
+        <div class="c-main">
+          <div class="c-card">
+            <div class="c-num">01</div>
+            <div class="c-card-body">
+              <div class="c-card-title">什麼是 Event Loop？</div>
+              <div class="c-card-desc">說明 Call Stack、Web APIs 與 Callback Queue...</div>
+              <span class="c-chip">JavaScript</span><span class="c-chip slate">進階</span>
+            </div>
+          </div>
+          <div class="c-card">
+            <div class="c-num">02</div>
+            <div class="c-card-body">
+              <div class="c-card-title">解釋 Closure 的概念</div>
+              <div class="c-card-desc">函式能記住並存取其詞法作用域的能力...</div>
+              <span class="c-chip">JavaScript</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="option-label">
+      <h3>C — 暖中性專業</h3>
+      <p>深色 Navbar + 白色內容區 + Orange 主色。頂部 Hero 搜尋欄 + Tag 橫向篩選，視覺層次豐富。</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <span class="bottom-hint" id="hint">點選任一方案選擇，也可直接在終端告知</span>
+  <button class="confirm-btn" id="confirmBtn" onclick="confirm()">確認選擇 →</button>
+</div>
+
+<script>
+let selected = null;
+function select(el, choice) {
+  document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selected = choice;
+  document.getElementById('hint').textContent = `已選擇方案 ${choice}，可直接告知或點確認`;
+  document.getElementById('confirmBtn').classList.add('visible');
+}
+function confirm() {
+  if (selected) alert('已選擇方案 ' + selected + '，請在終端告知我確認');
+}
+</script>
+</body>
+</html>
