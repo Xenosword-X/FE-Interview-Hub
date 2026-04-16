@@ -108,9 +108,9 @@ useHead({
             v-for="(q, idx) in hotQuestions"
             :key="q.slug"
             :to="localePath(`/questions/${q.slug}`)"
-            class="flex items-center gap-3 py-3.5 hover:bg-slate-50 -mx-3 px-3 rounded-lg transition-colors group"
+            class="flex items-center gap-3 py-3.5 hover:bg-indigo-50/50 -mx-3 px-3 rounded-lg transition-colors duration-150 group"
           >
-            <span class="text-xs font-bold text-indigo-200 min-w-[24px]">{{ String(idx + 1).padStart(2, '0') }}</span>
+            <span class="text-xs font-bold text-indigo-400 min-w-[24px]">{{ String(idx + 1).padStart(2, '0') }}</span>
             <div class="flex-1 min-w-0">
               <p class="text-base font-medium text-[--color-text-primary] group-hover:text-[--color-primary] truncate">{{ q.title }}</p>
               <div class="flex gap-1.5 mt-1">

@@ -15,7 +15,7 @@ function toggleLocale() {
 </script>
 
 <template>
-  <header class="sticky top-0 z-40 bg-white border-b border-[--color-border] h-14">
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[--color-border] shadow-[0_1px_4px_rgba(0,0,0,0.06)] h-14">
     <div class="max-w-7xl mx-auto h-full flex items-center px-4 lg:px-6 gap-3">
     <!-- Logo -->
     <NuxtLink :to="localePath('/')" class="flex items-center gap-2 shrink-0">

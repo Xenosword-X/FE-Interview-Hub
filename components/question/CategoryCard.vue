@@ -20,7 +20,7 @@ const iconClass = computed(() => iconBgMap[props.category.key] ?? 'bg-slate-100 
 <template>
   <NuxtLink
     :to="`${localePath('/questions')}?tag=${category.key}`"
-    class="group border border-[--color-border] rounded-[10px] p-4 bg-white hover:border-[--color-border-hover] hover:shadow-[0_4px_16px_rgba(99,102,241,0.08)] transition-all duration-150 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-[--color-primary] focus-visible:outline-none block"
+    class="group border border-[--color-border] rounded-xl p-4 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.05)] hover:border-[--color-border-hover] hover:shadow-[0_6px_20px_rgba(99,102,241,0.12)] transition-all duration-200 hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-[--color-primary] focus-visible:outline-none block"
   >
     <div :class="['w-9 h-9 rounded-[9px] flex items-center justify-center mb-2.5', iconClass]">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">

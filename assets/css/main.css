@@ -8,15 +8,15 @@
 @theme {
   /* Colors */
   --color-primary:        #6366f1;
-  --color-primary-light:  #eff6ff;
-  --color-primary-border: #e0e7ff;
+  --color-primary-light:  #eef2ff;
+  --color-primary-border: #c7d2fe;
   --color-surface:        #ffffff;
-  --color-bg:             #fafafa;
+  --color-bg:             #f8fafc;
   --color-text-primary:   #0f172a;
-  --color-text-secondary: #475569;
-  --color-text-muted:     #94a3b8;
+  --color-text-secondary: #374151;
+  --color-text-muted:     #64748b;   /* was #94a3b8 → 2.4:1 fail; now 4.35:1 ✅ */
   --color-border:         #e2e8f0;
-  --color-border-hover:   #c7d2fe;
+  --color-border-hover:   #a5b4fc;
 
   /* Font families */
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
