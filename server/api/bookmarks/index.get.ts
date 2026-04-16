@@ -1,11 +1,11 @@
 // server/api/bookmarks/index.get.ts
-// Server-side fetch: uses HttpOnly session cookie directly → auth.uid() is valid
-export default defineEventHandler(async (event) => {
-  const client = await useServerSupabaseClient(event)
-  const user   = await useServerSupabaseUser(event)
+import { serverSupabaseClient, serverSupabaseUser } from '#supabase/server'
 
+export default defineEventHandler(async (event) => {
+  const user = await serverSupabaseUser(event)
   if (!user) return []
 
+  const client = await serverSupabaseClient(event)
   const { data, error } = await client
     .from('bookmarks')
     .select('question_slug')

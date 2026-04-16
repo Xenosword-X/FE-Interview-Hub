@@ -1,14 +1,14 @@
 // server/api/bookmarks/toggle.post.ts
-// Server-side toggle: HttpOnly cookie → auth.uid() valid → RLS passes
-export default defineEventHandler(async (event) => {
-  const client = await useServerSupabaseClient(event)
-  const user   = await useServerSupabaseUser(event)
+import { serverSupabaseClient, serverSupabaseUser } from '#supabase/server'
 
+export default defineEventHandler(async (event) => {
+  const user = await serverSupabaseUser(event)
   if (!user) throw createError({ statusCode: 401, message: 'Unauthorized' })
 
   const { slug, action } = await readBody<{ slug: string; action: 'add' | 'remove' }>(event)
-
   if (!slug) throw createError({ statusCode: 400, message: 'slug is required' })
+
+  const client = await serverSupabaseClient(event)
 
   if (action === 'add') {
     const { error } = await client
