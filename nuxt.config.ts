@@ -8,13 +8,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   future: { compatibilityVersion: 4 },
 
-  runtimeConfig: {
-    public: {
-      siteUrl: SITE_URL,
-    },
-  },
-
   modules: [
+    '@nuxtjs/supabase',
     '@nuxt/content',
     '@nuxtjs/i18n',
     '@nuxtjs/sitemap',
@@ -52,11 +47,24 @@ export default defineNuxtConfig({
     },
   },
 
+  supabase: {
+    redirectOptions: {
+      login:    '/auth/callback',
+      callback: '/auth/callback',
+      exclude:  ['/*'],
+    },
+  },
+
+  runtimeConfig: {
+    public: {
+      siteUrl: SITE_URL,
+    },
+  },
+
   app: {
     head: {
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        // og:image: set per-page via useSeoMeta when a real image is available
         { name: 'twitter:card', content: 'summary_large_image' },
       ],
     },
