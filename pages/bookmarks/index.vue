@@ -8,16 +8,19 @@ const client = useSupabaseClient()
 const { toggleBookmark } = useBookmarks()
 const siteUrl = useSiteUrl()
 
-// Server-side: fetch ordered bookmark slugs
+// Fetch bookmark slugs — server: false forces client-side execution so the
+// user session is always available; getCachedData prevents stale Nuxt payload cache.
 const { data: bookmarkSlugs, refresh } = await useAsyncData(
   'my-bookmarks',
   async () => {
-    const { data } = await client
+    const { data, error } = await client
       .from('bookmarks')
       .select('question_slug')
       .order('created_at', { ascending: false })
+    if (error) console.error('[bookmarks page] fetch failed:', error.message)
     return (data as { question_slug: string }[] | null)?.map(b => b.question_slug) ?? []
-  }
+  },
+  { server: false, getCachedData: () => null }
 )
 
 // Fetch question metadata from Markdown content
