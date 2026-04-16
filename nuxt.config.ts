@@ -12,6 +12,10 @@ export default defineNuxtConfig({
     '@nuxtjs/sitemap',
   ],
 
+  components: {
+    dirs: [{ path: '~/components', pathPrefix: false }],
+  },
+
   vite: {
     plugins: [tailwindcss()],
   },
