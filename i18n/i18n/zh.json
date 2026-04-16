@@ -9,7 +9,7 @@
     "badge": "AI 模擬面試 · 即時評分",
     "title": "前端工程師",
     "title_accent": "面試題庫",
-    "description": "精選 200+ 道高頻前端面試題，涵蓋 JS、Vue、CSS、TypeScript 等核心領域，搭配 AI 即時診斷你的答題品質。",
+    "description": "精選 50+ 道高頻前端面試題，涵蓋 JS、Vue、CSS、TypeScript 等核心領域，搭配 AI 即時診斷你的答題品質。",
     "stat_questions": "精選題目",
     "stat_categories": "技術分類",
     "stat_ai": "即時評分",
@@ -56,7 +56,7 @@
     "http": "HTTP / 網路"
   },
   "footer": {
-    "copyright": "© 2025 FE Interview Hub · MIT License",
+    "copyright": "© 2026 wood · FE Interview Hub",
     "about": "關於",
     "github": "GitHub"
   },

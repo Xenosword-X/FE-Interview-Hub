@@ -9,7 +9,7 @@
     "badge": "AI Mock Interview · Instant Feedback",
     "title": "Frontend Engineer",
     "title_accent": "Interview Hub",
-    "description": "200+ curated frontend interview questions covering JS, Vue, CSS, TypeScript and more — with AI-powered answer analysis.",
+    "description": "50+ curated frontend interview questions covering JS, Vue, CSS, TypeScript and more — with AI-powered answer analysis.",
     "stat_questions": "Questions",
     "stat_categories": "Categories",
     "stat_ai": "AI Scoring",
@@ -56,7 +56,7 @@
     "http": "HTTP / Networking"
   },
   "footer": {
-    "copyright": "© 2025 FE Interview Hub · MIT License",
+    "copyright": "© 2026 wood · FE Interview Hub",
     "about": "About",
     "github": "GitHub"
   },
