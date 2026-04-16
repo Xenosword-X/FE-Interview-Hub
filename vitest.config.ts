@@ -9,5 +9,9 @@ export default defineVitestConfig({
         rootDir: '.',
       },
     },
+    env: {
+      NUXT_PUBLIC_SUPABASE_URL: 'https://placeholder.supabase.co',
+      NUXT_PUBLIC_SUPABASE_KEY: 'placeholder-anon-key',
+    },
   },
 })
