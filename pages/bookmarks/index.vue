@@ -4,22 +4,13 @@ definePageMeta({ middleware: 'auth' })
 
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
-const client = useSupabaseClient()
 const { toggleBookmark } = useBookmarks()
 const siteUrl = useSiteUrl()
 
-// Fetch bookmark slugs — server: false forces client-side execution so the
-// user session is always available; getCachedData prevents stale Nuxt payload cache.
+// Use server API route so the authenticated session is always available
 const { data: bookmarkSlugs, refresh } = await useAsyncData(
   'my-bookmarks',
-  async () => {
-    const { data, error } = await client
-      .from('bookmarks')
-      .select('question_slug')
-      .order('created_at', { ascending: false })
-    if (error) console.error('[bookmarks page] fetch failed:', error.message)
-    return (data as { question_slug: string }[] | null)?.map(b => b.question_slug) ?? []
-  },
+  () => $fetch<string[]>('/api/bookmarks'),
   { server: false, getCachedData: () => null }
 )
 
