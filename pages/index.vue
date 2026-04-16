@@ -85,7 +85,7 @@ useHead({
       </div>
     </section>
 
-    <div class="max-w-5xl mx-auto px-6">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6">
       <!-- Category Grid -->
       <section class="py-8">
         <div class="flex items-center justify-between mb-4">
@@ -133,7 +133,8 @@ useHead({
     </div>
 
     <!-- AI CTA Banner -->
-    <section class="mx-6 mb-8 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 p-6 flex flex-col md:flex-row items-start md:items-center gap-4">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6 mb-8">
+    <section class="rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 p-6 flex flex-col md:flex-row items-start md:items-center gap-4">
       <div class="flex-1">
         <h2 class="text-base font-bold text-white mb-1">{{ t('home.cta_title') }}</h2>
         <p class="text-sm text-white/75 leading-relaxed">{{ t('home.cta_desc') }}</p>
@@ -145,5 +146,6 @@ useHead({
         {{ t('home.cta_btn') }}
       </NuxtLink>
     </section>
+    </div>
   </div>
 </template>

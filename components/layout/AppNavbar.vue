@@ -15,7 +15,8 @@ function toggleLocale() {
 </script>
 
 <template>
-  <header class="sticky top-0 z-40 bg-white border-b border-[--color-border] h-14 flex items-center px-4 lg:px-6 gap-3">
+  <header class="sticky top-0 z-40 bg-white border-b border-[--color-border] h-14">
+    <div class="max-w-7xl mx-auto h-full flex items-center px-4 lg:px-6 gap-3">
     <!-- Logo -->
     <NuxtLink :to="localePath('/')" class="flex items-center gap-2 shrink-0">
       <div class="w-7 h-7 rounded-[7px] bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center" aria-hidden="true">
@@ -70,6 +71,7 @@ function toggleLocale() {
         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
       </svg>
     </button>
+    </div>
   </header>
 
   <!-- Mobile Drawer -->
