@@ -40,12 +40,20 @@ export default defineNuxtConfig({
     },
   },
 
+  app: {
+    head: {
+      meta: [
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { property: 'og:image', content: 'https://fe-interview-hub.example.com/og-image.png' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+      ],
+    },
+  },
+
   site: {
     url: 'https://fe-interview-hub.example.com',
     name: 'FE Interview Hub',
   },
 
-  sitemap: {
-    strictNuxtContentPaths: true,
-  },
+  sitemap: {},
 })
