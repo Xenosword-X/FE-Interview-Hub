@@ -88,16 +88,8 @@ useHead({
           {{ question.title }}
         </h1>
         <div class="flex items-center gap-2 flex-wrap">
-          <!-- Bookmark (placeholder) -->
-          <button
-            class="flex items-center gap-1.5 text-xs text-[--color-text-secondary] px-3 py-2 border border-[--color-border] rounded-[7px] hover:border-[--color-border-hover] hover:text-[--color-primary] transition-colors min-h-[44px]"
-            :aria-label="t('detail.bookmark')"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
-            </svg>
-            {{ t('detail.bookmark') }}
-          </button>
+          <!-- Bookmark (functional) -->
+          <BookmarkButton :slug="slug" />
           <!-- Share -->
           <button
             class="flex items-center gap-1.5 text-xs text-[--color-text-secondary] px-3 py-2 border border-[--color-border] rounded-[7px] hover:border-[--color-border-hover] transition-colors min-h-[44px]"

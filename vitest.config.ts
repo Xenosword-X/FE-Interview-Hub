@@ -7,6 +7,11 @@ export default defineVitestConfig({
     environmentOptions: {
       nuxt: {
         rootDir: '.',
+        overrides: {
+          i18n: {
+            defaultLocale: 'en',
+          },
+        },
       },
     },
     env: {
