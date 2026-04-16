@@ -1,14 +1,18 @@
 // server/api/bookmarks/index.get.ts
-import { serverSupabaseClient, serverSupabaseUser } from '#supabase/server'
+import { serverSupabaseServiceRole, serverSupabaseUser } from '#supabase/server'
 
 export default defineEventHandler(async (event) => {
+  // Authenticate first via RLS-aware user lookup
   const user = await serverSupabaseUser(event)
   if (!user) return []
 
-  const client = await serverSupabaseClient(event)
+  // Use service role for the actual query — bypasses RLS but we already
+  // filter by user.id so users can only see their own bookmarks
+  const client = serverSupabaseServiceRole(event)
   const { data, error } = await client
     .from('bookmarks')
     .select('question_slug')
+    .eq('user_id', user.id)
     .order('created_at', { ascending: false })
 
   if (error) {
