@@ -1,7 +1,15 @@
 <!-- pages/auth/callback.vue -->
 <script setup lang="ts">
-// @nuxtjs/supabase automatically handles the OAuth token exchange on this route.
-// No manual token handling needed — the module intercepts this page.
+// @nuxtjs/supabase processes the OAuth code automatically.
+// Once the session is established, redirect to home.
+const user = useSupabaseUser()
+const localePath = useLocalePath()
+
+watchEffect(() => {
+  if (user.value) {
+    navigateTo(localePath('/'))
+  }
+})
 </script>
 
 <template>
