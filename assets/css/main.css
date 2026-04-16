@@ -1,4 +1,7 @@
 /* assets/css/main.css */
+/* Google Fonts — must be first @import per CSS spec */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
@@ -28,9 +31,6 @@
   --spacing-8: 32px;
   --spacing-12: 48px;
 }
-
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 /* Base */
 html { font-family: var(--font-sans); }
