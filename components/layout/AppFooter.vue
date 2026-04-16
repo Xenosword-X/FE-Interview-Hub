@@ -5,7 +5,7 @@ const { t } = useI18n()
 
 <template>
   <footer class="border-t border-[--color-border]">
-    <div class="max-w-7xl mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
+    <div class="max-w-360 mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
     <p class="text-xs text-[--color-text-muted]">{{ t('footer.copyright') }}</p>
     <div class="flex gap-4">
       <a href="#" class="text-xs text-[--color-text-muted] hover:text-[--color-text-secondary]">{{ t('footer.about') }}</a>

@@ -7,8 +7,8 @@ defineProps<{
 }>()
 
 const variantClass = {
-  primary:   'bg-[--color-primary] text-white hover:bg-indigo-600',
-  secondary: 'bg-[--color-primary-light] text-[--color-primary] border border-[--color-primary-border] hover:bg-indigo-100',
+  primary:   'bg-indigo-500 text-white hover:bg-indigo-600',
+  secondary: 'bg-indigo-50 text-indigo-600 border border-indigo-200 hover:bg-indigo-100',
   ghost:     'text-[--color-text-secondary] hover:bg-slate-100',
 }
 
@@ -25,7 +25,7 @@ const sizeClass = {
     :class="[
       'inline-flex items-center gap-1.5 font-medium rounded-[7px] transition-colors duration-150',
       'focus-visible:ring-2 focus-visible:ring-[--color-primary] focus-visible:outline-none',
-      'min-h-[44px] lg:min-h-[36px]',
+      'min-h-11 lg:min-h-9',
       variantClass[variant ?? 'primary'],
       sizeClass[size ?? 'md'],
     ]"

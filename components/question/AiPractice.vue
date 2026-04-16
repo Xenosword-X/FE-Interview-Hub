@@ -25,7 +25,7 @@ function handleSubmit() {
       <p class="text-xs text-[--color-text-muted]">{{ t('detail.ai_login_hint') }}</p>
       <button
         @click="handleSubmit"
-        class="text-sm font-semibold text-white bg-[--color-primary] px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors min-h-[44px] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[--color-primary]"
+        class="text-sm font-semibold text-white bg-indigo-500 px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors min-h-11 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500"
       >
         {{ t('detail.ai_submit') }}
       </button>

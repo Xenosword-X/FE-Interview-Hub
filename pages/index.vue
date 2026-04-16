@@ -53,7 +53,7 @@ useHead({
     <!-- Hero -->
     <section class="py-12 px-6 text-center bg-gradient-to-b from-slate-50 to-white border-b border-[--color-border]">
       <span class="inline-flex items-center gap-1.5 bg-[--color-primary-light] text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full mb-4 border border-[--color-primary-border]">
-        <span class="w-1.5 h-1.5 rounded-full bg-[--color-primary]" aria-hidden="true" />
+        <span class="w-1.5 h-1.5 rounded-full bg-indigo-500" aria-hidden="true" />
         {{ t('home.badge') }}
       </span>
       <h1 class="text-[32px] font-bold text-[--color-text-primary] leading-tight mb-3">
@@ -79,7 +79,7 @@ useHead({
       </div>
     </section>
 
-    <div class="max-w-7xl mx-auto px-4 lg:px-6">
+    <div class="max-w-360 mx-auto px-4 lg:px-6">
       <!-- Category Grid -->
       <section class="py-8">
         <div class="flex items-center justify-between mb-4">
@@ -127,7 +127,7 @@ useHead({
     </div>
 
     <!-- AI CTA Banner -->
-    <div class="max-w-7xl mx-auto px-4 lg:px-6 mb-8">
+    <div class="max-w-360 mx-auto px-4 lg:px-6 mb-8">
     <section class="rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 p-6 flex flex-col md:flex-row items-start md:items-center gap-4">
       <div class="flex-1">
         <h2 class="text-base font-bold text-white mb-1">{{ t('home.cta_title') }}</h2>

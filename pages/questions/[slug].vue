@@ -127,7 +127,7 @@ useHead({
           <!-- AI practice CTA -->
           <a
             href="#ai-practice"
-            class="ml-auto flex items-center gap-1.5 text-xs font-semibold text-white bg-[--color-primary] px-4 py-2 rounded-[7px] hover:bg-indigo-600 transition-colors min-h-[44px]"
+            class="ml-auto flex items-center gap-1.5 text-xs font-semibold text-white bg-indigo-500 px-4 py-2 rounded-[7px] hover:bg-indigo-600 transition-colors min-h-11"
           >
             <span class="w-1.5 h-1.5 rounded-full bg-cyan-300" aria-hidden="true" />
             {{ t('detail.ai_practice') }}
@@ -168,7 +168,7 @@ useHead({
         />
         <a
           href="#ai-practice"
-          class="w-11 h-11 bg-[--color-primary] rounded-lg flex items-center justify-center text-white shrink-0"
+          class="w-11 h-11 bg-indigo-500 rounded-lg flex items-center justify-center text-white shrink-0"
           :aria-label="t('detail.ai_practice')"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
