@@ -4,6 +4,13 @@ definePageMeta({ layout: 'home' })
 
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
+
+// Pre-fetch categories data (same key as useCategories) so the composable
+// gets hydrated data immediately on render
+await useAsyncData(
+  `questions-meta-${locale.value}`,
+  () => queryCollection('questions').all()
+)
 const { categories } = useCategories()
 
 const { data: allQuestions } = await useAsyncData(
