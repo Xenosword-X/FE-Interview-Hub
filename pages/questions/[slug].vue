@@ -8,6 +8,9 @@ const slug = route.params.slug as string
 // Resolve component in setup context so ContentRenderer can use it
 const AppCalloutComp = resolveComponent('AppCallout')
 
+// Collapsible explanation — default collapsed so users answer before reading
+const isExpanded = ref(false)
+
 // Single query — fetches all locale questions once, derives current + prev/next
 const { data: localeQuestions } = await useAsyncData(
   `questions-${locale.value}`,
@@ -111,18 +114,46 @@ useHead({
         </div>
       </header>
 
-      <!-- Markdown content -->
-      <div class="
-        prose prose-slate max-w-none
-        prose-headings:font-bold prose-headings:text-[--color-text-primary]
-        prose-h2:text-lg prose-h2:mt-6 prose-h2:mb-2.5
-        prose-h3:text-base prose-h3:mt-4 prose-h3:mb-2
-        prose-p:text-base prose-p:text-[--color-text-secondary] prose-p:leading-relaxed
-        prose-li:text-base prose-li:text-[--color-text-secondary]
-        prose-code:text-[11px] prose-code:font-mono prose-code:bg-slate-100 prose-code:text-indigo-700 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-        prose-pre:bg-slate-50 prose-pre:border prose-pre:border-[--color-border] prose-pre:rounded-lg prose-pre:text-[12px]
-        prose-table:text-sm prose-th:text-[--color-text-primary] prose-td:text-[--color-text-secondary]
-      ">
+      <!-- Collapsible explanation toggle -->
+      <button
+        @click="isExpanded = !isExpanded"
+        :class="[
+          'w-full flex items-center justify-between px-4 py-3 rounded-xl border text-sm font-medium transition-colors mb-4',
+          isExpanded
+            ? 'bg-indigo-50 border-[--color-primary-border] text-[--color-primary]'
+            : 'bg-slate-50 border-[--color-border] text-[--color-text-secondary] hover:border-indigo-300 hover:text-indigo-600'
+        ]"
+      >
+        <span class="flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+          </svg>
+          {{ isExpanded ? '收起解答' : '查看解答' }}
+        </span>
+        <svg
+          :class="['w-4 h-4 transition-transform duration-200', isExpanded ? 'rotate-180' : '']"
+          fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+        </svg>
+      </button>
+
+      <!-- Markdown content — v-show keeps it in DOM for SEO -->
+      <div
+        v-show="isExpanded"
+        class="
+          prose prose-slate max-w-none
+          prose-headings:font-bold prose-headings:text-[--color-text-primary]
+          prose-h2:text-lg prose-h2:mt-6 prose-h2:mb-2.5
+          prose-h3:text-base prose-h3:mt-4 prose-h3:mb-2
+          prose-p:text-base prose-p:text-[--color-text-secondary] prose-p:leading-relaxed
+          prose-li:text-base prose-li:text-[--color-text-secondary]
+          prose-code:text-[11px] prose-code:font-mono prose-code:bg-slate-100 prose-code:text-indigo-700 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+          prose-pre:bg-slate-50 prose-pre:border prose-pre:border-[--color-border] prose-pre:rounded-lg prose-pre:text-[12px]
+          prose-table:text-sm prose-th:text-[--color-text-primary] prose-td:text-[--color-text-secondary]
+          mb-6
+        "
+      >
         <ContentRenderer
           v-if="question"
           :value="question"
