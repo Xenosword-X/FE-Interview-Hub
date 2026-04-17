@@ -9,7 +9,7 @@ const slug = route.params.slug as string
 const AppCalloutComp = resolveComponent('AppCallout')
 
 // Collapsible explanation — default collapsed so users answer before reading
-const isExpanded = ref(false)
+const isExpanded = ref(true)
 
 // Single query — fetches all locale questions once, derives current + prev/next
 const { data: localeQuestions } = await useAsyncData(
