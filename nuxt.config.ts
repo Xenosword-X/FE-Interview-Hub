@@ -58,6 +58,9 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    openaiApiKey:  process.env.OPENAI_API_KEY  ?? '',
+    dailyAiLimit:  process.env.DAILY_AI_LIMIT  ?? '10',
+    bypassEmails:  process.env.BYPASS_EMAILS   ?? '',
     public: {
       siteUrl: SITE_URL,
     },

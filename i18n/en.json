@@ -87,4 +87,25 @@
     "browse": "Browse Questions",
     "remove_failed": "Failed to remove bookmark, please try again"
   }
+  ,
+  "ai_evaluate": {
+    "title": "AI Mock Interview",
+    "subtitle": "Type your answer and get instant AI feedback",
+    "placeholder": "Answer in your own words...",
+    "submit": "Submit for Scoring",
+    "voice_start": "Voice Input",
+    "voice_recording": "Recording… Click to stop",
+    "loading": "AI is analysing your answer…",
+    "result_title": "AI Feedback",
+    "score_label": "Accuracy",
+    "gaps_title": "Missing Points",
+    "example_title": "Improved Example Answer",
+    "retry": "Try Again",
+    "remaining": "Today: {used} / {total}",
+    "remaining_unlimited": "Dev mode (unlimited)",
+    "limit_reached": "Daily limit reached. Come back tomorrow!",
+    "login_prompt": "Sign in to use AI scoring",
+    "error_timeout": "Scoring service unavailable. Please try again later.",
+    "error_generic": "Scoring failed. Please retry."
+  }
 }

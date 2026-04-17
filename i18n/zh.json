@@ -87,4 +87,25 @@
     "browse": "瀏覽題庫",
     "remove_failed": "移除收藏失敗，請再試一次"
   }
+  ,
+  "ai_evaluate": {
+    "title": "AI 模擬面試",
+    "subtitle": "輸入你的答案，AI 即時分析精準度與改進空間",
+    "placeholder": "請用自己的話作答...",
+    "submit": "送出評分",
+    "voice_start": "語音輸入",
+    "voice_recording": "錄音中… 點擊停止",
+    "loading": "AI 正在分析你的答案…",
+    "result_title": "AI 評分結果",
+    "score_label": "精準度",
+    "gaps_title": "缺漏要點",
+    "example_title": "優化後範例答案",
+    "retry": "重新作答",
+    "remaining": "今日第 {used} / {total} 次",
+    "remaining_unlimited": "開發者模式（無限次）",
+    "limit_reached": "今日次數已用完，明天再來！",
+    "login_prompt": "登入後即可使用 AI 評分",
+    "error_timeout": "評分服務暫時無法使用，請稍後再試",
+    "error_generic": "評分失敗，請重試"
+  }
 }
