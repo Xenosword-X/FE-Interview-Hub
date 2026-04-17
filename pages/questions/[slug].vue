@@ -11,6 +11,21 @@ const AppCalloutComp = resolveComponent('AppCallout')
 // Collapsible explanation — default collapsed so users answer before reading
 const isExpanded = ref(true)
 
+// Share: Web Share API on mobile, fallback to copy link on desktop
+const copied = ref(false)
+async function share() {
+  const url   = window.location.href
+  const title = question?.title ?? ''
+
+  if (navigator.share) {
+    await navigator.share({ title, url })
+  } else {
+    await navigator.clipboard.writeText(url)
+    copied.value = true
+    setTimeout(() => { copied.value = false }, 2000)
+  }
+}
+
 // Single query — fetches all locale questions once, derives current + prev/next
 const { data: localeQuestions } = await useAsyncData(
   `questions-${locale.value}`,
@@ -93,15 +108,26 @@ useHead({
         <div class="flex items-center gap-2 flex-wrap">
           <!-- Bookmark (functional) -->
           <BookmarkButton :slug="slug" />
-          <!-- Share -->
+          <!-- Share: Web Share API (mobile) or copy link (desktop) -->
           <button
-            class="flex items-center gap-1.5 text-xs text-[--color-text-secondary] px-3 py-2 border border-[--color-border] rounded-[7px] hover:border-[--color-border-hover] transition-colors min-h-[44px]"
+            @click="share"
+            :class="[
+              'flex items-center gap-1.5 text-xs px-3 py-2 border rounded-[7px] transition-colors',
+              copied
+                ? 'border-green-300 text-green-600 bg-green-50'
+                : 'border-[--color-border] text-[--color-text-secondary] hover:border-[--color-border-hover]'
+            ]"
+            class="min-h-11"
             :aria-label="t('detail.share')"
           >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <!-- Check icon when copied -->
+            <svg v-if="copied" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+            <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
             </svg>
-            {{ t('detail.share') }}
+            {{ copied ? t('detail.share_copied') : t('detail.share') }}
           </button>
           <!-- AI practice CTA -->
           <a
