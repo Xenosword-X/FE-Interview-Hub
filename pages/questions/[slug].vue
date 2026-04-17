@@ -131,9 +131,7 @@ useHead({
       </div>
 
       <!-- AI Practice section -->
-      <div id="ai-practice">
-        <AiPractice />
-      </div>
+      <AiPractice :slug="slug" :question-text="question.title" />
 
       <!-- Mobile sticky AI input bar -->
       <div class="lg:hidden fixed bottom-14 inset-x-0 z-20 bg-white border-t border-[--color-border] px-4 py-2.5 flex gap-2">
