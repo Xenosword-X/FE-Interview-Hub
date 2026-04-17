@@ -1,58 +1,83 @@
 // composables/useVoiceInput.ts
-// Web Speech API composable — SSR safe (initialised only in onMounted)
+// Records audio with MediaRecorder, sends to OpenAI Whisper for transcription.
+// Replaces Web Speech API: no auto-stop timeout, much higher accuracy for Chinese.
 
 export function useVoiceInput(onResult: (text: string) => void) {
-  const isRecording = ref(false)
-  const isSupported = ref(false)
+  const isRecording    = ref(false)
+  const isTranscribing = ref(false)
+  const isSupported    = ref(false)
 
-  let recognition: any = null
-  let i18nLocale: { value: string } | null = null
+  let mediaRecorder: MediaRecorder | null = null
+  let chunks: Blob[] = []
 
   onMounted(() => {
-    // useI18n must be resolved lazily inside onMounted to support SSR and test environments
-    i18nLocale = useI18n().locale
-
-    const SpeechRecognition =
-      (window as any).SpeechRecognition ||
-      (window as any).webkitSpeechRecognition
-
-    isSupported.value = !!SpeechRecognition
-    if (!SpeechRecognition) return
-
-    recognition = new SpeechRecognition()
-    recognition.continuous     = false
-    recognition.interimResults = false
-
-    recognition.onresult = (event: any) => {
-      const transcript = event.results[0][0].transcript
-      onResult(transcript)
-    }
-
-    recognition.onend = () => {
-      isRecording.value = false
-    }
-
-    recognition.onerror = () => {
-      isRecording.value = false
-    }
+    // MediaRecorder requires HTTPS or localhost
+    isSupported.value = !!(navigator.mediaDevices?.getUserMedia && window.MediaRecorder)
   })
 
   onUnmounted(() => {
-    if (recognition && isRecording.value) recognition.abort()
+    if (mediaRecorder && isRecording.value) mediaRecorder.stop()
   })
 
-  function start() {
-    if (!recognition || isRecording.value) return
-    const localeValue = i18nLocale?.value ?? 'en'
-    recognition.lang = localeValue === 'zh' ? 'zh-TW' : 'en-US'
-    recognition.start()
-    isRecording.value = true
+  async function start() {
+    if (isRecording.value || isTranscribing.value) return
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      chunks = []
+
+      // Use webm if supported (Chrome/Firefox), fall back to mp4 (Safari)
+      const mimeType = MediaRecorder.isTypeSupported('audio/webm')
+        ? 'audio/webm'
+        : 'audio/mp4'
+
+      mediaRecorder = new MediaRecorder(stream, { mimeType })
+
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) chunks.push(e.data)
+      }
+
+      mediaRecorder.onstop = async () => {
+        // Release microphone immediately
+        stream.getTracks().forEach(t => t.stop())
+
+        const ext  = mimeType === 'audio/webm' ? 'webm' : 'mp4'
+        const blob = new Blob(chunks, { type: mimeType })
+        isTranscribing.value = true
+
+        try {
+          // Detect locale from html lang attribute (set by @nuxtjs/i18n)
+          const locale = document.documentElement.lang?.startsWith('zh') ? 'zh' : 'en'
+          const form   = new FormData()
+          form.append('audio', blob, `recording.${ext}`)
+          form.append('locale', locale)
+
+          const res = await $fetch<{ text: string }>('/api/ai/transcribe', {
+            method: 'POST',
+            body: form,
+          })
+
+          if (res.text) onResult(res.text)
+        } catch (e) {
+          console.error('[useVoiceInput] transcription failed:', e)
+        } finally {
+          isTranscribing.value = false
+        }
+      }
+
+      mediaRecorder.start()
+      isRecording.value = true
+    } catch (e) {
+      console.error('[useVoiceInput] getUserMedia failed:', e)
+      isRecording.value = false
+    }
   }
 
   function stop() {
-    if (!recognition || !isRecording.value) return
-    recognition.stop()
+    if (!mediaRecorder || !isRecording.value) return
+    mediaRecorder.stop()
+    isRecording.value = false
   }
 
-  return { isRecording, isSupported, start, stop }
+  return { isRecording, isTranscribing, isSupported, start, stop }
 }

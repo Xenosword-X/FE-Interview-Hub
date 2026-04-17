@@ -97,6 +97,7 @@
     "submit": "Submit for Scoring",
     "voice_start": "Voice Input",
     "voice_recording": "Recording… Click to stop",
+    "voice_transcribing": "Transcribing…",
     "loading": "AI is analysing your answer…",
     "result_title": "AI Feedback",
     "score_label": "Accuracy",

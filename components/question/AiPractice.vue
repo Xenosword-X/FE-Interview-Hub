@@ -24,8 +24,8 @@ const usedToday  = ref(0)
 const dailyLimit = ref<number | null>(10)
 const errorMsg = ref('')
 
-// Voice input
-const { isRecording, isSupported, start: startVoice, stop: stopVoice } =
+// Voice input (MediaRecorder → Whisper API)
+const { isRecording, isTranscribing, isSupported, start: startVoice, stop: stopVoice } =
   useVoiceInput((transcript: string) => { answer.value = transcript })
 
 const scoreColour = computed(() => {
@@ -171,15 +171,23 @@ function retry() {
         <button
           v-if="isSupported"
           @click="isRecording ? stopVoice() : startVoice()"
+          :disabled="isTranscribing"
           :class="[
             'flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border transition-colors',
-            isRecording
-              ? 'bg-red-50 border-red-200 text-red-600'
-              : 'bg-slate-50 border-[--color-border] text-[--color-text-muted] hover:border-indigo-300 hover:text-indigo-500'
+            isTranscribing
+              ? 'bg-indigo-50 border-indigo-200 text-indigo-500 cursor-wait'
+              : isRecording
+                ? 'bg-red-50 border-red-200 text-red-600'
+                : 'bg-slate-50 border-[--color-border] text-[--color-text-muted] hover:border-indigo-300 hover:text-indigo-500'
           ]"
         >
-          <span :class="['w-2 h-2 rounded-full shrink-0', isRecording ? 'bg-red-500 animate-pulse' : 'bg-slate-400']" />
-          {{ isRecording ? t('ai_evaluate.voice_recording') : t('ai_evaluate.voice_start') }}
+          <!-- Transcribing spinner -->
+          <svg v-if="isTranscribing" class="w-3 h-3 animate-spin shrink-0" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+          </svg>
+          <span v-else :class="['w-2 h-2 rounded-full shrink-0', isRecording ? 'bg-red-500 animate-pulse' : 'bg-slate-400']" />
+          {{ isTranscribing ? t('ai_evaluate.voice_transcribing') : isRecording ? t('ai_evaluate.voice_recording') : t('ai_evaluate.voice_start') }}
         </button>
         <span class="ml-auto text-[10px] text-[--color-text-muted]">{{ answer.length }} / 500</span>
       </div>
@@ -189,7 +197,7 @@ function retry() {
         <span class="text-xs text-[--color-text-muted]">{{ remainingText }}</span>
         <button
           @click="submit"
-          :disabled="!answer.trim() || isRecording"
+          :disabled="!answer.trim() || isRecording || isTranscribing"
           class="text-sm font-semibold text-white bg-indigo-500 px-4 py-2 rounded-lg hover:bg-indigo-600 disabled:bg-indigo-200 disabled:cursor-not-allowed transition-colors min-h-11"
         >
           {{ t('ai_evaluate.submit') }}

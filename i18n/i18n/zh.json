@@ -97,6 +97,7 @@
     "submit": "送出評分",
     "voice_start": "語音輸入",
     "voice_recording": "錄音中… 點擊停止",
+    "voice_transcribing": "辨識中…",
     "loading": "AI 正在分析你的答案…",
     "result_title": "AI 評分結果",
     "score_label": "精準度",
