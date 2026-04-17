@@ -12,6 +12,7 @@ export default defineEventHandler(async (event) => {
     .eq('id', id)
     .single()
 
-  if (error || !data) throw createError({ statusCode: 404, message: 'Question not found' })
+  if (error) throw createError({ statusCode: 500, message: error.message })
+  if (!data) throw createError({ statusCode: 404, message: 'Question not found' })
   return data
 })

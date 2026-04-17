@@ -44,7 +44,11 @@ export default defineEventHandler(async (event) => {
       { question_id: question.id, locale: 'en', title: body.en.title, body_md: body.en.body_md },
     ])
 
-  if (tErr) throw createError({ statusCode: 500, message: tErr.message })
+  if (tErr) {
+    // Rollback: delete the orphaned question row
+    await client.from('questions').delete().eq('id', question.id)
+    throw createError({ statusCode: 500, message: tErr.message })
+  }
 
   return { id: question.id, slug: body.slug }
 })

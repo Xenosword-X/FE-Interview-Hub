@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
 
   const client = serverSupabaseServiceRole(event)
 
-  const { error: qErr } = await client
+  const { data: updated, error: qErr } = await client
     .from('questions')
     .update({
       category: body.category,
@@ -30,26 +30,25 @@ export default defineEventHandler(async (event) => {
       updated_at: new Date().toISOString(),
     })
     .eq('id', id)
+    .select('id')
+    .single()
 
-  if (qErr) throw createError({ statusCode: 500, message: qErr.message })
-
-  for (const locale of ['zh', 'en'] as const) {
-    const t = body[locale]
-    const { error: tErr } = await client
-      .from('translations')
-      .upsert(
-        {
-          question_id: id,
-          locale,
-          title: t.title,
-          body_md: t.body_md,
-          updated_at: new Date().toISOString(),
-        },
-        { onConflict: 'question_id,locale' }
-      )
-
-    if (tErr) throw createError({ statusCode: 500, message: tErr.message })
+  if (qErr) {
+    if (qErr.code === 'PGRST116') throw createError({ statusCode: 404, message: 'Question not found' })
+    throw createError({ statusCode: 500, message: qErr.message })
   }
+
+  const { error: tErr } = await client
+    .from('translations')
+    .upsert(
+      [
+        { question_id: id, locale: 'zh', title: body.zh.title, body_md: body.zh.body_md, updated_at: new Date().toISOString() },
+        { question_id: id, locale: 'en', title: body.en.title, body_md: body.en.body_md, updated_at: new Date().toISOString() },
+      ],
+      { onConflict: 'question_id,locale' }
+    )
+
+  if (tErr) throw createError({ statusCode: 500, message: tErr.message })
 
   return { success: true }
 })
