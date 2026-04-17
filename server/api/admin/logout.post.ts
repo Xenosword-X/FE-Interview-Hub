@@ -4,6 +4,7 @@ export default defineEventHandler(async (event) => {
   const session = await useSession(event, {
     password: config.sessionSecret,
     maxAge: 86400,
+    cookie: { sameSite: 'strict' },
   })
   await session.clear()
   return { success: true }

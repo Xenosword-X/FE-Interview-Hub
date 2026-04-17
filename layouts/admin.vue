@@ -1,8 +1,11 @@
 <!-- layouts/admin.vue -->
 <script setup lang="ts">
 async function logout() {
-  await $fetch('/api/admin/logout', { method: 'POST' })
-  await navigateTo('/admin/login')
+  try {
+    await $fetch('/api/admin/logout', { method: 'POST' })
+  } finally {
+    await navigateTo('/admin/login')
+  }
 }
 </script>
 
