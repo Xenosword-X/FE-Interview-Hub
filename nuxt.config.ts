@@ -10,7 +10,6 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxtjs/supabase',
-    '@nuxt/content',
     '@nuxtjs/i18n',
     '@nuxtjs/sitemap',
   ],
@@ -34,17 +33,6 @@ export default defineNuxtConfig({
     ],
     langDir: 'i18n/',
     detectBrowserLanguage: false,
-  },
-
-  content: {
-    build: {
-      markdown: {
-        highlight: {
-          theme: 'github-light',
-          langs: ['javascript', 'typescript', 'vue', 'css', 'html', 'bash', 'json'],
-        },
-      },
-    },
   },
 
   supabase: {
