@@ -61,7 +61,8 @@
   "footer": {
     "copyright": "© 2026 wood · FE Interview Hub",
     "about": "關於",
-    "github": "GitHub"
+    "github": "GitHub",
+    "admin": "後台管理"
   },
   "error": {
     "not_found_title": "找不到此頁面",

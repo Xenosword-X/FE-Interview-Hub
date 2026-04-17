@@ -61,7 +61,8 @@
   "footer": {
     "copyright": "© 2026 wood · FE Interview Hub",
     "about": "About",
-    "github": "GitHub"
+    "github": "GitHub",
+    "admin": "Admin"
   },
   "error": {
     "not_found_title": "Page Not Found",
