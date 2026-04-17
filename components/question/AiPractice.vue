@@ -13,7 +13,7 @@ interface EvaluateResponse {
 }
 
 const props = defineProps<{ slug: string; questionText: string }>()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const user = useSupabaseUser()
 
 // UI state
@@ -24,9 +24,9 @@ const usedToday  = ref(0)
 const dailyLimit = ref<number | null>(10)
 const errorMsg = ref('')
 
-// Voice input (MediaRecorder → Whisper API)
+// Voice input (MediaRecorder → Whisper API); pass locale so Whisper uses correct language
 const { isRecording, isTranscribing, isSupported, start: startVoice, stop: stopVoice } =
-  useVoiceInput((transcript: string) => { answer.value = transcript })
+  useVoiceInput((transcript: string) => { answer.value = transcript }, locale)
 
 const scoreColour = computed(() => {
   const s = feedback.value?.accuracy.score ?? 0

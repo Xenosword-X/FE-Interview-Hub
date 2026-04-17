@@ -2,10 +2,17 @@
 // Records audio with MediaRecorder, sends to OpenAI Whisper for transcription.
 // Replaces Web Speech API: no auto-stop timeout, much higher accuracy for Chinese.
 
-export function useVoiceInput(onResult: (text: string) => void) {
+export function useVoiceInput(onResult: (text: string) => void, locale?: Ref<string> | string) {
   const isRecording    = ref(false)
   const isTranscribing = ref(false)
   const isSupported    = ref(false)
+
+  // Fallback: read from i18n if no locale passed
+  const { locale: i18nLocale } = useI18n()
+  const resolvedLocale = computed(() => {
+    const l = typeof locale === 'string' ? locale : (locale?.value ?? i18nLocale.value)
+    return l.startsWith('zh') ? 'zh' : 'en'
+  })
 
   let mediaRecorder: MediaRecorder | null = null
   let chunks: Blob[] = []
@@ -46,11 +53,9 @@ export function useVoiceInput(onResult: (text: string) => void) {
         isTranscribing.value = true
 
         try {
-          // Detect locale from html lang attribute (set by @nuxtjs/i18n)
-          const locale = document.documentElement.lang?.startsWith('zh') ? 'zh' : 'en'
-          const form   = new FormData()
+          const form = new FormData()
           form.append('audio', blob, `recording.${ext}`)
-          form.append('locale', locale)
+          form.append('locale', resolvedLocale.value)
 
           const res = await $fetch<{ text: string }>('/api/ai/transcribe', {
             method: 'POST',
