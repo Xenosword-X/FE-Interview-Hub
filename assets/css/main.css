@@ -43,3 +43,15 @@ code, pre { font-family: var(--font-mono); }
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+/* Callout block (rendered from ::callout :: MDC syntax via marked) */
+.callout {
+  background: #eff6ff;
+  border-left: 3px solid #6366f1;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin: 1rem 0;
+  font-size: 0.875rem;
+  color: #374151;
+  line-height: 1.6;
+}

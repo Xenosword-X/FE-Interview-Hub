@@ -7,12 +7,11 @@ const localePath = useLocalePath()
 
 const { categories } = useCategories()
 
+import type { QuestionMeta } from '~/composables/useQuestions'
+
 const { data: allQuestions } = await useAsyncData(
   `all-questions-${locale.value}`,
-  () => queryCollection('questions')
-    .select('slug', 'title', 'category', 'tags', 'difficulty', 'path')
-    .all()
-    .then(qs => qs.filter(q => q.path?.includes(`/${locale.value}/`)))
+  () => $fetch<QuestionMeta[]>('/api/questions', { query: { locale: locale.value } })
 )
 
 const hotQuestions = computed(() => allQuestions.value?.slice(0, 5) ?? [])

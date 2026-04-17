@@ -1,11 +1,15 @@
 // composables/useQuestions.ts
 export interface QuestionMeta {
+  id: string
   slug: string
   title: string
   category: string
   tags: string[]
   difficulty: 'basic' | 'intermediate' | 'advanced'
-  path: string
+}
+
+export interface QuestionItem extends QuestionMeta {
+  body_md: string
 }
 
 export function useQuestions() {
@@ -14,10 +18,7 @@ export function useQuestions() {
 
   const { data: questions, pending } = useAsyncData(
     `questions-${locale.value}`,
-    async () => {
-      const all = await queryCollection('questions').all()
-      return all.filter(q => q.path?.includes(`/${locale.value}/`)) as QuestionMeta[]
-    }
+    () => $fetch<QuestionMeta[]>('/api/questions', { query: { locale: locale.value } })
   )
 
   const activeTag = computed(() => (route.query.tag as string) ?? '')

@@ -1,12 +1,30 @@
 <!-- pages/questions/[slug].vue -->
 <script setup lang="ts">
+import { Marked, Renderer } from 'marked'
+import type { QuestionItem, QuestionMeta } from '~/composables/useQuestions'
+
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 const slug = route.params.slug as string
 
-// Resolve component in setup context so ContentRenderer can use it
-const AppCalloutComp = resolveComponent('AppCallout')
+// Use a local Marked instance to avoid mutating the global singleton (SSR-safe)
+const myMarked = new Marked()
+const renderer = new Renderer()
+renderer.heading = ({ text, depth }: { text: string; depth: number }): string => {
+  const id = text.toLowerCase().replace(/[`*]/g, '').trim().replace(/\s+/g, '-')
+  const inlineHtml = myMarked.parseInline(text) as string
+  return `<h${depth} id="${id}">${inlineHtml}</h${depth}>\n`
+}
+myMarked.use({ renderer })
+
+function preprocessMarkdown(md: string): string {
+  // Convert ::callout\ncontent\n:: to styled div, rendering inner markdown
+  return md.replace(/::callout\r?\n([\s\S]*?)\r?\n::/g, (_, content) => {
+    const innerHtml = (myMarked.parse(content.trim()) as string).trim()
+    return `<div class="callout">${innerHtml}</div>`
+  })
+}
 
 // Collapsible explanation — default collapsed so users answer before reading
 const isExpanded = ref(true)
@@ -15,7 +33,7 @@ const isExpanded = ref(true)
 const copied = ref(false)
 async function share() {
   const url   = window.location.href
-  const title = question?.title ?? ''
+  const title = question.value?.title ?? ''
 
   if (navigator.share) {
     await navigator.share({ title, url })
@@ -26,37 +44,62 @@ async function share() {
   }
 }
 
-// Single query — fetches all locale questions once, derives current + prev/next
-const { data: localeQuestions } = await useAsyncData(
-  `questions-${locale.value}`,
-  async () => {
-    const all = await queryCollection('questions').all()
-    return all.filter(q => q.path?.includes(`/${locale.value}/`))
-  }
+// Fetch current question (with body_md)
+const { data: question } = await useAsyncData(
+  `question-${locale.value}-${slug}`,
+  () => $fetch<QuestionItem>('/api/questions', { query: { locale: locale.value, slug } })
 )
 
-const question = localeQuestions.value?.find(q => q.slug === slug) ?? null
+// Fetch all questions for prev/next navigation
+const { data: localeQuestions } = await useAsyncData(
+  `questions-${locale.value}`,
+  () => $fetch<QuestionMeta[]>('/api/questions', { query: { locale: locale.value } })
+)
 
-if (!question) {
+if (!question.value) {
   throw createError({ statusCode: 404, statusMessage: 'Question not found' })
 }
 
-const currentIndex = localeQuestions.value?.findIndex(q => q.slug === slug) ?? -1
-const prevQuestion = currentIndex > 0 ? (localeQuestions.value?.[currentIndex - 1] ?? null) : null
-const nextQuestion = currentIndex < (localeQuestions.value?.length ?? 0) - 1
-  ? (localeQuestions.value?.[currentIndex + 1] ?? null)
-  : null
+const currentIndex = computed(() => localeQuestions.value?.findIndex(q => q.slug === slug) ?? -1)
+const prevQuestion = computed(() =>
+  currentIndex.value > 0 ? (localeQuestions.value?.[currentIndex.value - 1] ?? null) : null
+)
+const nextQuestion = computed(() =>
+  currentIndex.value < (localeQuestions.value?.length ?? 0) - 1
+    ? (localeQuestions.value?.[currentIndex.value + 1] ?? null)
+    : null
+)
 
-// TOC links from content body (question is a plain object, not a Ref)
-const tocLinks = (question as any)?.body?.toc?.links as Array<{ id: string; text: string; depth: number }> ?? []
+// Extract TOC from Markdown headings (h2 and h3 only)
+const tocLinks = computed(() => {
+  if (!question.value?.body_md) return []
+  const links: Array<{ id: string; text: string; depth: number }> = []
+  for (const line of question.value.body_md.split('\n')) {
+    const match = line.match(/^(#{2,3})\s+(.+)$/)
+    if (match) {
+      const depth = match[1].length
+      const text = match[2].trim()
+      const id = text.toLowerCase().replace(/[`*]/g, '').trim().replace(/\s+/g, '-')
+      links.push({ id, text, depth })
+    }
+  }
+  return links
+})
+
+// Rendered HTML for the question body
+const renderedHtml = computed(() =>
+  question.value?.body_md
+    ? myMarked.parse(preprocessMarkdown(question.value.body_md)) as string
+    : ''
+)
 
 // SEO
 const siteUrl = useSiteUrl()
 
 useSeoMeta({
-  title: `${question.title} | FE Interview Hub`,
-  description: question.title,
-  ogTitle: question.title,
+  title: `${question.value!.title} | FE Interview Hub`,
+  description: question.value!.title,
+  ogTitle: question.value!.title,
   ogUrl: `${siteUrl}/${locale.value}/questions/${slug}`,
   twitterCard: 'summary',
 })
@@ -72,7 +115,7 @@ useHead({
     innerHTML: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Article',
-      name: question.title,
+      name: question.value!.title,
       inLanguage: locale.value === 'zh' ? 'zh-TW' : 'en-US',
       url: `${siteUrl}/${locale.value}/questions/${slug}`,
     })
@@ -89,21 +132,21 @@ useHead({
       <nav class="flex items-center gap-1.5 text-xs text-[--color-text-muted] mb-5" aria-label="Breadcrumb">
         <NuxtLink :to="localePath('/')" class="hover:text-[--color-primary]">{{ t('detail.home') }}</NuxtLink>
         <span>›</span>
-        <NuxtLink :to="`${localePath('/questions')}?tag=${question.category}`" class="hover:text-[--color-primary]">
-          {{ t(`categories.${question.category}`) }}
+        <NuxtLink :to="`${localePath('/questions')}?tag=${question?.category}`" class="hover:text-[--color-primary]">
+          {{ t(`categories.${question?.category}`) }}
         </NuxtLink>
         <span>›</span>
-        <span class="text-[--color-text-secondary] font-medium truncate max-w-[200px]">{{ question.title }}</span>
+        <span class="text-[--color-text-secondary] font-medium truncate max-w-[200px]">{{ question?.title }}</span>
       </nav>
 
       <!-- Question header -->
       <header class="mb-6 pb-6 border-b border-[--color-border]">
         <div class="flex items-center gap-2 mb-3">
-          <TagBadge :category="question.category" />
-          <DifficultyBadge :difficulty="question.difficulty" />
+          <TagBadge :category="question?.category" />
+          <DifficultyBadge :difficulty="question?.difficulty" />
         </div>
         <h1 class="text-[22px] font-bold text-[--color-text-primary] leading-snug mb-4">
-          {{ question.title }}
+          {{ question?.title }}
         </h1>
         <div class="flex items-center gap-2 flex-wrap">
           <!-- Bookmark (functional) -->
@@ -179,16 +222,11 @@ useHead({
           prose-table:text-sm prose-th:text-[--color-text-primary] prose-td:text-[--color-text-secondary]
           mb-6
         "
-      >
-        <ContentRenderer
-          v-if="question"
-          :value="question"
-          :components="{ callout: AppCalloutComp }"
-        />
-      </div>
+        v-html="renderedHtml"
+      />
 
       <!-- AI Practice section -->
-      <AiPractice :slug="slug" :question-text="question.title" />
+      <AiPractice :slug="slug" :question-text="question?.title ?? ''" />
 
       <!-- Mobile sticky AI input bar -->
       <div class="lg:hidden fixed bottom-14 inset-x-0 z-20 bg-white border-t border-[--color-border] px-4 py-2.5 flex gap-2">
