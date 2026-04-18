@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#eef2ff"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <style>
+      .title    { font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", "Segoe UI", system-ui, sans-serif; font-weight: 900; fill: #0f172a; }
+      .accent   { font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", "Segoe UI", system-ui, sans-serif; font-weight: 900; fill: url(#accent); }
+      .tagline  { font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", "Segoe UI", system-ui, sans-serif; font-weight: 500; fill: #475569; }
+      .brand    { font-family: "Segoe UI", system-ui, -apple-system, sans-serif; font-weight: 700; fill: #1e293b; }
+      .chip     { font-family: "Microsoft JhengHei", "PingFang TC", "Segoe UI", system-ui, sans-serif; font-weight: 600; fill: #475569; }
+      .badge    { font-family: "Microsoft JhengHei", "PingFang TC", "Segoe UI", system-ui, sans-serif; font-weight: 700; fill: #4338ca; }
+      .decor    { font-family: "Consolas", "JetBrains Mono", "Courier New", monospace; font-weight: 900; fill: #6366f1; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Decorative glyph on right -->
+  <g transform="translate(820, 440)" opacity="0.13">
+    <text class="decor" font-size="280">&lt;/&gt;</text>
+  </g>
+
+  <!-- Soft dotted grid bottom-left -->
+  <g fill="#6366f1" opacity="0.10">
+    <circle cx="80"  cy="580" r="2.5"/>
+    <circle cx="112" cy="580" r="2.5"/>
+    <circle cx="144" cy="580" r="2.5"/>
+    <circle cx="176" cy="580" r="2.5"/>
+    <circle cx="208" cy="580" r="2.5"/>
+    <circle cx="240" cy="580" r="2.5"/>
+    <circle cx="80"  cy="548" r="2.5"/>
+    <circle cx="112" cy="548" r="2.5"/>
+    <circle cx="144" cy="548" r="2.5"/>
+  </g>
+
+  <!-- Brand mark top-left -->
+  <g transform="translate(80, 70)">
+    <circle cx="10" cy="10" r="10" fill="#6366f1"/>
+    <circle cx="10" cy="10" r="4"  fill="#ffffff"/>
+    <text x="32" y="18" class="brand" font-size="20">FE Interview Hub</text>
+  </g>
+
+  <!-- AI badge top-right -->
+  <g transform="translate(970, 60)">
+    <rect x="0" y="0" width="170" height="44" rx="22" fill="#ffffff" stroke="#c7d2fe" stroke-width="1.5"/>
+    <g transform="translate(18, 13)">
+      <path d="M9 0 L11 7 L18 9 L11 11 L9 18 L7 11 L0 9 L7 7 Z" fill="#6366f1"/>
+    </g>
+    <text x="50" y="29" class="badge" font-size="15">AI 即時評分</text>
+  </g>
+
+  <!-- Main headline -->
+  <text x="80" y="260" class="title"  font-size="92">前端工程師</text>
+  <text x="80" y="372" class="accent" font-size="92">面試題庫</text>
+
+  <!-- Tagline -->
+  <text x="80" y="432" class="tagline" font-size="26">精選 50+ 高頻面試題 · AI 即時診斷答題品質</text>
+
+  <!-- Category chips -->
+  <g transform="translate(80, 478)">
+    <rect x="0"   y="0" width="118" height="42" rx="21" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="59"  y="27" text-anchor="middle" class="chip" font-size="15">JavaScript</text>
+
+    <rect x="128" y="0" width="66"  height="42" rx="21" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="161" y="27" text-anchor="middle" class="chip" font-size="15">Vue</text>
+
+    <rect x="204" y="0" width="66"  height="42" rx="21" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="237" y="27" text-anchor="middle" class="chip" font-size="15">CSS</text>
+
+    <rect x="280" y="0" width="120" height="42" rx="21" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="340" y="27" text-anchor="middle" class="chip" font-size="15">TypeScript</text>
+
+    <rect x="410" y="0" width="76"  height="42" rx="21" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="448" y="27" text-anchor="middle" class="chip" font-size="15">HTML</text>
+
+    <rect x="496" y="0" width="108" height="42" rx="21" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"/>
+    <text x="550" y="27" text-anchor="middle" class="chip" font-size="15" fill="#4338ca">行為面試</text>
+  </g>
+</svg>
