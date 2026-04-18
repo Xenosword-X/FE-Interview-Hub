@@ -20,11 +20,7 @@ function toggleLocale() {
     <div class="max-w-360 mx-auto h-full flex items-center px-4 lg:px-6 gap-3">
     <!-- Logo -->
     <NuxtLink :to="localePath('/')" class="flex items-center gap-2 shrink-0">
-      <div class="w-7 h-7 rounded-[7px] bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center" aria-hidden="true">
-        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
-        </svg>
-      </div>
+      <img src="~/assets/img/LOGO.png" alt="FE Interview Hub" class="h-8 w-auto" />
       <span class="text-sm font-bold text-[--color-text-primary] hidden sm:block">FE Interview Hub</span>
     </NuxtLink>
 

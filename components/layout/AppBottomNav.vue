@@ -58,17 +58,6 @@ const isProfileActive = computed(() =>
       <span class="text-[9px] font-medium">{{ t('bottom_nav.questions') }}</span>
     </NuxtLink>
 
-    <!-- AI (placeholder, not implemented yet) -->
-    <NuxtLink
-      :to="localePath('/')"
-      :class="['flex flex-col items-center gap-0.5 py-2 px-4 min-w-11', 'text-[--color-text-muted]']"
-    >
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-      </svg>
-      <span class="text-[9px] font-medium">{{ t('bottom_nav.ai') }}</span>
-    </NuxtLink>
-
     <!-- Profile → /bookmarks (logged in) or login (guest) -->
     <button
       @click="handleProfile"

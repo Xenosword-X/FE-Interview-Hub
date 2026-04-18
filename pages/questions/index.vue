@@ -3,7 +3,7 @@
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 
-const { filtered, activeTag } = useQuestions()
+const { filtered, activeTag, pending } = useQuestions()
 const { categories } = useCategories()
 
 const siteUrl = useSiteUrl()
@@ -65,16 +65,22 @@ useHead({
     <div class="flex-1 px-4 lg:px-8 py-6 max-w-2xl">
       <h1 class="text-lg font-bold text-[--color-text-primary] mb-4">
         {{ activeTag ? t(`categories.${activeTag}`) : t('questions.page_title') }}
-        <span class="text-sm font-normal text-[--color-text-muted] ml-2">{{ filtered.length }}</span>
+        <span class="text-sm font-normal text-[--color-text-muted] ml-2">{{ pending ? '' : filtered.length }}</span>
       </h1>
 
-      <p v-if="filtered.length === 0" class="text-sm text-[--color-text-muted]">
-        {{ t('questions.no_results') }}
-      </p>
-
-      <div class="grid gap-3">
-        <QuestionCard v-for="q in filtered" :key="q.slug" :question="q" />
-      </div>
+      <template v-if="pending">
+        <div class="grid gap-3">
+          <AppSkeletonCard v-for="n in 8" :key="n" />
+        </div>
+      </template>
+      <template v-else>
+        <p v-if="filtered.length === 0" class="text-sm text-[--color-text-muted]">
+          {{ t('questions.no_results') }}
+        </p>
+        <div class="grid gap-3">
+          <QuestionCard v-for="q in filtered" :key="q.slug" :question="q" />
+        </div>
+      </template>
     </div>
   </div>
 </template>

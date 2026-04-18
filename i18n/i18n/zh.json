@@ -19,7 +19,7 @@
     "cta_title": "用 AI 診斷你的答題品質",
     "cta_desc": "輸入你的答案，AI 即時分析精準度、指出缺漏、給出優化範例",
     "cta_btn": "立即試用 AI 面試",
-    "seo_title": "前端工程師面試題庫 | 精選高頻面試題 + AI 即時評分",
+    "seo_title": "前端工程師 - 面試題庫 | 精選高頻面試題 + AI 即時評分",
     "seo_description": "精選 50+ 道前端面試題，涵蓋 JavaScript、Vue、React、CSS、TypeScript、瀏覽器原理、Web Vitals、行為面試，搭配 AI 即時診斷答題品質，前端面試必備。"
   },
   "questions": {
@@ -75,7 +75,7 @@
     "home": "首頁",
     "questions": "題庫",
     "ai": "AI 面試",
-    "profile": "我的"
+    "profile": "我的收藏"
   },
   "auth": {
     "sign_in_google": "使用 Google 登入",

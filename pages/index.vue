@@ -63,6 +63,7 @@ useHead({
         {{ t('home.title') }}<br>
         <span class="text-[--color-primary]">{{ t('home.title_accent') }}</span>
       </h1>
+      <img src="~/assets/img/LOGO.png" alt="FE Interview Hub" class="h-100 w-auto mx-auto mb-4" />
       <p class="text-[15px] text-[--color-text-secondary] leading-relaxed max-w-md mx-auto mb-7">
         {{ t('home.description') }}
       </p>

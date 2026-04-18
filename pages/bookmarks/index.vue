@@ -10,7 +10,7 @@ const { toggleBookmark } = useBookmarks()
 const siteUrl = useSiteUrl()
 
 // Use server API route so the authenticated session is always available
-const { data: bookmarkSlugs, refresh } = await useAsyncData(
+const { data: bookmarkSlugs, refresh, pending } = await useAsyncData(
   'my-bookmarks',
   () => $fetch<string[]>('/api/bookmarks'),
   { server: false, getCachedData: () => null }
@@ -58,13 +58,18 @@ useHead({
     <h1 class="text-2xl font-bold text-[--color-text-primary] mb-6">
       {{ t('bookmark.page_title') }}
       <span class="text-base font-normal text-[--color-text-muted] ml-2">
-        {{ bookmarkedQuestions.length }}
+        {{ pending ? '' : bookmarkedQuestions.length }}
       </span>
     </h1>
 
+    <!-- Loading state -->
+    <div v-if="pending" class="grid gap-3">
+      <AppSkeletonCard v-for="n in 4" :key="n" />
+    </div>
+
     <!-- Empty state -->
     <div
-      v-if="bookmarkedQuestions.length === 0"
+      v-else-if="bookmarkedQuestions.length === 0"
       class="flex flex-col items-center py-16 text-center"
     >
       <svg class="w-16 h-16 text-slate-200 mb-4" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
@@ -78,7 +83,7 @@ useHead({
     </div>
 
     <!-- Bookmark list -->
-    <div v-else class="grid gap-3">
+    <div v-else-if="bookmarkedQuestions.length > 0" class="grid gap-3">
       <BookmarkCard
         v-for="q in bookmarkedQuestions"
         :key="q.slug"
