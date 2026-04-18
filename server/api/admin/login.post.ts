@@ -1,10 +1,11 @@
 // server/api/admin/login.post.ts
-import { timingSafeEqual } from 'node:crypto'
-
 function safeEqual(a: string, b: string): boolean {
-  const ba = Buffer.from(a.padEnd(b.length))
-  const bb = Buffer.from(b.padEnd(a.length))
-  return ba.length === bb.length && timingSafeEqual(ba, bb)
+  const len = Math.max(a.length, b.length)
+  let diff = a.length ^ b.length
+  for (let i = 0; i < len; i++) {
+    diff |= (a.charCodeAt(i) || 0) ^ (b.charCodeAt(i) || 0)
+  }
+  return diff === 0
 }
 
 export default defineEventHandler(async (event) => {
@@ -13,6 +14,13 @@ export default defineEventHandler(async (event) => {
 
   if (!account || !password) {
     throw createError({ statusCode: 400, message: 'Account and password are required' })
+  }
+
+  if (!config.backendAccount || !config.backendPassword || !config.sessionSecret) {
+    throw createError({ statusCode: 500, message: 'Server env not configured' })
+  }
+  if (config.sessionSecret.length < 32) {
+    throw createError({ statusCode: 500, message: 'SESSION_SECRET must be at least 32 characters' })
   }
 
   if (!safeEqual(account, config.backendAccount) || !safeEqual(password, config.backendPassword)) {
