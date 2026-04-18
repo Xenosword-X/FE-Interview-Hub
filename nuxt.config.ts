@@ -74,4 +74,8 @@ export default defineNuxtConfig({
   sitemap: {
     exclude: ['/admin/**', '/bookmarks/**', '/auth/**'],
   },
+
+  nitro: {
+    preset: 'cloudflare-pages',
+  },
 })
