@@ -9,10 +9,10 @@ const iconBgMap: Record<string, string> = {
   vue:          'bg-green-100  text-green-700',
   css:          'bg-pink-100   text-pink-700',
   typescript:   'bg-blue-100   text-blue-700',
-  react:        'bg-sky-100    text-sky-700',
+  html:         'bg-orange-100 text-orange-700',
   'web-vitals': 'bg-purple-100 text-purple-700',
-  browser:      'bg-orange-100 text-orange-700',
-  http:         'bg-cyan-100   text-cyan-700',
+  browser:      'bg-sky-100    text-sky-700',
+  behavioral:   'bg-teal-100   text-teal-700',
 }
 const iconClass = computed(() => iconBgMap[props.category.key] ?? 'bg-slate-100 text-slate-600')
 </script>

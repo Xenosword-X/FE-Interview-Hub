@@ -36,8 +36,8 @@ export default defineNuxtConfig({
   },
 
   supabase: {
-    url: process.env.NUXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || 'https://placeholder.supabase.co',
-    key: process.env.NUXT_PUBLIC_SUPABASE_KEY || process.env.SUPABASE_KEY || 'placeholder-anon-key',
+    url: process.env.NUXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co',
+    key: process.env.NUXT_PUBLIC_SUPABASE_KEY || 'placeholder-anon-key',
     redirectOptions: {
       login:    '/auth/callback',
       callback: '/auth/callback',
@@ -71,5 +71,7 @@ export default defineNuxtConfig({
     name: 'FE Interview Hub',
   },
 
-  sitemap: {},
+  sitemap: {
+    exclude: ['/admin/**', '/bookmarks/**', '/auth/**'],
+  },
 })

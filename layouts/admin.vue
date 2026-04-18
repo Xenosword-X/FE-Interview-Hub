@@ -17,14 +17,14 @@ async function logout() {
           FE Interview Hub
         </NuxtLink>
         <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider bg-slate-100 px-2 py-0.5 rounded">
-          Admin
+          後台管理
         </span>
       </div>
       <button
         @click="logout"
         class="text-xs text-slate-400 hover:text-red-500 transition-colors"
       >
-        Sign out
+        登出
       </button>
     </header>
     <main class="max-w-5xl mx-auto px-6 py-8">

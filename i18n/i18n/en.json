@@ -18,7 +18,9 @@
     "view_all": "All Questions →",
     "cta_title": "Get AI Feedback on Your Answers",
     "cta_desc": "Type your answer and get instant AI analysis: accuracy, missing points, and an optimised example",
-    "cta_btn": "Try AI Interview"
+    "cta_btn": "Try AI Interview",
+    "seo_title": "Frontend Interview Hub | 50+ Top Questions with AI Scoring",
+    "seo_description": "50+ curated frontend interview questions on JavaScript, Vue, React, CSS, TypeScript, browser internals, Web Vitals and behavioural interviews — with AI-powered answer analysis."
   },
   "questions": {
     "page_title": "Question Bank",
@@ -53,10 +55,10 @@
     "vue": "Vue 3",
     "css": "CSS",
     "typescript": "TypeScript",
-    "react": "React",
+    "html": "HTML",
     "web-vitals": "Web Vitals",
     "browser": "Browser Internals",
-    "http": "HTTP / Networking"
+    "behavioral": "Behavioral Interview"
   },
   "footer": {
     "copyright": "© 2026 wood · FE Interview Hub",

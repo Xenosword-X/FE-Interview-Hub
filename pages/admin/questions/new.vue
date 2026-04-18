@@ -1,6 +1,7 @@
 <!-- pages/admin/questions/new.vue -->
 <script setup lang="ts">
 definePageMeta({ layout: 'admin' })
+defineI18nRoute(false)
 
 const slug       = ref('')
 const category   = ref('')
@@ -26,7 +27,7 @@ watch(() => zh.value.title, (title) => {
 
 async function save() {
   if (!slug.value || !zh.value.title || !en.value.title || !category.value || !difficulty.value) {
-    error.value = 'Please fill in slug, both titles, category, and difficulty'
+    error.value = '請填寫 Slug、中英文標題、分類及難度'
     return
   }
   saving.value = true
@@ -45,7 +46,7 @@ async function save() {
     })
     await navigateTo('/admin/questions')
   } catch (err: any) {
-    error.value   = err?.data?.message ?? 'Save failed. Please try again.'
+    error.value   = err?.data?.message ?? '儲存失敗，請再試一次'
     saving.value  = false
   }
 }
@@ -55,10 +56,10 @@ async function save() {
   <div>
     <div class="flex items-center gap-3 mb-6">
       <NuxtLink to="/admin/questions" class="text-sm text-slate-400 hover:text-indigo-500 transition-colors">
-        ← Questions
+        ← 題目列表
       </NuxtLink>
       <span class="text-slate-300">/</span>
-      <h1 class="text-xl font-bold text-slate-800">New Question</h1>
+      <h1 class="text-xl font-bold text-slate-800">新增題目</h1>
     </div>
 
     <div

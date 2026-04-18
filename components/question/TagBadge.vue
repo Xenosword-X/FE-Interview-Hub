@@ -7,10 +7,10 @@ const colourMap: Record<string, string> = {
   vue:         'bg-green-100  text-green-800',
   css:         'bg-pink-100   text-pink-800',
   typescript:  'bg-blue-100   text-blue-800',
-  react:       'bg-sky-100    text-sky-800',
+  html:        'bg-orange-100 text-orange-800',
   'web-vitals':'bg-purple-100 text-purple-800',
-  browser:     'bg-orange-100 text-orange-800',
-  http:        'bg-cyan-100   text-cyan-800',
+  browser:     'bg-sky-100    text-sky-800',
+  behavioral:  'bg-teal-100   text-teal-800',
 }
 
 const colour = computed(() =>

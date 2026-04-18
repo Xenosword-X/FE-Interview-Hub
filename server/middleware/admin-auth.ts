@@ -8,12 +8,7 @@ export default defineEventHandler(async (event) => {
   // Login endpoints are always accessible
   if (path === '/admin/login' || path === '/api/admin/login') return
 
-  const config = useRuntimeConfig(event)
-  const session = await useSession(event, {
-    password: config.sessionSecret,
-    maxAge: 86400, // 24 hours
-    cookie: { sameSite: 'strict' },
-  })
+  const session = await useAdminSession(event)
 
   if (!session.data.authenticated) {
     if (path.startsWith('/api/')) {

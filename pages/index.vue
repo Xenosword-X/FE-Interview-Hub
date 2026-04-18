@@ -18,12 +18,16 @@ const hotQuestions = computed(() => allQuestions.value?.slice(0, 5) ?? [])
 
 const siteUrl = useSiteUrl()
 useSeoMeta({
-  title: `${t('home.title_accent')} | FE Interview Hub`,
-  description: t('home.description'),
-  ogTitle: `${t('home.title_accent')} | FE Interview Hub`,
-  ogDescription: t('home.description'),
+  title: t('home.seo_title'),
+  description: t('home.seo_description'),
+  ogTitle: t('home.seo_title'),
+  ogDescription: t('home.seo_description'),
   ogUrl: `${siteUrl}/${locale.value}/`,
+  ogType: 'website',
+  ogImage: `${siteUrl}/og-image.png`,
   twitterCard: 'summary_large_image',
+  twitterTitle: t('home.seo_title'),
+  twitterDescription: t('home.seo_description'),
 })
 
 useHead({
@@ -40,7 +44,7 @@ useHead({
       '@type': 'WebSite',
       name: 'FE Interview Hub',
       url: `${siteUrl}/${locale.value}/`,
-      description: t('home.description'),
+      description: t('home.seo_description'),
       inLanguage: locale.value === 'zh' ? 'zh-TW' : 'en-US',
     })
   }]

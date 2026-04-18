@@ -10,9 +10,13 @@ const siteUrl = useSiteUrl()
 
 useSeoMeta({
   title: `${t('questions.page_title')} | FE Interview Hub`,
-  description: t('home.description'),
+  description: t('home.seo_description'),
   ogTitle: `${t('questions.page_title')} | FE Interview Hub`,
+  ogDescription: t('home.seo_description'),
   ogUrl: `${siteUrl}/${locale.value}/questions`,
+  ogType: 'website',
+  ogImage: `${siteUrl}/og-image.png`,
+  twitterCard: 'summary_large_image',
 })
 
 // canonical excludes ?tag= to avoid duplicate indexing

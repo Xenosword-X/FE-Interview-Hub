@@ -1,6 +1,7 @@
 <!-- pages/admin/questions/index.vue -->
 <script setup lang="ts">
 definePageMeta({ layout: 'admin' })
+defineI18nRoute(false)
 
 interface Translation {
   locale: string
@@ -30,7 +31,7 @@ const confirmDelete  = ref<string | null>(null)
 const deleting       = ref(false)
 const deleteError    = ref('')
 
-const categories = ['javascript', 'vue', 'css', 'typescript', 'react', 'web-vitals', 'browser', 'http']
+const categories = ['javascript', 'vue', 'css', 'typescript', 'html', 'web-vitals', 'browser', 'behavioral']
 
 const filtered = computed(() => {
   if (!questions.value) return []
@@ -52,7 +53,7 @@ async function deleteQuestion(id: string) {
     confirmDelete.value = null
     await refresh()
   } catch (err: any) {
-    deleteError.value = err?.data?.message ?? 'Delete failed, please try again'
+    deleteError.value = err?.data?.message ?? '刪除失敗，請再試一次'
     confirmDelete.value = null
   } finally {
     deleting.value = false
@@ -65,14 +66,14 @@ async function deleteQuestion(id: string) {
     <!-- Header row -->
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-xl font-bold text-slate-800">
-        Questions
+        題目管理
         <span class="text-sm font-normal text-slate-400 ml-2">{{ filtered.length }}</span>
       </h1>
       <NuxtLink
         to="/admin/questions/new"
         class="bg-indigo-500 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors"
       >
-        + New Question
+        + 新增題目
       </NuxtLink>
     </div>
 
@@ -81,14 +82,14 @@ async function deleteQuestion(id: string) {
       <input
         v-model="search"
         type="text"
-        placeholder="Search slug or title…"
+        placeholder="搜尋 slug 或標題…"
         class="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64"
       />
       <select
         v-model="filterCategory"
         class="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
       >
-        <option value="">All Categories</option>
+        <option value="">所有分類</option>
         <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
       </select>
     </div>
@@ -102,9 +103,9 @@ async function deleteQuestion(id: string) {
         <thead class="bg-slate-50 border-b border-slate-200">
           <tr>
             <th class="text-left px-4 py-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Slug</th>
-            <th class="text-left px-4 py-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Category</th>
-            <th class="text-left px-4 py-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Difficulty</th>
-            <th class="text-left px-4 py-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Published</th>
+            <th class="text-left px-4 py-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">分類</th>
+            <th class="text-left px-4 py-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">難度</th>
+            <th class="text-left px-4 py-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">已發布</th>
             <th class="px-4 py-3 w-28"></th>
           </tr>
         </thead>
@@ -118,7 +119,7 @@ async function deleteQuestion(id: string) {
                 :class="q.is_published ? 'text-green-600 bg-green-50' : 'text-slate-400 bg-slate-50'"
                 class="text-[11px] font-medium px-2 py-0.5 rounded"
               >
-                {{ q.is_published ? 'Yes' : 'No' }}
+                {{ q.is_published ? '是' : '否' }}
               </span>
             </td>
             <td class="px-4 py-3">
@@ -127,7 +128,7 @@ async function deleteQuestion(id: string) {
                   :to="`/admin/questions/${q.id}/edit`"
                   class="text-xs text-indigo-500 hover:underline"
                 >
-                  Edit
+                  編輯
                 </NuxtLink>
 
                 <template v-if="confirmDelete !== q.id">
@@ -135,23 +136,23 @@ async function deleteQuestion(id: string) {
                     @click="confirmDelete = q.id"
                     class="text-xs text-red-400 hover:text-red-600 transition-colors"
                   >
-                    Delete
+                    刪除
                   </button>
                 </template>
                 <template v-else>
-                  <span class="text-xs text-slate-500">Sure?</span>
+                  <span class="text-xs text-slate-500">確定？</span>
                   <button
                     @click="deleteQuestion(q.id)"
                     :disabled="deleting"
                     class="text-xs text-red-600 font-semibold hover:underline disabled:opacity-50"
                   >
-                    Yes
+                    確定
                   </button>
                   <button
                     @click="confirmDelete = null"
                     class="text-xs text-slate-400 hover:underline"
                   >
-                    No
+                    取消
                   </button>
                 </template>
               </div>
@@ -159,7 +160,7 @@ async function deleteQuestion(id: string) {
           </tr>
           <tr v-if="filtered.length === 0">
             <td colspan="5" class="px-4 py-10 text-center text-sm text-slate-400">
-              No questions found
+              找不到題目
             </td>
           </tr>
         </tbody>

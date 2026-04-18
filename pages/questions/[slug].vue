@@ -95,18 +95,26 @@ const renderedHtml = computed(() =>
 
 // SEO
 const siteUrl = useSiteUrl()
+const pageUrl = `${siteUrl}/${locale.value}/questions/${slug}`
+const metaDescription = excerpt(question.value!.body_md, 155)
+const answerText = excerpt(question.value!.body_md, 500)
 
 useSeoMeta({
   title: `${question.value!.title} | FE Interview Hub`,
-  description: question.value!.title,
+  description: metaDescription,
   ogTitle: question.value!.title,
-  ogUrl: `${siteUrl}/${locale.value}/questions/${slug}`,
-  twitterCard: 'summary',
+  ogDescription: metaDescription,
+  ogUrl: pageUrl,
+  ogType: 'article',
+  ogImage: `${siteUrl}/og-image.png`,
+  twitterCard: 'summary_large_image',
+  twitterTitle: question.value!.title,
+  twitterDescription: metaDescription,
 })
 
 useHead({
   link: [
-    { rel: 'canonical', href: `${siteUrl}/${locale.value}/questions/${slug}` },
+    { rel: 'canonical', href: pageUrl },
     { rel: 'alternate', hreflang: 'zh-TW', href: `${siteUrl}/zh/questions/${slug}` },
     { rel: 'alternate', hreflang: 'en-US', href: `${siteUrl}/en/questions/${slug}` },
   ],
@@ -114,10 +122,20 @@ useHead({
     type: 'application/ld+json',
     innerHTML: JSON.stringify({
       '@context': 'https://schema.org',
-      '@type': 'Article',
-      name: question.value!.title,
+      '@type': 'QAPage',
       inLanguage: locale.value === 'zh' ? 'zh-TW' : 'en-US',
-      url: `${siteUrl}/${locale.value}/questions/${slug}`,
+      url: pageUrl,
+      mainEntity: {
+        '@type': 'Question',
+        name: question.value!.title,
+        text: question.value!.title,
+        answerCount: 1,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: answerText,
+          url: pageUrl,
+        },
+      },
     })
   }]
 })

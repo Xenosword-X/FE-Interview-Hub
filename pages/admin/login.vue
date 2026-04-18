@@ -1,6 +1,7 @@
 <!-- pages/admin/login.vue -->
 <script setup lang="ts">
 definePageMeta({ layout: false })
+defineI18nRoute(false)
 
 const account  = ref('')
 const password = ref('')
@@ -18,7 +19,7 @@ async function login() {
     })
     await navigateTo('/admin/questions')
   } catch (err: any) {
-    error.value = err?.data?.message ?? 'Invalid credentials'
+    error.value = err?.data?.message ?? '帳號或密碼錯誤'
   } finally {
     loading.value = false
   }
@@ -28,12 +29,17 @@ async function login() {
 <template>
   <div class="min-h-screen bg-slate-50 flex items-center justify-center px-4">
     <div class="w-full max-w-sm bg-white rounded-xl border border-slate-200 p-8 shadow-sm">
-      <h1 class="text-lg font-bold text-slate-800 mb-1">Admin Login</h1>
-      <p class="text-xs text-slate-400 mb-6">FE Interview Hub Dashboard</p>
+      <div class="flex items-center justify-between mb-1">
+        <h1 class="text-lg font-bold text-slate-800">後台登入</h1>
+        <NuxtLink to="/" class="text-xs text-slate-400 hover:text-indigo-500 transition-colors">
+          ← 回到首頁
+        </NuxtLink>
+      </div>
+      <p class="text-xs text-slate-400 mb-6">FE Interview Hub 管理後台</p>
 
       <div class="flex flex-col gap-4">
         <div>
-          <label class="text-xs font-medium text-slate-600 block mb-1">Account</label>
+          <label class="text-xs font-medium text-slate-600 block mb-1">帳號</label>
           <input
             v-model="account"
             type="text"
@@ -43,7 +49,7 @@ async function login() {
           />
         </div>
         <div>
-          <label class="text-xs font-medium text-slate-600 block mb-1">Password</label>
+          <label class="text-xs font-medium text-slate-600 block mb-1">密碼</label>
           <input
             v-model="password"
             type="password"
@@ -60,7 +66,7 @@ async function login() {
           :disabled="loading || !account || !password"
           class="bg-indigo-500 text-white text-sm font-semibold py-2.5 rounded-lg hover:bg-indigo-600 disabled:bg-indigo-200 disabled:cursor-not-allowed transition-colors"
         >
-          {{ loading ? 'Signing in…' : 'Sign In' }}
+          {{ loading ? '登入中…' : '登入' }}
         </button>
       </div>
     </div>

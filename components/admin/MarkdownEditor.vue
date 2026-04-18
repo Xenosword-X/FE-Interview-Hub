@@ -52,7 +52,7 @@ const previewHtml = computed(() => {
   return myMarked.parse(preprocessMarkdown(md)) as string
 })
 
-const categories = ['javascript', 'vue', 'css', 'typescript', 'react', 'web-vitals', 'browser', 'http']
+const categories = ['javascript', 'vue', 'css', 'typescript', 'html', 'web-vitals', 'browser', 'behavioral']
 const difficulties = ['basic', 'intermediate', 'advanced']
 
 function updateZhTitle(e: Event) {
@@ -77,7 +77,7 @@ function updateBody(e: Event) {
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
       <div>
         <label class="text-xs font-medium text-slate-500 block mb-1">
-          Slug <span class="text-slate-300">(auto-generated on create)</span>
+          Slug <span class="text-slate-300">（新增時自動產生）</span>
         </label>
         <input
           :value="slug"
@@ -91,29 +91,29 @@ function updateBody(e: Event) {
         />
       </div>
       <div>
-        <label class="text-xs font-medium text-slate-500 block mb-1">Category *</label>
+        <label class="text-xs font-medium text-slate-500 block mb-1">分類 *</label>
         <select
           :value="category"
           @change="emit('update:category', ($event.target as HTMLSelectElement).value)"
           class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
         >
-          <option value="" disabled>Select…</option>
+          <option value="" disabled>請選擇…</option>
           <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
         </select>
       </div>
       <div>
-        <label class="text-xs font-medium text-slate-500 block mb-1">Difficulty *</label>
+        <label class="text-xs font-medium text-slate-500 block mb-1">難度 *</label>
         <select
           :value="difficulty"
           @change="emit('update:difficulty', ($event.target as HTMLSelectElement).value)"
           class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
         >
-          <option value="" disabled>Select…</option>
+          <option value="" disabled>請選擇…</option>
           <option v-for="d in difficulties" :key="d" :value="d">{{ d }}</option>
         </select>
       </div>
       <div>
-        <label class="text-xs font-medium text-slate-500 block mb-1">Tags (comma-separated)</label>
+        <label class="text-xs font-medium text-slate-500 block mb-1">標籤（逗號分隔）</label>
         <input
           :value="tags"
           @input="emit('update:tags', ($event.target as HTMLInputElement).value)"
@@ -126,7 +126,7 @@ function updateBody(e: Event) {
     <!-- Title row -->
     <div class="grid grid-cols-2 gap-3">
       <div>
-        <label class="text-xs font-medium text-slate-500 block mb-1">ZH Title *</label>
+        <label class="text-xs font-medium text-slate-500 block mb-1">中文標題 *</label>
         <input
           :value="zh.title"
           @input="updateZhTitle"
@@ -135,7 +135,7 @@ function updateBody(e: Event) {
         />
       </div>
       <div>
-        <label class="text-xs font-medium text-slate-500 block mb-1">EN Title *</label>
+        <label class="text-xs font-medium text-slate-500 block mb-1">英文標題 *</label>
         <input
           :value="en.title"
           @input="updateEnTitle"
@@ -184,13 +184,13 @@ function updateBody(e: Event) {
         @click="emit('cancel')"
         class="text-sm text-slate-400 hover:text-slate-600 transition-colors"
       >
-        Cancel
+        取消
       </button>
       <button
         @click="emit('save')"
         class="bg-indigo-500 text-white text-sm font-semibold px-6 py-2.5 rounded-lg hover:bg-indigo-600 transition-colors"
       >
-        Save Question
+        儲存題目
       </button>
     </div>
   </div>

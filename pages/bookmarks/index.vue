@@ -1,5 +1,7 @@
 <!-- pages/bookmarks/index.vue -->
 <script setup lang="ts">
+import type { QuestionMeta } from '~/composables/useQuestions'
+
 definePageMeta({ middleware: 'auth' })
 
 const { t, locale } = useI18n()
@@ -14,13 +16,10 @@ const { data: bookmarkSlugs, refresh } = await useAsyncData(
   { server: false, getCachedData: () => null }
 )
 
-// Fetch question metadata from Markdown content
+// Fetch question metadata from the Supabase-backed API
 const { data: allQuestions } = await useAsyncData(
   `questions-${locale.value}`,
-  async () => {
-    const all = await queryCollection('questions').all()
-    return all.filter(q => q.path?.includes(`/${locale.value}/`))
-  }
+  () => $fetch<QuestionMeta[]>('/api/questions', { query: { locale: locale.value } })
 )
 
 // Ordered list of bookmarked questions

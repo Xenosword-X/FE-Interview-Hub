@@ -10,10 +10,10 @@ export const CATEGORIES: Omit<Category, 'count'>[] = [
   { key: 'vue',         icon: 'M12 2l10 6v8l-10 6L2 16V8l10-6z' },
   { key: 'css',         icon: 'M4 3h16l-1.5 14L12 20l-6.5-3L4 3z' },
   { key: 'typescript',  icon: 'M3 3h18v18H3V3zm9 9h3v6h-3v-6zm0-4h3v3h-3V8z' },
-  { key: 'react',       icon: 'M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z' },
+  { key: 'html',        icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4' },
   { key: 'web-vitals',  icon: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z' },
   { key: 'browser',     icon: 'M3 4a1 1 0 011-1h16a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm1 3v13h16V7H4zm0-3v2h16V4H4z' },
-  { key: 'http',        icon: 'M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.142 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0' },
+  { key: 'behavioral',  icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z' },
 ]
 
 export function useCategories() {
@@ -21,15 +21,13 @@ export function useCategories() {
 
   const { data: questions } = useAsyncData(
     `questions-meta-${locale.value}`,
-    () => queryCollection('questions').all()
+    () => $fetch<{ category: string }[]>('/api/questions', { query: { locale: locale.value } })
   )
 
   const categoriesWithCount = computed<Category[]>(() =>
     CATEGORIES.map(cat => ({
       ...cat,
-      count: questions.value?.filter(q =>
-        q.path?.includes(`/${locale.value}/`) && q.category === cat.key
-      ).length ?? 0,
+      count: questions.value?.filter(q => q.category === cat.key).length ?? 0,
     }))
   )
 

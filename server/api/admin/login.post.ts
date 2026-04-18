@@ -19,11 +19,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, message: 'Invalid credentials' })
   }
 
-  const session = await useSession(event, {
-    password: config.sessionSecret,
-    maxAge: 86400,
-    cookie: { sameSite: 'strict' },
-  })
+  const session = await useAdminSession(event)
   await session.update({ authenticated: true })
 
   return { success: true }
