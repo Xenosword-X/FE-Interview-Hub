@@ -31,7 +31,7 @@ const confirmDelete  = ref<string | null>(null)
 const deleting       = ref(false)
 const deleteError    = ref('')
 
-const categories = ['javascript', 'vue', 'css', 'typescript', 'html', 'web-vitals', 'browser', 'behavioral']
+const categories = ['javascript', 'vue', 'css', 'network-security', 'html', 'web-vitals', 'browser', 'behavioral']
 
 const filtered = computed(() => {
   if (!questions.value) return []

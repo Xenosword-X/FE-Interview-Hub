@@ -9,7 +9,7 @@
     "badge": "AI Mock Interview · Instant Feedback",
     "title": "Frontend Engineer",
     "title_accent": "Interview Hub",
-    "description": "50+ curated frontend interview questions covering JS, Vue, CSS, TypeScript and more — with AI-powered answer analysis.",
+    "description": "80+ curated frontend interview questions covering JS, Vue, CSS, TypeScript and more — with AI-powered answer analysis.",
     "stat_questions": "Questions",
     "stat_categories": "Categories",
     "stat_ai": "AI Scoring",
@@ -19,8 +19,8 @@
     "cta_title": "Get AI Feedback on Your Answers",
     "cta_desc": "Type your answer and get instant AI analysis: accuracy, missing points, and an optimised example",
     "cta_btn": "Try AI Interview",
-    "seo_title": "Frontend Interview Hub | 50+ Top Questions with AI Scoring",
-    "seo_description": "50+ curated frontend interview questions on JavaScript, Vue, React, CSS, TypeScript, browser internals, Web Vitals and behavioural interviews — with AI-powered answer analysis."
+    "seo_title": "Frontend Interview Hub | 80+ Top Questions with AI Scoring",
+    "seo_description": "80+ curated frontend interview questions on JavaScript, Vue, React, CSS, TypeScript, browser internals, Web Vitals and behavioural interviews — with AI-powered answer analysis."
   },
   "questions": {
     "page_title": "Question Bank",
@@ -54,15 +54,14 @@
     "javascript": "JavaScript",
     "vue": "Vue 3",
     "css": "CSS",
-    "typescript": "TypeScript",
+    "network-security": "Network Security",
     "html": "HTML",
     "web-vitals": "Web Vitals",
     "browser": "Browser Internals",
     "behavioral": "Behavioral Interview"
   },
   "footer": {
-    "copyright": "© 2026 wood · FE Interview Hub",
-    "about": "About",
+    "copyright": "Copyright © 2026 Wood All Rights Reserved · FE Interview Hub",
     "github": "GitHub",
     "admin": "Admin"
   },

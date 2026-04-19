@@ -9,7 +9,7 @@ export const CATEGORIES: Omit<Category, 'count'>[] = [
   { key: 'javascript',  icon: 'M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-1 14.5v-9l7 4.5-7 4.5z' },
   { key: 'vue',         icon: 'M12 2l10 6v8l-10 6L2 16V8l10-6z' },
   { key: 'css',         icon: 'M4 3h16l-1.5 14L12 20l-6.5-3L4 3z' },
-  { key: 'typescript',  icon: 'M3 3h18v18H3V3zm9 9h3v6h-3v-6zm0-4h3v3h-3V8z' },
+  { key: 'network-security', icon: 'M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7l-9-5z' },
   { key: 'html',        icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4' },
   { key: 'web-vitals',  icon: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z' },
   { key: 'browser',     icon: 'M3 4a1 1 0 011-1h16a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm1 3v13h16V7H4zm0-3v2h16V4H4z' },

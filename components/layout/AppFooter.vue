@@ -8,8 +8,7 @@ const { t } = useI18n()
     <div class="max-w-360 mx-auto px-4 lg:px-6 py-4 flex items-center justify-between">
     <p class="text-xs text-[--color-text-muted]">{{ t('footer.copyright') }}</p>
     <div class="flex gap-4">
-      <a href="#" class="text-xs text-[--color-text-muted] hover:text-[--color-text-secondary]">{{ t('footer.about') }}</a>
-      <a href="https://github.com" target="_blank" rel="noopener" class="text-xs text-[--color-text-muted] hover:text-[--color-text-secondary]">{{ t('footer.github') }}</a>
+      <a href="https://github.com/Xenosword-X/FE-Interview-Hub" target="_blank" rel="noopener" class="text-xs text-[--color-text-muted] hover:text-[--color-text-secondary]">{{ t('footer.github') }}</a>
       <NuxtLink to="/admin/login" class="text-xs text-[--color-text-muted] hover:text-[--color-text-secondary]">{{ t('footer.admin') }}</NuxtLink>
     </div>
     </div>

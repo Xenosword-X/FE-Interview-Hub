@@ -1,6 +1,6 @@
 # FE Interview Hub — 前端工程師面試題庫
 
-> 精選 50+ 前端面試題，涵蓋 JavaScript / Vue / React / CSS / TypeScript / HTML / 瀏覽器原理 / Web Vitals / 行為面試，搭配 OpenAI 即時評分，幫你把「會答」練成「答好」。
+> 精選 80+ 前端面試題，涵蓋 JavaScript / Vue / React / CSS / TypeScript / HTML / 瀏覽器原理 / Web Vitals / 行為面試，搭配 OpenAI 即時評分，幫你把「會答」練成「答好」。
 
 ![FE Interview Hub OG image](public/og-image.png)
 

@@ -69,7 +69,7 @@ useHead({
       </p>
       <div class="flex justify-center gap-8">
         <div class="text-center">
-          <p class="text-[22px] font-bold text-[--color-text-primary]">50+</p>
+          <p class="text-[22px] font-bold text-[--color-text-primary]">80+</p>
           <p class="text-xs text-[--color-text-muted] mt-0.5">{{ t('home.stat_questions') }}</p>
         </div>
         <div class="text-center">

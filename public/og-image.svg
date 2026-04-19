@@ -61,7 +61,7 @@
   <text x="80" y="372" class="accent" font-size="92">面試題庫</text>
 
   <!-- Tagline -->
-  <text x="80" y="432" class="tagline" font-size="26">精選 50+ 高頻面試題 · AI 即時診斷答題品質</text>
+  <text x="80" y="432" class="tagline" font-size="26">精選 80+ 高頻面試題 · AI 即時診斷答題品質</text>
 
   <!-- Category chips -->
   <g transform="translate(80, 478)">
