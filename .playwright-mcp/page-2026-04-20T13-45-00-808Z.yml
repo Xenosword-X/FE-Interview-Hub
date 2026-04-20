@@ -1,0 +1,875 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e31]:
+    - banner [ref=e32]:
+      - generic [ref=e33]:
+        - link "FE Interview Hub" [ref=e34] [cursor=pointer]:
+          - /url: /admin/questions
+        - generic [ref=e35]: 後台管理
+      - button "登出" [ref=e36]
+    - main [ref=e37]:
+      - generic [ref=e38]:
+        - generic [ref=e39]:
+          - heading "題目管理 83" [level=1] [ref=e40]
+          - link "+ 新增題目" [ref=e41] [cursor=pointer]:
+            - /url: /admin/questions/new
+        - generic [ref=e42]:
+          - textbox "搜尋 slug 或標題…" [ref=e43]
+          - combobox [ref=e44]:
+            - option "所有分類" [selected]
+            - option "javascript"
+            - option "vue"
+            - option "css"
+            - option "network-security"
+            - option "html"
+            - option "web-vitals"
+            - option "browser"
+            - option "behavioral"
+        - table [ref=e46]:
+          - rowgroup [ref=e47]:
+            - row "Slug 分類 難度 已發布" [ref=e48]:
+              - columnheader "Slug" [ref=e49]
+              - columnheader "分類" [ref=e50]
+              - columnheader "難度" [ref=e51]
+              - columnheader "已發布" [ref=e52]
+              - columnheader [ref=e53]
+          - rowgroup [ref=e54]:
+            - row "sql-injection network-security basic 是 編輯 刪除" [ref=e55]:
+              - cell "sql-injection" [ref=e56]
+              - cell "network-security" [ref=e57]
+              - cell "basic" [ref=e58]
+              - cell "是" [ref=e59]
+              - cell "編輯 刪除" [ref=e60]:
+                - generic [ref=e61]:
+                  - link "編輯" [ref=e62] [cursor=pointer]:
+                    - /url: /admin/questions/6c15ec1c-0e38-4576-b553-8022b3c12de8/edit
+                  - button "刪除" [ref=e63]
+            - row "xss-attack network-security basic 是 編輯 刪除" [ref=e64]:
+              - cell "xss-attack" [ref=e65]
+              - cell "network-security" [ref=e66]
+              - cell "basic" [ref=e67]
+              - cell "是" [ref=e68]
+              - cell "編輯 刪除" [ref=e69]:
+                - generic [ref=e70]:
+                  - link "編輯" [ref=e71] [cursor=pointer]:
+                    - /url: /admin/questions/6ee6b1bd-f86a-4981-9cc9-ec693ad8653d/edit
+                  - button "刪除" [ref=e72]
+            - row "csrf-attack network-security basic 是 編輯 刪除" [ref=e73]:
+              - cell "csrf-attack" [ref=e74]
+              - cell "network-security" [ref=e75]
+              - cell "basic" [ref=e76]
+              - cell "是" [ref=e77]
+              - cell "編輯 刪除" [ref=e78]:
+                - generic [ref=e79]:
+                  - link "編輯" [ref=e80] [cursor=pointer]:
+                    - /url: /admin/questions/525590ce-fe5d-4fff-87af-3e9ae145d9dd/edit
+                  - button "刪除" [ref=e81]
+            - row "ddos-attack network-security basic 是 編輯 刪除" [ref=e82]:
+              - cell "ddos-attack" [ref=e83]
+              - cell "network-security" [ref=e84]
+              - cell "basic" [ref=e85]
+              - cell "是" [ref=e86]
+              - cell "編輯 刪除" [ref=e87]:
+                - generic [ref=e88]:
+                  - link "編輯" [ref=e89] [cursor=pointer]:
+                    - /url: /admin/questions/f03bb293-9ef0-48a5-8165-af0337da46f5/edit
+                  - button "刪除" [ref=e90]
+            - row "handling-conflict behavioral basic 是 編輯 刪除" [ref=e91]:
+              - cell "handling-conflict" [ref=e92]
+              - cell "behavioral" [ref=e93]
+              - cell "basic" [ref=e94]
+              - cell "是" [ref=e95]
+              - cell "編輯 刪除" [ref=e96]:
+                - generic [ref=e97]:
+                  - link "編輯" [ref=e98] [cursor=pointer]:
+                    - /url: /admin/questions/394c76c1-6ac3-4d55-91cc-3ce4b1816c52/edit
+                  - button "刪除" [ref=e99]
+            - row "career-goals behavioral basic 是 編輯 刪除" [ref=e100]:
+              - cell "career-goals" [ref=e101]
+              - cell "behavioral" [ref=e102]
+              - cell "basic" [ref=e103]
+              - cell "是" [ref=e104]
+              - cell "編輯 刪除" [ref=e105]:
+                - generic [ref=e106]:
+                  - link "編輯" [ref=e107] [cursor=pointer]:
+                    - /url: /admin/questions/b4c8da86-0b98-4942-8241-1d4c1323fb96/edit
+                  - button "刪除" [ref=e108]
+            - row "self-introduction behavioral basic 是 編輯 刪除" [ref=e109]:
+              - cell "self-introduction" [ref=e110]
+              - cell "behavioral" [ref=e111]
+              - cell "basic" [ref=e112]
+              - cell "是" [ref=e113]
+              - cell "編輯 刪除" [ref=e114]:
+                - generic [ref=e115]:
+                  - link "編輯" [ref=e116] [cursor=pointer]:
+                    - /url: /admin/questions/a8ded754-f207-4461-b9d9-4937e4ee7128/edit
+                  - button "刪除" [ref=e117]
+            - row "challenge-and-solution behavioral basic 是 編輯 刪除" [ref=e118]:
+              - cell "challenge-and-solution" [ref=e119]
+              - cell "behavioral" [ref=e120]
+              - cell "basic" [ref=e121]
+              - cell "是" [ref=e122]
+              - cell "編輯 刪除" [ref=e123]:
+                - generic [ref=e124]:
+                  - link "編輯" [ref=e125] [cursor=pointer]:
+                    - /url: /admin/questions/fc18ace0-b7ce-4b06-a934-a633415aa495/edit
+                  - button "刪除" [ref=e126]
+            - row "why-this-role behavioral basic 是 編輯 刪除" [ref=e127]:
+              - cell "why-this-role" [ref=e128]
+              - cell "behavioral" [ref=e129]
+              - cell "basic" [ref=e130]
+              - cell "是" [ref=e131]
+              - cell "編輯 刪除" [ref=e132]:
+                - generic [ref=e133]:
+                  - link "編輯" [ref=e134] [cursor=pointer]:
+                    - /url: /admin/questions/f88ad306-210b-4ffe-915f-3788797c21cd/edit
+                  - button "刪除" [ref=e135]
+            - row "router-guards vue intermediate 是 編輯 刪除" [ref=e136]:
+              - cell "router-guards" [ref=e137]
+              - cell "vue" [ref=e138]
+              - cell "intermediate" [ref=e139]
+              - cell "是" [ref=e140]
+              - cell "編輯 刪除" [ref=e141]:
+                - generic [ref=e142]:
+                  - link "編輯" [ref=e143] [cursor=pointer]:
+                    - /url: /admin/questions/612a4e27-096e-43fa-86ce-14b0b3dd4390/edit
+                  - button "刪除" [ref=e144]
+            - row "ref-vs-reactive vue intermediate 是 編輯 刪除" [ref=e145]:
+              - cell "ref-vs-reactive" [ref=e146]
+              - cell "vue" [ref=e147]
+              - cell "intermediate" [ref=e148]
+              - cell "是" [ref=e149]
+              - cell "編輯 刪除" [ref=e150]:
+                - generic [ref=e151]:
+                  - link "編輯" [ref=e152] [cursor=pointer]:
+                    - /url: /admin/questions/fb409a8d-12ac-4263-80a7-f3104739e6eb/edit
+                  - button "刪除" [ref=e153]
+            - row "parent-child-communication vue basic 是 編輯 刪除" [ref=e154]:
+              - cell "parent-child-communication" [ref=e155]
+              - cell "vue" [ref=e156]
+              - cell "basic" [ref=e157]
+              - cell "是" [ref=e158]
+              - cell "編輯 刪除" [ref=e159]:
+                - generic [ref=e160]:
+                  - link "編輯" [ref=e161] [cursor=pointer]:
+                    - /url: /admin/questions/028eb009-3e32-4b2c-955b-0876a81b585c/edit
+                  - button "刪除" [ref=e162]
+            - row "pinia-vs-vuex vue intermediate 是 編輯 刪除" [ref=e163]:
+              - cell "pinia-vs-vuex" [ref=e164]
+              - cell "vue" [ref=e165]
+              - cell "intermediate" [ref=e166]
+              - cell "是" [ref=e167]
+              - cell "編輯 刪除" [ref=e168]:
+                - generic [ref=e169]:
+                  - link "編輯" [ref=e170] [cursor=pointer]:
+                    - /url: /admin/questions/66801404-eb8d-4399-aff1-67d848923177/edit
+                  - button "刪除" [ref=e171]
+            - row "vue-lifecycle vue basic 是 編輯 刪除" [ref=e172]:
+              - cell "vue-lifecycle" [ref=e173]
+              - cell "vue" [ref=e174]
+              - cell "basic" [ref=e175]
+              - cell "是" [ref=e176]
+              - cell "編輯 刪除" [ref=e177]:
+                - generic [ref=e178]:
+                  - link "編輯" [ref=e179] [cursor=pointer]:
+                    - /url: /admin/questions/7558de3d-83e1-4b86-af1b-10d693fc59f6/edit
+                  - button "刪除" [ref=e180]
+            - row "v-if-vs-v-show vue basic 是 編輯 刪除" [ref=e181]:
+              - cell "v-if-vs-v-show" [ref=e182]
+              - cell "vue" [ref=e183]
+              - cell "basic" [ref=e184]
+              - cell "是" [ref=e185]
+              - cell "編輯 刪除" [ref=e186]:
+                - generic [ref=e187]:
+                  - link "編輯" [ref=e188] [cursor=pointer]:
+                    - /url: /admin/questions/0d2e5da0-5dca-475f-bfa1-84b6565b386d/edit
+                  - button "刪除" [ref=e189]
+            - row "computed-vs-methods vue basic 是 編輯 刪除" [ref=e190]:
+              - cell "computed-vs-methods" [ref=e191]
+              - cell "vue" [ref=e192]
+              - cell "basic" [ref=e193]
+              - cell "是" [ref=e194]
+              - cell "編輯 刪除" [ref=e195]:
+                - generic [ref=e196]:
+                  - link "編輯" [ref=e197] [cursor=pointer]:
+                    - /url: /admin/questions/362ec38f-a87a-4782-9d4d-7fe396e46cc0/edit
+                  - button "刪除" [ref=e198]
+            - row "v-model-principle vue intermediate 是 編輯 刪除" [ref=e199]:
+              - cell "v-model-principle" [ref=e200]
+              - cell "vue" [ref=e201]
+              - cell "intermediate" [ref=e202]
+              - cell "是" [ref=e203]
+              - cell "編輯 刪除" [ref=e204]:
+                - generic [ref=e205]:
+                  - link "編輯" [ref=e206] [cursor=pointer]:
+                    - /url: /admin/questions/08311d61-7fae-4125-af38-f51f7a6ea2ed/edit
+                  - button "刪除" [ref=e207]
+            - row "vue-reactivity vue intermediate 是 編輯 刪除" [ref=e208]:
+              - cell "vue-reactivity" [ref=e209]
+              - cell "vue" [ref=e210]
+              - cell "intermediate" [ref=e211]
+              - cell "是" [ref=e212]
+              - cell "編輯 刪除" [ref=e213]:
+                - generic [ref=e214]:
+                  - link "編輯" [ref=e215] [cursor=pointer]:
+                    - /url: /admin/questions/111acdc2-1ea8-4f60-b1e5-e1e515c7b876/edit
+                  - button "刪除" [ref=e216]
+            - row "shallow-copy-vs-deep-copy javascript intermediate 是 編輯 刪除" [ref=e217]:
+              - cell "shallow-copy-vs-deep-copy" [ref=e218]
+              - cell "javascript" [ref=e219]
+              - cell "intermediate" [ref=e220]
+              - cell "是" [ref=e221]
+              - cell "編輯 刪除" [ref=e222]:
+                - generic [ref=e223]:
+                  - link "編輯" [ref=e224] [cursor=pointer]:
+                    - /url: /admin/questions/1bdccaac-2ccf-4995-9929-941777bc1744/edit
+                  - button "刪除" [ref=e225]
+            - row "array-average javascript basic 是 編輯 刪除" [ref=e226]:
+              - cell "array-average" [ref=e227]
+              - cell "javascript" [ref=e228]
+              - cell "basic" [ref=e229]
+              - cell "是" [ref=e230]
+              - cell "編輯 刪除" [ref=e231]:
+                - generic [ref=e232]:
+                  - link "編輯" [ref=e233] [cursor=pointer]:
+                    - /url: /admin/questions/4d118d0b-01e3-4b0b-b262-f0e9c789e159/edit
+                  - button "刪除" [ref=e234]
+            - row "es6-features javascript basic 是 編輯 刪除" [ref=e235]:
+              - cell "es6-features" [ref=e236]
+              - cell "javascript" [ref=e237]
+              - cell "basic" [ref=e238]
+              - cell "是" [ref=e239]
+              - cell "編輯 刪除" [ref=e240]:
+                - generic [ref=e241]:
+                  - link "編輯" [ref=e242] [cursor=pointer]:
+                    - /url: /admin/questions/2e0b9abd-7f8c-4db2-941f-4b3e6d6e0509/edit
+                  - button "刪除" [ref=e243]
+            - row "es2023-features javascript basic 是 編輯 刪除" [ref=e244]:
+              - cell "es2023-features" [ref=e245]
+              - cell "javascript" [ref=e246]
+              - cell "basic" [ref=e247]
+              - cell "是" [ref=e248]
+              - cell "編輯 刪除" [ref=e249]:
+                - generic [ref=e250]:
+                  - link "編輯" [ref=e251] [cursor=pointer]:
+                    - /url: /admin/questions/c022d098-65e3-47d9-8d30-5d4721b44fa8/edit
+                  - button "刪除" [ref=e252]
+            - row "array-flatten javascript intermediate 是 編輯 刪除" [ref=e253]:
+              - cell "array-flatten" [ref=e254]
+              - cell "javascript" [ref=e255]
+              - cell "intermediate" [ref=e256]
+              - cell "是" [ref=e257]
+              - cell "編輯 刪除" [ref=e258]:
+                - generic [ref=e259]:
+                  - link "編輯" [ref=e260] [cursor=pointer]:
+                    - /url: /admin/questions/f6a3a192-e323-4e32-b68a-1ea8cc0ee774/edit
+                  - button "刪除" [ref=e261]
+            - row "structuredclone javascript intermediate 是 編輯 刪除" [ref=e262]:
+              - cell "structuredclone" [ref=e263]
+              - cell "javascript" [ref=e264]
+              - cell "intermediate" [ref=e265]
+              - cell "是" [ref=e266]
+              - cell "編輯 刪除" [ref=e267]:
+                - generic [ref=e268]:
+                  - link "編輯" [ref=e269] [cursor=pointer]:
+                    - /url: /admin/questions/8bbdba63-ded6-4233-909d-0785cba0ad1e/edit
+                  - button "刪除" [ref=e270]
+            - row "promise-race javascript intermediate 是 編輯 刪除" [ref=e271]:
+              - cell "promise-race" [ref=e272]
+              - cell "javascript" [ref=e273]
+              - cell "intermediate" [ref=e274]
+              - cell "是" [ref=e275]
+              - cell "編輯 刪除" [ref=e276]:
+                - generic [ref=e277]:
+                  - link "編輯" [ref=e278] [cursor=pointer]:
+                    - /url: /admin/questions/ad3de221-26e8-4b14-89c5-2033a7f892e6/edit
+                  - button "刪除" [ref=e279]
+            - row "promise-all javascript intermediate 是 編輯 刪除" [ref=e280]:
+              - cell "promise-all" [ref=e281]
+              - cell "javascript" [ref=e282]
+              - cell "intermediate" [ref=e283]
+              - cell "是" [ref=e284]
+              - cell "編輯 刪除" [ref=e285]:
+                - generic [ref=e286]:
+                  - link "編輯" [ref=e287] [cursor=pointer]:
+                    - /url: /admin/questions/5695d6bc-f3ac-4a38-b299-621bad2b2b59/edit
+                  - button "刪除" [ref=e288]
+            - row "es6-class-vs-constructor javascript intermediate 是 編輯 刪除" [ref=e289]:
+              - cell "es6-class-vs-constructor" [ref=e290]
+              - cell "javascript" [ref=e291]
+              - cell "intermediate" [ref=e292]
+              - cell "是" [ref=e293]
+              - cell "編輯 刪除" [ref=e294]:
+                - generic [ref=e295]:
+                  - link "編輯" [ref=e296] [cursor=pointer]:
+                    - /url: /admin/questions/35b65180-be9c-42df-8f70-16bbf8073c08/edit
+                  - button "刪除" [ref=e297]
+            - row "call-apply-bind javascript intermediate 是 編輯 刪除" [ref=e298]:
+              - cell "call-apply-bind" [ref=e299]
+              - cell "javascript" [ref=e300]
+              - cell "intermediate" [ref=e301]
+              - cell "是" [ref=e302]
+              - cell "編輯 刪除" [ref=e303]:
+                - generic [ref=e304]:
+                  - link "編輯" [ref=e305] [cursor=pointer]:
+                    - /url: /admin/questions/a07343c4-3006-4063-bcab-ecad75fa217e/edit
+                  - button "刪除" [ref=e306]
+            - row "promise-basics javascript intermediate 是 編輯 刪除" [ref=e307]:
+              - cell "promise-basics" [ref=e308]
+              - cell "javascript" [ref=e309]
+              - cell "intermediate" [ref=e310]
+              - cell "是" [ref=e311]
+              - cell "編輯 刪除" [ref=e312]:
+                - generic [ref=e313]:
+                  - link "編輯" [ref=e314] [cursor=pointer]:
+                    - /url: /admin/questions/198fa440-5b63-4715-8fb7-c0fd82866aa7/edit
+                  - button "刪除" [ref=e315]
+            - row "iife javascript basic 是 編輯 刪除" [ref=e316]:
+              - cell "iife" [ref=e317]
+              - cell "javascript" [ref=e318]
+              - cell "basic" [ref=e319]
+              - cell "是" [ref=e320]
+              - cell "編輯 刪除" [ref=e321]:
+                - generic [ref=e322]:
+                  - link "編輯" [ref=e323] [cursor=pointer]:
+                    - /url: /admin/questions/70968d7f-e484-42ff-9b0e-1444afac7cfe/edit
+                  - button "刪除" [ref=e324]
+            - row "this-keyword javascript intermediate 是 編輯 刪除" [ref=e325]:
+              - cell "this-keyword" [ref=e326]
+              - cell "javascript" [ref=e327]
+              - cell "intermediate" [ref=e328]
+              - cell "是" [ref=e329]
+              - cell "編輯 刪除" [ref=e330]:
+                - generic [ref=e331]:
+                  - link "編輯" [ref=e332] [cursor=pointer]:
+                    - /url: /admin/questions/ebf7d594-9b3b-44e5-b8b5-d74ec08f1b2e/edit
+                  - button "刪除" [ref=e333]
+            - row "arrow-function-vs-regular javascript basic 是 編輯 刪除" [ref=e334]:
+              - cell "arrow-function-vs-regular" [ref=e335]
+              - cell "javascript" [ref=e336]
+              - cell "basic" [ref=e337]
+              - cell "是" [ref=e338]
+              - cell "編輯 刪除" [ref=e339]:
+                - generic [ref=e340]:
+                  - link "編輯" [ref=e341] [cursor=pointer]:
+                    - /url: /admin/questions/a3cbb32b-0ee2-4735-9900-7d7101cdcab0/edit
+                  - button "刪除" [ref=e342]
+            - row "sort-comparator javascript basic 是 編輯 刪除" [ref=e343]:
+              - cell "sort-comparator" [ref=e344]
+              - cell "javascript" [ref=e345]
+              - cell "basic" [ref=e346]
+              - cell "是" [ref=e347]
+              - cell "編輯 刪除" [ref=e348]:
+                - generic [ref=e349]:
+                  - link "編輯" [ref=e350] [cursor=pointer]:
+                    - /url: /admin/questions/1b369e6f-8da7-486d-afd0-3553d92097c3/edit
+                  - button "刪除" [ref=e351]
+            - row "higher-order-function javascript basic 是 編輯 刪除" [ref=e352]:
+              - cell "higher-order-function" [ref=e353]
+              - cell "javascript" [ref=e354]
+              - cell "basic" [ref=e355]
+              - cell "是" [ref=e356]
+              - cell "編輯 刪除" [ref=e357]:
+                - generic [ref=e358]:
+                  - link "編輯" [ref=e359] [cursor=pointer]:
+                    - /url: /admin/questions/7ed14722-545d-4aa9-a9fe-7516bcbd8e15/edit
+                  - button "刪除" [ref=e360]
+            - row "equality-operators javascript basic 是 編輯 刪除" [ref=e361]:
+              - cell "equality-operators" [ref=e362]
+              - cell "javascript" [ref=e363]
+              - cell "basic" [ref=e364]
+              - cell "是" [ref=e365]
+              - cell "編輯 刪除" [ref=e366]:
+                - generic [ref=e367]:
+                  - link "編輯" [ref=e368] [cursor=pointer]:
+                    - /url: /admin/questions/256d3af1-71e6-4181-8fad-0736f7a7df07/edit
+                  - button "刪除" [ref=e369]
+            - row "hoisting javascript basic 是 編輯 刪除" [ref=e370]:
+              - cell "hoisting" [ref=e371]
+              - cell "javascript" [ref=e372]
+              - cell "basic" [ref=e373]
+              - cell "是" [ref=e374]
+              - cell "編輯 刪除" [ref=e375]:
+                - generic [ref=e376]:
+                  - link "編輯" [ref=e377] [cursor=pointer]:
+                    - /url: /admin/questions/9bf22ab4-036d-4fd6-8946-2646fc0f59e7/edit
+                  - button "刪除" [ref=e378]
+            - row "array-iteration-methods javascript basic 是 編輯 刪除" [ref=e379]:
+              - cell "array-iteration-methods" [ref=e380]
+              - cell "javascript" [ref=e381]
+              - cell "basic" [ref=e382]
+              - cell "是" [ref=e383]
+              - cell "編輯 刪除" [ref=e384]:
+                - generic [ref=e385]:
+                  - link "編輯" [ref=e386] [cursor=pointer]:
+                    - /url: /admin/questions/b465b523-9096-41b9-a266-089d41a9cc20/edit
+                  - button "刪除" [ref=e387]
+            - row "scope-and-scope-chain javascript intermediate 是 編輯 刪除" [ref=e388]:
+              - cell "scope-and-scope-chain" [ref=e389]
+              - cell "javascript" [ref=e390]
+              - cell "intermediate" [ref=e391]
+              - cell "是" [ref=e392]
+              - cell "編輯 刪除" [ref=e393]:
+                - generic [ref=e394]:
+                  - link "編輯" [ref=e395] [cursor=pointer]:
+                    - /url: /admin/questions/c9d93f8d-df4c-4e21-b2e7-df148614a380/edit
+                  - button "刪除" [ref=e396]
+            - row "use-strict javascript basic 是 編輯 刪除" [ref=e397]:
+              - cell "use-strict" [ref=e398]
+              - cell "javascript" [ref=e399]
+              - cell "basic" [ref=e400]
+              - cell "是" [ref=e401]
+              - cell "編輯 刪除" [ref=e402]:
+                - generic [ref=e403]:
+                  - link "編輯" [ref=e404] [cursor=pointer]:
+                    - /url: /admin/questions/aabf675b-2ead-40b8-9c5e-b3533f36b673/edit
+                  - button "刪除" [ref=e405]
+            - row "var-let-const javascript basic 是 編輯 刪除" [ref=e406]:
+              - cell "var-let-const" [ref=e407]
+              - cell "javascript" [ref=e408]
+              - cell "basic" [ref=e409]
+              - cell "是" [ref=e410]
+              - cell "編輯 刪除" [ref=e411]:
+                - generic [ref=e412]:
+                  - link "編輯" [ref=e413] [cursor=pointer]:
+                    - /url: /admin/questions/22c56dff-c599-4f91-a7e0-b710de89707e/edit
+                  - button "刪除" [ref=e414]
+            - row "map-vs-object javascript intermediate 是 編輯 刪除" [ref=e415]:
+              - cell "map-vs-object" [ref=e416]
+              - cell "javascript" [ref=e417]
+              - cell "intermediate" [ref=e418]
+              - cell "是" [ref=e419]
+              - cell "編輯 刪除" [ref=e420]:
+                - generic [ref=e421]:
+                  - link "編輯" [ref=e422] [cursor=pointer]:
+                    - /url: /admin/questions/4bfcc3fc-a5f6-4d00-9fae-9915e935d5f9/edit
+                  - button "刪除" [ref=e423]
+            - row "floating-point-precision javascript intermediate 是 編輯 刪除" [ref=e424]:
+              - cell "floating-point-precision" [ref=e425]
+              - cell "javascript" [ref=e426]
+              - cell "intermediate" [ref=e427]
+              - cell "是" [ref=e428]
+              - cell "編輯 刪除" [ref=e429]:
+                - generic [ref=e430]:
+                  - link "編輯" [ref=e431] [cursor=pointer]:
+                    - /url: /admin/questions/bb58c0a3-759f-4385-8a8f-93c4c13b0f05/edit
+                  - button "刪除" [ref=e432]
+            - row "set-map-weakset-weakmap javascript intermediate 是 編輯 刪除" [ref=e433]:
+              - cell "set-map-weakset-weakmap" [ref=e434]
+              - cell "javascript" [ref=e435]
+              - cell "intermediate" [ref=e436]
+              - cell "是" [ref=e437]
+              - cell "編輯 刪除" [ref=e438]:
+                - generic [ref=e439]:
+                  - link "編輯" [ref=e440] [cursor=pointer]:
+                    - /url: /admin/questions/61364e0d-8228-4576-bf3e-66adbab9e4a2/edit
+                  - button "刪除" [ref=e441]
+            - row "null-undefined-undeclared javascript basic 是 編輯 刪除" [ref=e442]:
+              - cell "null-undefined-undeclared" [ref=e443]
+              - cell "javascript" [ref=e444]
+              - cell "basic" [ref=e445]
+              - cell "是" [ref=e446]
+              - cell "編輯 刪除" [ref=e447]:
+                - generic [ref=e448]:
+                  - link "編輯" [ref=e449] [cursor=pointer]:
+                    - /url: /admin/questions/1e558a3c-8fea-4864-9cb0-7768074a651e/edit
+                  - button "刪除" [ref=e450]
+            - row "javascript-data-types javascript basic 是 編輯 刪除" [ref=e451]:
+              - cell "javascript-data-types" [ref=e452]
+              - cell "javascript" [ref=e453]
+              - cell "basic" [ref=e454]
+              - cell "是" [ref=e455]
+              - cell "編輯 刪除" [ref=e456]:
+                - generic [ref=e457]:
+                  - link "編輯" [ref=e458] [cursor=pointer]:
+                    - /url: /admin/questions/e1707504-4a94-4ade-9eba-0f016ede7adb/edit
+                  - button "刪除" [ref=e459]
+            - row "http-status-codes browser basic 是 編輯 刪除" [ref=e460]:
+              - cell "http-status-codes" [ref=e461]
+              - cell "browser" [ref=e462]
+              - cell "basic" [ref=e463]
+              - cell "是" [ref=e464]
+              - cell "編輯 刪除" [ref=e465]:
+                - generic [ref=e466]:
+                  - link "編輯" [ref=e467] [cursor=pointer]:
+                    - /url: /admin/questions/585b68dd-5c87-4c9e-9476-9235b38c22e4/edit
+                  - button "刪除" [ref=e468]
+            - row "tcp-vs-udp browser basic 是 編輯 刪除" [ref=e469]:
+              - cell "tcp-vs-udp" [ref=e470]
+              - cell "browser" [ref=e471]
+              - cell "basic" [ref=e472]
+              - cell "是" [ref=e473]
+              - cell "編輯 刪除" [ref=e474]:
+                - generic [ref=e475]:
+                  - link "編輯" [ref=e476] [cursor=pointer]:
+                    - /url: /admin/questions/e9432c1c-5408-42c9-975e-e01858faa924/edit
+                  - button "刪除" [ref=e477]
+            - row "what-is-cdn browser basic 是 編輯 刪除" [ref=e478]:
+              - cell "what-is-cdn" [ref=e479]
+              - cell "browser" [ref=e480]
+              - cell "basic" [ref=e481]
+              - cell "是" [ref=e482]
+              - cell "編輯 刪除" [ref=e483]:
+                - generic [ref=e484]:
+                  - link "編輯" [ref=e485] [cursor=pointer]:
+                    - /url: /admin/questions/0ce36d20-2f30-47d6-945a-0cc768566ad2/edit
+                  - button "刪除" [ref=e486]
+            - row "http-versions-comparison browser intermediate 是 編輯 刪除" [ref=e487]:
+              - cell "http-versions-comparison" [ref=e488]
+              - cell "browser" [ref=e489]
+              - cell "intermediate" [ref=e490]
+              - cell "是" [ref=e491]
+              - cell "編輯 刪除" [ref=e492]:
+                - generic [ref=e493]:
+                  - link "編輯" [ref=e494] [cursor=pointer]:
+                    - /url: /admin/questions/3d9889e5-a124-4f6f-8aea-68214edc04a3/edit
+                  - button "刪除" [ref=e495]
+            - row "cookie-attributes-httponly browser intermediate 是 編輯 刪除" [ref=e496]:
+              - cell "cookie-attributes-httponly" [ref=e497]
+              - cell "browser" [ref=e498]
+              - cell "intermediate" [ref=e499]
+              - cell "是" [ref=e500]
+              - cell "編輯 刪除" [ref=e501]:
+                - generic [ref=e502]:
+                  - link "編輯" [ref=e503] [cursor=pointer]:
+                    - /url: /admin/questions/de871270-bc5c-4a2e-84ba-a7c53e00635d/edit
+                  - button "刪除" [ref=e504]
+            - row "http-vs-https browser basic 是 編輯 刪除" [ref=e505]:
+              - cell "http-vs-https" [ref=e506]
+              - cell "browser" [ref=e507]
+              - cell "basic" [ref=e508]
+              - cell "是" [ref=e509]
+              - cell "編輯 刪除" [ref=e510]:
+                - generic [ref=e511]:
+                  - link "編輯" [ref=e512] [cursor=pointer]:
+                    - /url: /admin/questions/5de0f7a2-1311-4e89-bdd5-e052af7e137e/edit
+                  - button "刪除" [ref=e513]
+            - row "browser-rendering-reflow-repaint browser intermediate 是 編輯 刪除" [ref=e514]:
+              - cell "browser-rendering-reflow-repaint" [ref=e515]
+              - cell "browser" [ref=e516]
+              - cell "intermediate" [ref=e517]
+              - cell "是" [ref=e518]
+              - cell "編輯 刪除" [ref=e519]:
+                - generic [ref=e520]:
+                  - link "編輯" [ref=e521] [cursor=pointer]:
+                    - /url: /admin/questions/b5b480dc-25d5-42b5-b6af-bf20130553b7/edit
+                  - button "刪除" [ref=e522]
+            - row "browser-navigation-process browser advanced 是 編輯 刪除" [ref=e523]:
+              - cell "browser-navigation-process" [ref=e524]
+              - cell "browser" [ref=e525]
+              - cell "advanced" [ref=e526]
+              - cell "是" [ref=e527]
+              - cell "編輯 刪除" [ref=e528]:
+                - generic [ref=e529]:
+                  - link "編輯" [ref=e530] [cursor=pointer]:
+                    - /url: /admin/questions/5d446c04-b82e-466e-90fd-2e7d5e87fe51/edit
+                  - button "刪除" [ref=e531]
+            - row "web-worker browser intermediate 是 編輯 刪除" [ref=e532]:
+              - cell "web-worker" [ref=e533]
+              - cell "browser" [ref=e534]
+              - cell "intermediate" [ref=e535]
+              - cell "是" [ref=e536]
+              - cell "編輯 刪除" [ref=e537]:
+                - generic [ref=e538]:
+                  - link "編輯" [ref=e539] [cursor=pointer]:
+                    - /url: /admin/questions/e75f25b1-5fc4-4a1e-afcd-13ccfc351fc3/edit
+                  - button "刪除" [ref=e540]
+            - row "indexeddb browser intermediate 是 編輯 刪除" [ref=e541]:
+              - cell "indexeddb" [ref=e542]
+              - cell "browser" [ref=e543]
+              - cell "intermediate" [ref=e544]
+              - cell "是" [ref=e545]
+              - cell "編輯 刪除" [ref=e546]:
+                - generic [ref=e547]:
+                  - link "編輯" [ref=e548] [cursor=pointer]:
+                    - /url: /admin/questions/678f0adc-a041-4e42-873e-b8badba932ae/edit
+                  - button "刪除" [ref=e549]
+            - row "cookie-sessionstorage-localstorage browser basic 是 編輯 刪除" [ref=e550]:
+              - cell "cookie-sessionstorage-localstorage" [ref=e551]
+              - cell "browser" [ref=e552]
+              - cell "basic" [ref=e553]
+              - cell "是" [ref=e554]
+              - cell "編輯 刪除" [ref=e555]:
+                - generic [ref=e556]:
+                  - link "編輯" [ref=e557] [cursor=pointer]:
+                    - /url: /admin/questions/b78ce0b2-3a5b-4b4f-b34b-b354e313bfea/edit
+                  - button "刪除" [ref=e558]
+            - row "http-caching browser intermediate 是 編輯 刪除" [ref=e559]:
+              - cell "http-caching" [ref=e560]
+              - cell "browser" [ref=e561]
+              - cell "intermediate" [ref=e562]
+              - cell "是" [ref=e563]
+              - cell "編輯 刪除" [ref=e564]:
+                - generic [ref=e565]:
+                  - link "編輯" [ref=e566] [cursor=pointer]:
+                    - /url: /admin/questions/1e352ec7-7f99-4eaf-8439-d0d3b81d20b4/edit
+                  - button "刪除" [ref=e567]
+            - row "cors browser intermediate 是 編輯 刪除" [ref=e568]:
+              - cell "cors" [ref=e569]
+              - cell "browser" [ref=e570]
+              - cell "intermediate" [ref=e571]
+              - cell "是" [ref=e572]
+              - cell "編輯 刪除" [ref=e573]:
+                - generic [ref=e574]:
+                  - link "編輯" [ref=e575] [cursor=pointer]:
+                    - /url: /admin/questions/3d080903-0f03-45ef-a1f5-ea5ac1330dc2/edit
+                  - button "刪除" [ref=e576]
+            - row "event-target-vs-currenttarget browser basic 是 編輯 刪除" [ref=e577]:
+              - cell "event-target-vs-currenttarget" [ref=e578]
+              - cell "browser" [ref=e579]
+              - cell "basic" [ref=e580]
+              - cell "是" [ref=e581]
+              - cell "編輯 刪除" [ref=e582]:
+                - generic [ref=e583]:
+                  - link "編輯" [ref=e584] [cursor=pointer]:
+                    - /url: /admin/questions/eaf032bb-acb3-4b30-ab90-44ed5f6ca2c4/edit
+                  - button "刪除" [ref=e585]
+            - row "event-delegation-bubbling-capturing browser intermediate 是 編輯 刪除" [ref=e586]:
+              - cell "event-delegation-bubbling-capturing" [ref=e587]
+              - cell "browser" [ref=e588]
+              - cell "intermediate" [ref=e589]
+              - cell "是" [ref=e590]
+              - cell "編輯 刪除" [ref=e591]:
+                - generic [ref=e592]:
+                  - link "編輯" [ref=e593] [cursor=pointer]:
+                    - /url: /admin/questions/f67cd029-d27d-4641-a1ca-70bd1f85189b/edit
+                  - button "刪除" [ref=e594]
+            - row "dom-events-lifecycle browser basic 是 編輯 刪除" [ref=e595]:
+              - cell "dom-events-lifecycle" [ref=e596]
+              - cell "browser" [ref=e597]
+              - cell "basic" [ref=e598]
+              - cell "是" [ref=e599]
+              - cell "編輯 刪除" [ref=e600]:
+                - generic [ref=e601]:
+                  - link "編輯" [ref=e602] [cursor=pointer]:
+                    - /url: /admin/questions/2a9a4f56-f57e-48ab-85f2-e08d368877e3/edit
+                  - button "刪除" [ref=e603]
+            - row "frontend-performance-optimization web-vitals advanced 是 編輯 刪除" [ref=e604]:
+              - cell "frontend-performance-optimization" [ref=e605]
+              - cell "web-vitals" [ref=e606]
+              - cell "advanced" [ref=e607]
+              - cell "是" [ref=e608]
+              - cell "編輯 刪除" [ref=e609]:
+                - generic [ref=e610]:
+                  - link "編輯" [ref=e611] [cursor=pointer]:
+                    - /url: /admin/questions/7dccc59c-1b1d-4858-8b64-fba961dea3e8/edit
+                  - button "刪除" [ref=e612]
+            - row "throttle web-vitals intermediate 是 編輯 刪除" [ref=e613]:
+              - cell "throttle" [ref=e614]
+              - cell "web-vitals" [ref=e615]
+              - cell "intermediate" [ref=e616]
+              - cell "是" [ref=e617]
+              - cell "編輯 刪除" [ref=e618]:
+                - generic [ref=e619]:
+                  - link "編輯" [ref=e620] [cursor=pointer]:
+                    - /url: /admin/questions/099958af-c5bc-4005-be1d-9e059716662c/edit
+                  - button "刪除" [ref=e621]
+            - row "debounce-debounce web-vitals intermediate 是 編輯 刪除" [ref=e622]:
+              - cell "debounce-debounce" [ref=e623]
+              - cell "web-vitals" [ref=e624]
+              - cell "intermediate" [ref=e625]
+              - cell "是" [ref=e626]
+              - cell "編輯 刪除" [ref=e627]:
+                - generic [ref=e628]:
+                  - link "編輯" [ref=e629] [cursor=pointer]:
+                    - /url: /admin/questions/35c53a43-c3a5-4ac1-84bb-c60bb2e30c4e/edit
+                  - button "刪除" [ref=e630]
+            - row "reflow-repaint web-vitals intermediate 是 編輯 刪除" [ref=e631]:
+              - cell "reflow-repaint" [ref=e632]
+              - cell "web-vitals" [ref=e633]
+              - cell "intermediate" [ref=e634]
+              - cell "是" [ref=e635]
+              - cell "編輯 刪除" [ref=e636]:
+                - generic [ref=e637]:
+                  - link "編輯" [ref=e638] [cursor=pointer]:
+                    - /url: /admin/questions/548bc43f-1eae-492d-a1a7-7600e46a64a8/edit
+                  - button "刪除" [ref=e639]
+            - row "css-pseudo-classes-elements css intermediate 是 編輯 刪除" [ref=e640]:
+              - cell "css-pseudo-classes-elements" [ref=e641]
+              - cell "css" [ref=e642]
+              - cell "intermediate" [ref=e643]
+              - cell "是" [ref=e644]
+              - cell "編輯 刪除" [ref=e645]:
+                - generic [ref=e646]:
+                  - link "編輯" [ref=e647] [cursor=pointer]:
+                    - /url: /admin/questions/e3a4f75b-0c9d-49d6-bbb3-53aa649af08a/edit
+                  - button "刪除" [ref=e648]
+            - row "image-format-jpg-png-webp-svg css basic 是 編輯 刪除" [ref=e649]:
+              - cell "image-format-jpg-png-webp-svg" [ref=e650]
+              - cell "css" [ref=e651]
+              - cell "basic" [ref=e652]
+              - cell "是" [ref=e653]
+              - cell "編輯 刪除" [ref=e654]:
+                - generic [ref=e655]:
+                  - link "編輯" [ref=e656] [cursor=pointer]:
+                    - /url: /admin/questions/47ce8317-39ac-445d-925c-c44e9e6c7c82/edit
+                  - button "刪除" [ref=e657]
+            - row "css-position css intermediate 是 編輯 刪除" [ref=e658]:
+              - cell "css-position" [ref=e659]
+              - cell "css" [ref=e660]
+              - cell "intermediate" [ref=e661]
+              - cell "是" [ref=e662]
+              - cell "編輯 刪除" [ref=e663]:
+                - generic [ref=e664]:
+                  - link "編輯" [ref=e665] [cursor=pointer]:
+                    - /url: /admin/questions/7ae44328-0cc9-4702-8b5e-16dde34bea6f/edit
+                  - button "刪除" [ref=e666]
+            - row "css-display-none-vs-visibility css basic 是 編輯 刪除" [ref=e667]:
+              - cell "css-display-none-vs-visibility" [ref=e668]
+              - cell "css" [ref=e669]
+              - cell "basic" [ref=e670]
+              - cell "是" [ref=e671]
+              - cell "編輯 刪除" [ref=e672]:
+                - generic [ref=e673]:
+                  - link "編輯" [ref=e674] [cursor=pointer]:
+                    - /url: /admin/questions/e9b0a29e-8cae-4311-a7e4-36a9d7a2859f/edit
+                  - button "刪除" [ref=e675]
+            - row "css-display-inline-block css basic 是 編輯 刪除" [ref=e676]:
+              - cell "css-display-inline-block" [ref=e677]
+              - cell "css" [ref=e678]
+              - cell "basic" [ref=e679]
+              - cell "是" [ref=e680]
+              - cell "編輯 刪除" [ref=e681]:
+                - generic [ref=e682]:
+                  - link "編輯" [ref=e683] [cursor=pointer]:
+                    - /url: /admin/questions/43b4a74f-ca78-495d-a557-b5398147b4ec/edit
+                  - button "刪除" [ref=e684]
+            - row "css-centering css intermediate 是 編輯 刪除" [ref=e685]:
+              - cell "css-centering" [ref=e686]
+              - cell "css" [ref=e687]
+              - cell "intermediate" [ref=e688]
+              - cell "是" [ref=e689]
+              - cell "編輯 刪除" [ref=e690]:
+                - generic [ref=e691]:
+                  - link "編輯" [ref=e692] [cursor=pointer]:
+                    - /url: /admin/questions/fd3cb539-2861-4d30-963b-33f2dceb50d9/edit
+                  - button "刪除" [ref=e693]
+            - row "css-px-em-rem css basic 是 編輯 刪除" [ref=e694]:
+              - cell "css-px-em-rem" [ref=e695]
+              - cell "css" [ref=e696]
+              - cell "basic" [ref=e697]
+              - cell "是" [ref=e698]
+              - cell "編輯 刪除" [ref=e699]:
+                - generic [ref=e700]:
+                  - link "編輯" [ref=e701] [cursor=pointer]:
+                    - /url: /admin/questions/9416d3dc-4fca-403f-8669-ca3bf070cc21/edit
+                  - button "刪除" [ref=e702]
+            - row "css-specificity css basic 是 編輯 刪除" [ref=e703]:
+              - cell "css-specificity" [ref=e704]
+              - cell "css" [ref=e705]
+              - cell "basic" [ref=e706]
+              - cell "是" [ref=e707]
+              - cell "編輯 刪除" [ref=e708]:
+                - generic [ref=e709]:
+                  - link "編輯" [ref=e710] [cursor=pointer]:
+                    - /url: /admin/questions/6d2be691-05c2-414b-ae18-1af1271f4a16/edit
+                  - button "刪除" [ref=e711]
+            - row "script-async-vs-defer html intermediate 是 編輯 刪除" [ref=e712]:
+              - cell "script-async-vs-defer" [ref=e713]
+              - cell "html" [ref=e714]
+              - cell "intermediate" [ref=e715]
+              - cell "是" [ref=e716]
+              - cell "編輯 刪除" [ref=e717]:
+                - generic [ref=e718]:
+                  - link "編輯" [ref=e719] [cursor=pointer]:
+                    - /url: /admin/questions/17900a75-3177-4048-bb44-2d948cddab2a/edit
+                  - button "刪除" [ref=e720]
+            - row "html-css-insertion html intermediate 是 編輯 刪除" [ref=e721]:
+              - cell "html-css-insertion" [ref=e722]
+              - cell "html" [ref=e723]
+              - cell "intermediate" [ref=e724]
+              - cell "是" [ref=e725]
+              - cell "編輯 刪除" [ref=e726]:
+                - generic [ref=e727]:
+                  - link "編輯" [ref=e728] [cursor=pointer]:
+                    - /url: /admin/questions/a02275ce-452c-4f07-b791-8209d5c86823/edit
+                  - button "刪除" [ref=e729]
+            - row "script-link-placement html basic 是 編輯 刪除" [ref=e730]:
+              - cell "script-link-placement" [ref=e731]
+              - cell "html" [ref=e732]
+              - cell "basic" [ref=e733]
+              - cell "是" [ref=e734]
+              - cell "編輯 刪除" [ref=e735]:
+                - generic [ref=e736]:
+                  - link "編輯" [ref=e737] [cursor=pointer]:
+                    - /url: /admin/questions/54c41690-4d40-4168-9dae-be3b9da445ec/edit
+                  - button "刪除" [ref=e738]
+            - row "html-semantics html basic 是 編輯 刪除" [ref=e739]:
+              - cell "html-semantics" [ref=e740]
+              - cell "html" [ref=e741]
+              - cell "basic" [ref=e742]
+              - cell "是" [ref=e743]
+              - cell "編輯 刪除" [ref=e744]:
+                - generic [ref=e745]:
+                  - link "編輯" [ref=e746] [cursor=pointer]:
+                    - /url: /admin/questions/02c66dc1-ac27-423c-8a00-7f763325ecf1/edit
+                  - button "刪除" [ref=e747]
+            - row "what-is-closure javascript basic 是 編輯 刪除" [ref=e748]:
+              - cell "what-is-closure" [ref=e749]
+              - cell "javascript" [ref=e750]
+              - cell "basic" [ref=e751]
+              - cell "是" [ref=e752]
+              - cell "編輯 刪除" [ref=e753]:
+                - generic [ref=e754]:
+                  - link "編輯" [ref=e755] [cursor=pointer]:
+                    - /url: /admin/questions/200b8187-8973-4aec-8a8a-98cd410266c3/edit
+                  - button "刪除" [ref=e756]
+            - row "lcp web-vitals advanced 是 編輯 刪除" [ref=e757]:
+              - cell "lcp" [ref=e758]
+              - cell "web-vitals" [ref=e759]
+              - cell "advanced" [ref=e760]
+              - cell "是" [ref=e761]
+              - cell "編輯 刪除" [ref=e762]:
+                - generic [ref=e763]:
+                  - link "編輯" [ref=e764] [cursor=pointer]:
+                    - /url: /admin/questions/a9f7121b-daf9-41a5-8e6f-7b5fce9b8ac3/edit
+                  - button "刪除" [ref=e765]
+            - row "composition-api vue intermediate 是 編輯 刪除" [ref=e766]:
+              - cell "composition-api" [ref=e767]
+              - cell "vue" [ref=e768]
+              - cell "intermediate" [ref=e769]
+              - cell "是" [ref=e770]
+              - cell "編輯 刪除" [ref=e771]:
+                - generic [ref=e772]:
+                  - link "編輯" [ref=e773] [cursor=pointer]:
+                    - /url: /admin/questions/81b70b78-c75b-4c3d-b7ba-4bf897108c9a/edit
+                  - button "刪除" [ref=e774]
+            - row "prototype-chain javascript intermediate 是 編輯 刪除" [ref=e775]:
+              - cell "prototype-chain" [ref=e776]
+              - cell "javascript" [ref=e777]
+              - cell "intermediate" [ref=e778]
+              - cell "是" [ref=e779]
+              - cell "編輯 刪除" [ref=e780]:
+                - generic [ref=e781]:
+                  - link "編輯" [ref=e782] [cursor=pointer]:
+                    - /url: /admin/questions/b5bc7ef4-3c39-43c4-9521-082211348fc8/edit
+                  - button "刪除" [ref=e783]
+            - row "event-loop javascript advanced 是 編輯 刪除" [ref=e784]:
+              - cell "event-loop" [ref=e785]
+              - cell "javascript" [ref=e786]
+              - cell "advanced" [ref=e787]
+              - cell "是" [ref=e788]
+              - cell "編輯 刪除" [ref=e789]:
+                - generic [ref=e790]:
+                  - link "編輯" [ref=e791] [cursor=pointer]:
+                    - /url: /admin/questions/71275193-caaf-4d75-931d-f5a92b569673/edit
+                  - button "刪除" [ref=e792]
+            - row "box-model css basic 是 編輯 刪除" [ref=e793]:
+              - cell "box-model" [ref=e794]
+              - cell "css" [ref=e795]
+              - cell "basic" [ref=e796]
+              - cell "是" [ref=e797]
+              - cell "編輯 刪除" [ref=e798]:
+                - generic [ref=e799]:
+                  - link "編輯" [ref=e800] [cursor=pointer]:
+                    - /url: /admin/questions/f033051c-0bde-4bbb-98c5-eb2e0ff353f1/edit
+                  - button "刪除" [ref=e801]
+  - generic:
+    - img
+  - generic [ref=e17]:
+    - button "Toggle Nuxt DevTools" [ref=e18] [cursor=pointer]:
+      - img [ref=e19]
+    - generic "Page load time" [ref=e22]:
+      - generic [ref=e23]: "2.1"
+      - generic [ref=e24]: s
+    - button "Toggle Component Inspector" [ref=e26] [cursor=pointer]:
+      - img [ref=e27]

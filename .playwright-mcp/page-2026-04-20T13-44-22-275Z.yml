@@ -1,0 +1,25 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - heading "後台登入" [level=1] [ref=e6]
+      - link "← 回到首頁" [ref=e7] [cursor=pointer]:
+        - /url: /
+    - paragraph [ref=e8]: FE Interview Hub 管理後台
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - generic [ref=e11]: 帳號
+        - textbox [ref=e12]
+      - generic [ref=e13]:
+        - generic [ref=e14]: 密碼
+        - textbox [ref=e15]
+      - button "登入" [disabled] [ref=e16]
+  - generic:
+    - img
+  - generic [ref=e17]:
+    - button "Toggle Nuxt DevTools" [ref=e18] [cursor=pointer]:
+      - img [ref=e19]
+    - generic "Page load time" [ref=e22]:
+      - generic [ref=e23]: "20"
+      - generic [ref=e24]: ms
+    - button "Toggle Component Inspector" [ref=e26] [cursor=pointer]:
+      - img [ref=e27]
