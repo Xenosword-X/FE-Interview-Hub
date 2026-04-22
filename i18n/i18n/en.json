@@ -58,7 +58,8 @@
     "html": "HTML",
     "web-vitals": "Web Vitals",
     "browser": "Browser Internals",
-    "behavioral": "Behavioral Interview"
+    "behavioral": "Behavioral Interview",
+    "count_label": "{count} Questions"
   },
   "footer": {
     "copyright": "Copyright © 2026 Wood All Rights Reserved · FE Interview Hub",

@@ -28,6 +28,6 @@ const iconClass = computed(() => iconBgMap[props.category.key] ?? 'bg-slate-100 
       </svg>
     </div>
     <p class="text-sm font-semibold text-[--color-text-primary] mb-0.5">{{ $t(`categories.${category.key}`) }}</p>
-    <p class="text-[11px] text-[--color-text-muted]">{{ category.count }} 道題目</p>
+    <p class="text-[11px] text-[--color-text-muted]">{{ $t('categories.count_label', { count: category.count }) }}</p>
   </NuxtLink>
 </template>

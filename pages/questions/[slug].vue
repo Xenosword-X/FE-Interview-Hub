@@ -246,24 +246,6 @@ useHead({
       <!-- AI Practice section -->
       <AiPractice :slug="slug" :question-text="question?.title ?? ''" />
 
-      <!-- Mobile sticky AI input bar -->
-      <div class="lg:hidden fixed bottom-14 inset-x-0 z-20 bg-white border-t border-[--color-border] px-4 py-2.5 flex gap-2">
-        <input
-          type="text"
-          :placeholder="t('detail.ai_placeholder')"
-          class="flex-1 text-sm bg-slate-50 border border-[--color-border] rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-[--color-primary] min-h-[44px]"
-        />
-        <a
-          href="#ai-practice"
-          class="w-11 h-11 bg-indigo-500 rounded-lg flex items-center justify-center text-white shrink-0"
-          :aria-label="t('detail.ai_practice')"
-        >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
-          </svg>
-        </a>
-      </div>
-
       <!-- Prev/Next -->
       <QuestionNav :prev="prevQuestion" :next="nextQuestion" />
     </article>

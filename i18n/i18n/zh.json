@@ -58,7 +58,8 @@
     "html": "HTML",
     "web-vitals": "Web Vitals",
     "browser": "瀏覽器原理",
-    "behavioral": "行為面試"
+    "behavioral": "行為面試",
+    "count_label": "{count} 道題目"
   },
   "footer": {
     "copyright": "Copyright © 2026 Wood All Rights Reserved · FE Interview Hub",
