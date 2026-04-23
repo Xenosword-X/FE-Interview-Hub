@@ -28,3 +28,6 @@ client_secret_*.json
 
 # Superpowers internal state
 .superpowers/
+
+# Git worktrees
+.worktrees/
