@@ -83,6 +83,7 @@ export function useInterviewSession(sessionId: Ref<string>) {
 
   function playAudio(base64: string, mimeType: string): Promise<void> {
     return new Promise((resolve) => {
+      if (!process.client) { resolve(); return }
       state.value = 'ai_speaking'
       const audio = new Audio(`data:${mimeType};base64,${base64}`)
       audio.onended = () => resolve()
