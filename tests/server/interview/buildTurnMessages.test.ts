@@ -1,21 +1,6 @@
 // tests/server/interview/buildTurnMessages.test.ts
 import { describe, it, expect } from 'vitest'
-import type { InterviewTurn } from '../../../server/utils/interview/types'
-
-function buildTurnMessages(
-  systemPrompt: string,
-  turns: Pick<InterviewTurn, 'role' | 'content'>[],
-  newUserContent: string
-): Array<{ role: 'system' | 'user' | 'assistant'; content: string }> {
-  const messages: Array<{ role: 'system' | 'user' | 'assistant'; content: string }> = [
-    { role: 'system', content: systemPrompt },
-  ]
-  for (const turn of turns) {
-    messages.push({ role: turn.role, content: turn.content })
-  }
-  messages.push({ role: 'user', content: newUserContent })
-  return messages
-}
+import { buildTurnMessages } from '../../../server/utils/interview/buildTurnMessages'
 
 describe('buildTurnMessages', () => {
   it('starts with system message', () => {
