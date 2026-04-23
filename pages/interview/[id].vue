@@ -2,18 +2,18 @@
 <script setup lang="ts">
 import type { InterviewSession, InterviewSummary, InterviewTurn } from '~/server/utils/interview/types'
 
-definePageMeta({ middleware: 'auth' })
-
 const route = useRoute()
 const { t } = useI18n()
 const localePath = useLocalePath()
 const sessionId = route.params.id as string
 
+const user = useSupabaseUser()
+
 const { data, pending, error } = await useFetch<{
   session: InterviewSession
   turns: InterviewTurn[]
   summary: InterviewSummary | null
-}>(`/api/interview/${sessionId}`)
+}>(`/api/interview/${sessionId}`, { immediate: !!user.value })
 
 const view = computed(() => {
   if (!data.value) return 'loading'
@@ -47,7 +47,23 @@ const displaySummary = computed(() => localSummary.value ?? data.value?.summary 
 
 <template>
   <div>
-    <div v-if="pending" class="flex items-center justify-center h-64">
+    <!-- 未登入：顯示登入提示 -->
+    <div
+      v-if="!user"
+      class="max-w-md mx-auto mt-20 px-6 py-10 text-center border border-[--color-border] rounded-2xl bg-white shadow-sm"
+    >
+      <p class="text-lg font-semibold text-[--color-text-primary] mb-2">
+        {{ t('interview.setup.title') }}
+      </p>
+      <p class="text-sm text-[--color-text-muted] mb-6">
+        {{ t('auth.login_required') }}
+      </p>
+      <ClientOnly>
+        <LoginButton />
+      </ClientOnly>
+    </div>
+
+    <div v-else-if="pending" class="flex items-center justify-center h-64">
       <span class="text-[--color-text-muted] text-sm">{{ t('interview.loading') }}</span>
     </div>
 

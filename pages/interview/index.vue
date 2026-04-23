@@ -1,12 +1,12 @@
 <!-- pages/interview/index.vue -->
 <script setup lang="ts">
-definePageMeta({ middleware: 'auth' })
-
 const router = useRouter()
 const localePath = useLocalePath()
 const { t } = useI18n()
 
 useHead({ title: t('interview.setup.title') })
+
+const user = useSupabaseUser()
 
 async function handleStart(payload: { locale: string; targetRole: string; targetCategories: string[] }) {
   try {
@@ -34,11 +34,30 @@ async function handleStart(payload: { locale: string; targetRole: string; target
 
 <template>
   <div>
-    <SetupForm @start="handleStart" />
-    <div class="text-center mt-4">
-      <NuxtLink :to="localePath('/interview/history')" class="text-sm text-[--color-primary] hover:underline">
-        {{ t('interview.setup.view_history') }} →
-      </NuxtLink>
+    <!-- 未登入：顯示登入提示 -->
+    <div
+      v-if="!user"
+      class="max-w-md mx-auto mt-20 px-6 py-10 text-center border border-[--color-border] rounded-2xl bg-white shadow-sm"
+    >
+      <p class="text-lg font-semibold text-[--color-text-primary] mb-2">
+        {{ t('interview.setup.title') }}
+      </p>
+      <p class="text-sm text-[--color-text-muted] mb-6">
+        {{ t('auth.login_required') }}
+      </p>
+      <ClientOnly>
+        <LoginButton />
+      </ClientOnly>
     </div>
+
+    <!-- 已登入：顯示 SetupForm -->
+    <template v-else>
+      <SetupForm @start="handleStart" />
+      <div class="text-center mt-4">
+        <NuxtLink :to="localePath('/interview/history')" class="text-sm text-[--color-primary] hover:underline">
+          {{ t('interview.setup.view_history') }} →
+        </NuxtLink>
+      </div>
+    </template>
   </div>
 </template>

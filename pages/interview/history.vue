@@ -1,11 +1,11 @@
 <!-- pages/interview/history.vue -->
 <script setup lang="ts">
-definePageMeta({ middleware: 'auth' })
-
 const { t } = useI18n()
 const localePath = useLocalePath()
 
 useHead({ title: t('interview.history.title') })
+
+const user = useSupabaseUser()
 
 const { data, pending, refresh } = await useFetch<{
   items: Array<{
@@ -13,7 +13,7 @@ const { data, pending, refresh } = await useFetch<{
     targetRole: string; targetCategories: string[]; totalTurns: number; hasSummary: boolean
   }>
   nextCursor: string | null
-}>('/api/interview/history')
+}>('/api/interview/history', { immediate: !!user.value })
 
 const deletingId = ref<string | null>(null)
 const confirmDeleteId = ref<string | null>(null)
@@ -42,6 +42,24 @@ function formatDate(iso: string) {
 
 <template>
   <div class="max-w-2xl mx-auto px-4 py-8">
+    <!-- 未登入：顯示登入提示 -->
+    <div
+      v-if="!user"
+      class="mt-12 text-center border border-[--color-border] rounded-2xl bg-white shadow-sm px-6 py-10"
+    >
+      <p class="text-lg font-semibold text-[--color-text-primary] mb-2">
+        {{ t('interview.history.title') }}
+      </p>
+      <p class="text-sm text-[--color-text-muted] mb-6">
+        {{ t('auth.login_required') }}
+      </p>
+      <ClientOnly>
+        <LoginButton />
+      </ClientOnly>
+    </div>
+
+    <!-- 已登入：顯示面試紀錄 -->
+    <template v-else>
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-xl font-bold text-[--color-text-primary]">{{ t('interview.history.title') }}</h1>
       <NuxtLink :to="localePath('/interview')" class="text-sm text-[--color-primary] hover:underline">
@@ -109,5 +127,6 @@ function formatDate(iso: string) {
         </div>
       </div>
     </div>
+    </template><!-- end v-else (logged in) -->
   </div>
 </template>

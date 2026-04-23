@@ -80,7 +80,8 @@
   "auth": {
     "sign_in_google": "Sign in with Google",
     "sign_out": "Sign out",
-    "my_bookmarks": "My Bookmarks"
+    "my_bookmarks": "My Bookmarks",
+    "login_required": "Please sign in to use this feature"
   },
   "bookmark": {
     "add": "Bookmark",
