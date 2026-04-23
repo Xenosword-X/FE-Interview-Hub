@@ -1,0 +1,81 @@
+<!-- pages/interview/[id].vue -->
+<script setup lang="ts">
+import type { InterviewSession, InterviewSummary } from '~/server/utils/interview/types'
+
+definePageMeta({ middleware: 'auth' })
+
+const route = useRoute()
+const { t } = useI18n()
+const sessionId = route.params.id as string
+
+const { data, pending, error } = await useFetch<{
+  session: InterviewSession
+  turns: any[]
+  summary: InterviewSummary | null
+}>(`/api/interview/${sessionId}`)
+
+const view = computed(() => {
+  if (!data.value) return 'loading'
+  const s = data.value.session
+  if (s.status === 'completed') return 'summary'
+  if (s.status === 'error') return 'error'
+  if (s.status === 'aborted') return 'aborted'
+  return 'active'
+})
+
+const initialAiText = computed(() => data.value?.turns?.[0]?.content ?? '')
+const initialAudioBase64 = ref('')
+
+const localSummary = ref<InterviewSummary | null>(null)
+
+onMounted(() => {
+  if (process.client) {
+    const stored = sessionStorage.getItem(`interview_init_${sessionId}`)
+    if (stored) {
+      const { aiAudioBase64 } = JSON.parse(stored)
+      initialAudioBase64.value = aiAudioBase64
+      sessionStorage.removeItem(`interview_init_${sessionId}`)
+    }
+  }
+})
+
+function handleCompleted(s: InterviewSummary) {
+  localSummary.value = s
+}
+
+const displaySummary = computed(() => localSummary.value ?? data.value?.summary ?? null)
+</script>
+
+<template>
+  <div>
+    <div v-if="pending" class="flex items-center justify-center h-64">
+      <span class="text-[--color-text-muted] text-sm">{{ t('interview.loading') }}</span>
+    </div>
+
+    <div v-else-if="error || !data" class="p-8 text-center">
+      <p class="text-sm text-red-500">{{ t('interview.errors.not_found') }}</p>
+      <NuxtLink :to="useLocalePath()('/interview')" class="text-sm text-[--color-primary] underline mt-2 block">
+        {{ t('interview.errors.back_to_setup') }}
+      </NuxtLink>
+    </div>
+
+    <InterviewStage
+      v-else-if="view === 'active'"
+      :session-id="sessionId"
+      :initial-ai-text="initialAiText"
+      :initial-audio-base64="initialAudioBase64"
+      @completed="handleCompleted"
+    />
+
+    <InterviewSummary
+      v-else-if="view === 'summary' || localSummary !== null"
+      :summary="displaySummary!"
+      :session="data!.session"
+    />
+
+    <InterviewAborted
+      v-else-if="view === 'aborted' || view === 'error'"
+      :status="data!.session.status"
+    />
+  </div>
+</template>
