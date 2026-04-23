@@ -1,16 +1,17 @@
 <!-- pages/interview/[id].vue -->
 <script setup lang="ts">
-import type { InterviewSession, InterviewSummary } from '~/server/utils/interview/types'
+import type { InterviewSession, InterviewSummary, InterviewTurn } from '~/server/utils/interview/types'
 
 definePageMeta({ middleware: 'auth' })
 
 const route = useRoute()
 const { t } = useI18n()
+const localePath = useLocalePath()
 const sessionId = route.params.id as string
 
 const { data, pending, error } = await useFetch<{
   session: InterviewSession
-  turns: any[]
+  turns: InterviewTurn[]
   summary: InterviewSummary | null
 }>(`/api/interview/${sessionId}`)
 
@@ -29,13 +30,11 @@ const initialAudioBase64 = ref('')
 const localSummary = ref<InterviewSummary | null>(null)
 
 onMounted(() => {
-  if (process.client) {
-    const stored = sessionStorage.getItem(`interview_init_${sessionId}`)
-    if (stored) {
-      const { aiAudioBase64 } = JSON.parse(stored)
-      initialAudioBase64.value = aiAudioBase64
-      sessionStorage.removeItem(`interview_init_${sessionId}`)
-    }
+  const stored = sessionStorage.getItem(`interview_init_${sessionId}`)
+  if (stored) {
+    const { aiAudioBase64 } = JSON.parse(stored)
+    initialAudioBase64.value = aiAudioBase64
+    sessionStorage.removeItem(`interview_init_${sessionId}`)
   }
 })
 
@@ -54,7 +53,7 @@ const displaySummary = computed(() => localSummary.value ?? data.value?.summary 
 
     <div v-else-if="error || !data" class="p-8 text-center">
       <p class="text-sm text-red-500">{{ t('interview.errors.not_found') }}</p>
-      <NuxtLink :to="useLocalePath()('/interview')" class="text-sm text-[--color-primary] underline mt-2 block">
+      <NuxtLink :to="localePath('/interview')" class="text-sm text-[--color-primary] underline mt-2 block">
         {{ t('interview.errors.back_to_setup') }}
       </NuxtLink>
     </div>

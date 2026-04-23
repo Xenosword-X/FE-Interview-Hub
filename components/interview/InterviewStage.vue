@@ -11,6 +11,7 @@ const props = defineProps<{
 const emit = defineEmits<{ completed: [summary: InterviewSummary] }>()
 
 const { t } = useI18n()
+const localePath = useLocalePath()
 const sessionIdRef = toRef(props, 'sessionId')
 const { state, turns, phase, progress, isFinal, consecutiveErrors, summary, submitTurn, endInterview, initTurns } =
   useInterviewSession(sessionIdRef)
@@ -22,7 +23,8 @@ onMounted(() => {
   // Play opening greeting
   const audio = new Audio(`data:audio/mpeg;base64,${props.initialAudioBase64}`)
   audio.play().catch(() => {})
-  setInterval(() => sessionElapsed.value++, 1000)
+  const sessionTimer = setInterval(() => sessionElapsed.value++, 1000)
+  onUnmounted(() => clearInterval(sessionTimer))
 })
 
 const showEndConfirm = ref(false)
@@ -52,10 +54,6 @@ async function confirmEnd() {
   showEndConfirm.value = false
   await triggerEnd()
 }
-
-watch(isFinal, async (val) => {
-  if (val) await triggerEnd()
-})
 </script>
 
 <template>
@@ -63,7 +61,7 @@ watch(isFinal, async (val) => {
     <!-- Error state -->
     <div v-if="state === 'error'" class="p-4 text-center">
       <p class="text-red-500 text-sm mb-2">{{ t('interview.errors.session_error') }}</p>
-      <NuxtLink :to="useLocalePath()('/interview')" class="text-sm text-[--color-primary] underline">
+      <NuxtLink :to="localePath('/interview')" class="text-sm text-[--color-primary] underline">
         {{ t('interview.errors.back_to_setup') }}
       </NuxtLink>
     </div>

@@ -8,7 +8,9 @@ const localePath = useLocalePath()
 
 const expandedQuestions = ref<Set<number>>(new Set())
 function toggleQuestion(idx: number) {
-  expandedQuestions.value.has(idx) ? expandedQuestions.value.delete(idx) : expandedQuestions.value.add(idx)
+  const next = new Set(expandedQuestions.value)
+  next.has(idx) ? next.delete(idx) : next.add(idx)
+  expandedQuestions.value = next
 }
 
 function formatDate(iso: string) {
