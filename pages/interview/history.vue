@@ -166,7 +166,7 @@ function roleShort(targetRole: string) {
 <style scoped>
 .iv-hist-shell {
   min-height: calc(100vh - 3.5rem);
-  background: #090c11;
+  background: var(--color-bg, #f8fafc);
   padding: 2rem 1rem 4rem;
 }
 
@@ -181,11 +181,12 @@ function roleShort(targetRole: string) {
 .iv-hist-login-card {
   max-width: 360px;
   width: 100%;
-  background: #111827;
-  border: 1px solid rgba(255,255,255,0.06);
+  background: #ffffff;
+  border: 1px solid var(--color-border, #e2e8f0);
   border-radius: 20px;
   padding: 2.5rem 2rem;
   text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.06);
 }
 
 .iv-login-icon {
@@ -196,21 +197,21 @@ function roleShort(targetRole: string) {
   align-items: center;
   justify-content: center;
   margin: 0 auto 16px;
-  color: #64748b;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.07);
+  color: var(--color-text-muted, #64748b);
+  background: var(--color-bg, #f8fafc);
+  border: 1px solid var(--color-border, #e2e8f0);
 }
 
 .iv-hist-login-title {
   font-family: 'DM Serif Display', Georgia, serif;
   font-size: 1.25rem;
-  color: #e2e8f0;
+  color: var(--color-text-primary, #0f172a);
   margin-bottom: 8px;
 }
 
 .iv-hist-login-desc {
   font-size: 13px;
-  color: #475569;
+  color: var(--color-text-muted, #64748b);
   margin-bottom: 20px;
 }
 
@@ -232,15 +233,15 @@ function roleShort(targetRole: string) {
   display: block;
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
-  letter-spacing: 2.5px;
-  color: #f59e0b;
+  letter-spacing: 2px;
+  color: var(--color-primary, #6366f1);
   margin-bottom: 4px;
 }
 
 .iv-hist-title {
   font-family: 'DM Serif Display', Georgia, serif;
   font-size: 1.75rem;
-  color: #f1f5f9;
+  color: var(--color-text-primary, #0f172a);
 }
 
 .iv-hist-new-btn {
@@ -249,9 +250,9 @@ function roleShort(targetRole: string) {
   gap: 6px;
   padding: 8px 14px;
   border-radius: 8px;
-  background: rgba(99,102,241,0.1);
-  border: 1px solid rgba(99,102,241,0.2);
-  color: #818cf8;
+  background: var(--color-primary-light, #eef2ff);
+  border: 1px solid var(--color-primary-border, #c7d2fe);
+  color: var(--color-primary, #6366f1);
   font-size: 12px;
   font-weight: 600;
   text-decoration: none;
@@ -261,8 +262,8 @@ function roleShort(targetRole: string) {
 }
 
 .iv-hist-new-btn:hover {
-  background: rgba(99,102,241,0.18);
-  border-color: rgba(99,102,241,0.35);
+  background: #e0e7ff;
+  border-color: var(--color-primary, #6366f1);
 }
 
 .iv-hist-loading {
@@ -272,14 +273,14 @@ function roleShort(targetRole: string) {
   gap: 10px;
   padding: 4rem 0;
   font-size: 13px;
-  color: #334155;
+  color: var(--color-text-muted, #64748b);
 }
 
 .iv-hist-spin {
   width: 18px;
   height: 18px;
-  border: 2px solid rgba(255,255,255,0.08);
-  border-top-color: #475569;
+  border: 2px solid var(--color-border, #e2e8f0);
+  border-top-color: var(--color-primary, #6366f1);
   border-radius: 50%;
   animation: iv-spin 0.7s linear infinite;
 }
@@ -292,7 +293,7 @@ function roleShort(targetRole: string) {
   align-items: center;
   gap: 14px;
   padding: 4rem 0;
-  color: #334155;
+  color: var(--color-text-muted, #64748b);
   font-size: 13px;
   text-align: center;
 }
@@ -309,14 +310,16 @@ function roleShort(targetRole: string) {
   justify-content: space-between;
   gap: 12px;
   padding: 14px 16px;
-  background: #111827;
-  border: 1px solid rgba(255,255,255,0.06);
+  background: #ffffff;
+  border: 1px solid var(--color-border, #e2e8f0);
   border-radius: 12px;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 
 .iv-hist-item:hover {
-  border-color: rgba(255,255,255,0.1);
+  border-color: var(--color-border-hover, #a5b4fc);
+  box-shadow: 0 2px 8px rgba(99,102,241,0.08);
 }
 
 .iv-hist-item-left {
@@ -338,20 +341,20 @@ function roleShort(targetRole: string) {
 .iv-hist-item-role {
   font-size: 13px;
   font-weight: 500;
-  color: #cbd5e1;
+  color: var(--color-text-primary, #0f172a);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .iv-hist-item-cats {
-  color: #475569;
+  color: var(--color-text-muted, #64748b);
   font-weight: 400;
 }
 
 .iv-hist-item-date {
   font-size: 11px;
-  color: #334155;
+  color: var(--color-text-muted, #64748b);
   font-family: 'JetBrains Mono', monospace;
   margin-top: 2px;
 }
@@ -369,18 +372,18 @@ function roleShort(targetRole: string) {
   gap: 4px;
   font-size: 12px;
   font-weight: 600;
-  color: #818cf8;
+  color: var(--color-primary, #6366f1);
   text-decoration: none;
   padding: 5px 10px;
   border-radius: 6px;
-  background: rgba(99,102,241,0.08);
-  border: 1px solid rgba(99,102,241,0.15);
+  background: var(--color-primary-light, #eef2ff);
+  border: 1px solid var(--color-primary-border, #c7d2fe);
   transition: all 0.15s ease;
 }
 
 .iv-hist-view-btn:hover {
-  background: rgba(99,102,241,0.15);
-  border-color: rgba(99,102,241,0.3);
+  background: #e0e7ff;
+  border-color: var(--color-primary, #6366f1);
 }
 
 .iv-hist-del-btn {
@@ -388,8 +391,8 @@ function roleShort(targetRole: string) {
   height: 30px;
   border-radius: 6px;
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.06);
-  color: #334155;
+  border: 1px solid var(--color-border, #e2e8f0);
+  color: var(--color-text-muted, #64748b);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -398,9 +401,9 @@ function roleShort(targetRole: string) {
 }
 
 .iv-hist-del-btn:hover:not(:disabled) {
-  background: rgba(239,68,68,0.08);
-  border-color: rgba(239,68,68,0.2);
-  color: #f87171;
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #ef4444;
 }
 
 .iv-hist-del-btn:disabled {
@@ -411,7 +414,7 @@ function roleShort(targetRole: string) {
 .iv-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.7);
+  background: rgba(15,23,42,0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -421,18 +424,18 @@ function roleShort(targetRole: string) {
 }
 
 .iv-dialog {
-  background: #131920;
-  border: 1px solid rgba(255,255,255,0.08);
+  background: #ffffff;
+  border: 1px solid var(--color-border, #e2e8f0);
   border-radius: 16px;
   padding: 24px;
   max-width: 360px;
   width: 100%;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.7);
+  box-shadow: 0 20px 60px rgba(15,23,42,0.15);
 }
 
 .iv-dialog-title {
   font-size: 14px;
-  color: #94a3b8;
+  color: var(--color-text-primary, #0f172a);
   line-height: 1.6;
   margin-bottom: 18px;
 }
@@ -459,29 +462,25 @@ function roleShort(targetRole: string) {
 }
 
 .iv-dialog-btn--danger {
-  background: rgba(239,68,68,0.12);
-  color: #f87171;
-  border: 1px solid rgba(239,68,68,0.2);
+  background: #fef2f2;
+  color: #ef4444;
+  border: 1px solid #fecaca;
 }
-.iv-dialog-btn--danger:hover:not(:disabled) {
-  background: rgba(239,68,68,0.2);
-}
+.iv-dialog-btn--danger:hover:not(:disabled) { background: #fee2e2; }
 .iv-dialog-btn--danger:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .iv-dialog-btn--ghost {
-  background: rgba(255,255,255,0.04);
-  color: #475569;
-  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--color-bg, #f8fafc);
+  color: var(--color-text-muted, #64748b);
+  border: 1px solid var(--color-border, #e2e8f0);
 }
-.iv-dialog-btn--ghost:hover {
-  background: rgba(255,255,255,0.08);
-}
+.iv-dialog-btn--ghost:hover { background: var(--color-border, #e2e8f0); }
 
 .iv-btn-spin-sm {
   width: 13px;
   height: 13px;
-  border: 2px solid rgba(255,255,255,0.15);
-  border-top-color: rgba(255,255,255,0.5);
+  border: 2px solid rgba(239,68,68,0.2);
+  border-top-color: #ef4444;
   border-radius: 50%;
   animation: iv-spin 0.7s linear infinite;
 }

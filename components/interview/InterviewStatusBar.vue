@@ -37,7 +37,7 @@ function phaseIndex(p: Phase) {
       </template>
     </div>
 
-    <!-- Right side: progress + timer + end -->
+    <!-- Right: progress + timer + end -->
     <div class="iv-bar-right">
       <span class="iv-q-count">
         <span class="iv-q-num">{{ progress.current }}</span>
@@ -46,7 +46,7 @@ function phaseIndex(p: Phase) {
       </span>
       <span class="iv-timer">{{ formatTime(elapsedSec) }}</span>
       <button @click="emit('end')" class="iv-end-btn">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor">
           <rect x="4" y="4" width="16" height="16" rx="2"/>
         </svg>
         {{ t('interview.stage.end_btn') }}
@@ -60,20 +60,19 @@ function phaseIndex(p: Phase) {
   position: sticky;
   top: 3.5rem;
   z-index: 30;
-  background: #0d1117;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
   padding: 0 1rem;
-  height: 48px;
+  height: 44px;
   display: flex;
   align-items: center;
   gap: 12px;
-  backdrop-filter: blur(8px);
 }
 
 .iv-phases {
   display: flex;
   align-items: center;
-  gap: 0;
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -83,13 +82,12 @@ function phaseIndex(p: Phase) {
   display: flex;
   align-items: center;
   gap: 5px;
-  color: #334155;
+  color: var(--color-border, #e2e8f0);
   transition: color 0.2s;
-  min-width: 0;
 }
 
-.iv-phase-item--done { color: #475569; }
-.iv-phase-item--active { color: #f59e0b; }
+.iv-phase-item--done { color: var(--color-text-muted, #64748b); }
+.iv-phase-item--active { color: var(--color-primary, #6366f1); }
 
 .iv-phase-dot {
   width: 6px;
@@ -112,9 +110,9 @@ function phaseIndex(p: Phase) {
 }
 
 .iv-phase-sep {
-  width: 16px;
+  width: 14px;
   height: 1px;
-  background: rgba(255,255,255,0.08);
+  background: var(--color-border, #e2e8f0);
   flex-shrink: 0;
   margin: 0 4px;
 }
@@ -130,15 +128,14 @@ function phaseIndex(p: Phase) {
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
 }
-.iv-q-num { color: #e2e8f0; font-weight: 600; }
-.iv-q-sep { color: #334155; margin: 0 1px; }
-.iv-q-total { color: #475569; }
+.iv-q-num { color: var(--color-text-primary, #0f172a); font-weight: 600; }
+.iv-q-sep { color: var(--color-border, #e2e8f0); margin: 0 1px; }
+.iv-q-total { color: var(--color-text-muted, #64748b); }
 
 .iv-timer {
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
-  color: #475569;
-  letter-spacing: 0.5px;
+  color: var(--color-text-muted, #64748b);
 }
 
 .iv-end-btn {
@@ -148,17 +145,16 @@ function phaseIndex(p: Phase) {
   font-size: 11px;
   font-weight: 600;
   color: #ef4444;
-  background: rgba(239,68,68,0.08);
-  border: 1px solid rgba(239,68,68,0.2);
+  background: #fef2f2;
+  border: 1px solid #fecaca;
   border-radius: 6px;
   padding: 4px 10px;
   cursor: pointer;
   transition: all 0.15s ease;
-  letter-spacing: 0.3px;
 }
 
 .iv-end-btn:hover {
-  background: rgba(239,68,68,0.15);
-  border-color: rgba(239,68,68,0.4);
+  background: #fee2e2;
+  border-color: #fca5a5;
 }
 </style>

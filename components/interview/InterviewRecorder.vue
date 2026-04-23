@@ -27,11 +27,6 @@ function formatDuration(sec: number) {
   return `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}`
 }
 
-const progressPct = computed(() => {
-  if (!isRecording.value || props.maxSec === 0) return 0
-  return Math.min((props.elapsedSec / props.maxSec) * 100, 100)
-})
-
 const statusText = computed(() => {
   if (props.state === 'idle') return t('interview.stage.status_idle')
   if (props.state === 'recording') return t('interview.stage.status_recording')
@@ -47,34 +42,32 @@ const statusText = computed(() => {
   <div class="iv-recorder">
 
     <!-- Status label -->
-    <p :class="['iv-status-text', state === 'recording' && 'iv-status-text--rec', state === 'error' && 'iv-status-text--err', (state === 'ai_thinking' || state === 'ai_speaking') && 'iv-status-text--ai']">
+    <p :class="['iv-status-text', state === 'recording' && 'iv-status--rec', state === 'error' && 'iv-status--err', (state === 'ai_thinking' || state === 'ai_speaking') && 'iv-status--ai']">
       {{ statusText }}
     </p>
 
-    <!-- Button container with rings -->
+    <!-- Button + rings -->
     <div class="iv-btn-wrap">
-      <!-- Rings: only show when recording -->
       <span v-if="isRecording" class="iv-ring iv-ring-1" />
       <span v-if="isRecording" class="iv-ring iv-ring-2" />
 
-      <!-- Main button -->
       <button
         @click="handleClick"
         :disabled="isBusy || state === 'error'"
         :class="['iv-mic-btn', isRecording && 'iv-mic-btn--rec', isBusy && 'iv-mic-btn--busy', state === 'ai_speaking' && 'iv-mic-btn--speak']"
         :aria-label="isRecording ? t('interview.stage.stop_btn') : t('interview.stage.start_btn')"
       >
-        <!-- Stop icon (recording) -->
-        <svg v-if="isRecording" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+        <!-- Stop (recording) -->
+        <svg v-if="isRecording" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
           <rect x="5" y="5" width="14" height="14" rx="2"/>
         </svg>
-        <!-- Mic icon (idle) -->
-        <svg v-else-if="canRecord" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <!-- Mic (idle) -->
+        <svg v-else-if="canRecord" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/>
           <path d="M19 11a7 7 0 0 1-14 0H3a9 9 0 0 0 8 8.94V22h2v-2.06A9 9 0 0 0 21 11h-2z"/>
         </svg>
         <!-- Waveform (ai_speaking) -->
-        <svg v-else-if="state === 'ai_speaking'" width="28" height="20" viewBox="0 0 28 20" fill="currentColor" class="iv-wave-icon">
+        <svg v-else-if="state === 'ai_speaking'" width="26" height="18" viewBox="0 0 28 20" fill="currentColor">
           <rect x="0" y="6" width="3" height="8" rx="1.5" class="iv-wave-bar iv-wave-bar-1"/>
           <rect x="5" y="2" width="3" height="16" rx="1.5" class="iv-wave-bar iv-wave-bar-2"/>
           <rect x="10" y="0" width="3" height="20" rx="1.5" class="iv-wave-bar iv-wave-bar-3"/>
@@ -95,7 +88,7 @@ const statusText = computed(() => {
       <span class="iv-rec-max">{{ formatDuration(maxSec) }}</span>
     </div>
 
-    <!-- Action hint -->
+    <!-- Hint -->
     <p class="iv-hint">
       <span v-if="isRecording">{{ t('interview.stage.stop_btn') }}</span>
       <span v-else-if="canRecord">{{ t('interview.stage.start_btn') }}</span>
@@ -110,26 +103,25 @@ const statusText = computed(() => {
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  padding: 28px 16px 24px;
-  background: #090c11;
+  padding: 24px 16px 20px;
+  background: #ffffff;
 }
 
 .iv-status-text {
   font-size: 13px;
-  color: #475569;
+  color: var(--color-text-muted, #64748b);
   min-height: 20px;
   transition: color 0.2s;
   font-weight: 500;
-  letter-spacing: 0.2px;
 }
-.iv-status-text--rec { color: #f87171; }
-.iv-status-text--err { color: #ef4444; }
-.iv-status-text--ai  { color: #f59e0b; }
+.iv-status--rec { color: #ef4444; }
+.iv-status--err { color: #ef4444; }
+.iv-status--ai  { color: var(--color-primary, #6366f1); }
 
 .iv-btn-wrap {
   position: relative;
-  width: 96px;
-  height: 96px;
+  width: 88px;
+  height: 88px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -138,22 +130,22 @@ const statusText = computed(() => {
 .iv-ring {
   position: absolute;
   border-radius: 50%;
-  border: 1.5px solid rgba(239,68,68,0.25);
+  border: 1.5px solid rgba(239,68,68,0.2);
   animation: iv-ring-expand 1.6s ease-out infinite;
 }
-.iv-ring-1 { width: 96px; height: 96px; }
-.iv-ring-2 { width: 96px; height: 96px; animation-delay: 0.8s; }
+.iv-ring-1 { width: 88px; height: 88px; }
+.iv-ring-2 { width: 88px; height: 88px; animation-delay: 0.8s; }
 
 @keyframes iv-ring-expand {
-  0%   { transform: scale(1); opacity: 0.6; }
+  0%   { transform: scale(1); opacity: 0.7; }
   100% { transform: scale(2.2); opacity: 0; }
 }
 
 .iv-mic-btn {
   position: relative;
   z-index: 1;
-  width: 80px;
-  height: 80px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
@@ -161,62 +153,51 @@ const statusText = computed(() => {
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%);
+  background: var(--color-primary, #6366f1);
   color: white;
-  box-shadow:
-    0 0 0 1px rgba(99,102,241,0.3),
-    0 8px 24px rgba(99,102,241,0.35);
+  box-shadow: 0 4px 16px rgba(99,102,241,0.3);
 }
 
 .iv-mic-btn:hover:not(:disabled) {
+  background: #4f46e5;
   transform: scale(1.05);
-  box-shadow:
-    0 0 0 1px rgba(99,102,241,0.4),
-    0 12px 32px rgba(99,102,241,0.45);
+  box-shadow: 0 6px 20px rgba(99,102,241,0.4);
 }
 
 .iv-mic-btn--rec {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  box-shadow:
-    0 0 0 1px rgba(239,68,68,0.3),
-    0 8px 24px rgba(239,68,68,0.35);
+  background: #ef4444;
+  box-shadow: 0 4px 16px rgba(239,68,68,0.3);
 }
-
 .iv-mic-btn--rec:hover:not(:disabled) {
-  box-shadow:
-    0 0 0 1px rgba(239,68,68,0.4),
-    0 12px 32px rgba(239,68,68,0.45);
+  background: #dc2626;
+  box-shadow: 0 6px 20px rgba(239,68,68,0.4);
 }
 
 .iv-mic-btn--busy,
 .iv-mic-btn:disabled {
-  background: #1e2a3a;
-  color: #334155;
+  background: var(--color-border, #e2e8f0);
+  color: var(--color-text-muted, #64748b);
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
 }
 
 .iv-mic-btn--speak {
-  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
-  box-shadow:
-    0 0 0 1px rgba(217,119,6,0.3),
-    0 8px 24px rgba(217,119,6,0.3);
+  background: var(--color-primary, #6366f1);
+  opacity: 0.85;
   cursor: default;
 }
 
 .iv-btn-spin {
-  width: 22px;
-  height: 22px;
-  border: 2.5px solid rgba(255,255,255,0.15);
-  border-top-color: rgba(255,255,255,0.5);
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid rgba(99,102,241,0.2);
+  border-top-color: var(--color-primary, #6366f1);
   border-radius: 50%;
   animation: iv-spin 0.8s linear infinite;
 }
 
 @keyframes iv-spin { to { transform: rotate(360deg); } }
-
-.iv-wave-icon { opacity: 0.9; }
 
 .iv-wave-bar {
   transform-origin: center bottom;
@@ -230,7 +211,7 @@ const statusText = computed(() => {
 .iv-wave-bar-6 { animation-delay: 0.5s; }
 
 @keyframes iv-wave {
-  0%, 100% { transform: scaleY(0.5); opacity: 0.5; }
+  0%, 100% { transform: scaleY(0.5); opacity: 0.6; }
   50%       { transform: scaleY(1);   opacity: 1; }
 }
 
@@ -249,20 +230,15 @@ const statusText = computed(() => {
   background: #ef4444;
   animation: iv-blink 1s ease-in-out infinite;
 }
+@keyframes iv-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
-@keyframes iv-blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.2; }
-}
-
-.iv-rec-time { color: #fca5a5; font-weight: 600; }
-.iv-rec-sep  { color: #334155; }
-.iv-rec-max  { color: #475569; }
+.iv-rec-time { color: #ef4444; font-weight: 600; }
+.iv-rec-sep  { color: var(--color-border, #e2e8f0); }
+.iv-rec-max  { color: var(--color-text-muted, #64748b); }
 
 .iv-hint {
   font-size: 11px;
-  color: #334155;
+  color: var(--color-text-muted, #64748b);
   min-height: 16px;
-  letter-spacing: 0.5px;
 }
 </style>

@@ -48,7 +48,6 @@ async function handleStart() {
         <p class="iv-subtitle">{{ t('interview.setup.subtitle') }}</p>
       </div>
 
-      <!-- Divider -->
       <div class="iv-divider" />
 
       <!-- Role -->
@@ -78,13 +77,12 @@ async function handleStart() {
             @click="toggleCategory(c.value)"
             :class="['iv-tag', targetCategories.includes(c.value) && 'iv-tag--on']"
           >
-            <span v-if="targetCategories.includes(c.value)" class="iv-tag-check">✓</span>
             {{ c.label }}
           </button>
         </div>
       </div>
 
-      <!-- Privacy notice -->
+      <!-- Notice -->
       <p class="iv-notice">{{ t('interview.setup.privacy_notice') }}</p>
 
       <!-- CTA -->
@@ -92,7 +90,7 @@ async function handleStart() {
         <span v-if="isLoading" class="iv-spin" />
         <svg v-else class="iv-cta-icon" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/>
-          <path d="M19 11a7 7 0 0 1-14 0H3a9 9 0 0 0 18 0h-2z"/>
+          <path d="M19 11a7 7 0 0 1-14 0H3a9 9 0 0 0 8 8.94V22h2v-2.06A9 9 0 0 0 21 11h-2z"/>
         </svg>
         {{ t('interview.setup.start_btn') }}
       </button>
@@ -104,7 +102,7 @@ async function handleStart() {
 <style scoped>
 .iv-shell {
   min-height: calc(100vh - 3.5rem);
-  background: #090c11;
+  background: var(--color-bg, #f8fafc);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,14 +112,11 @@ async function handleStart() {
 .iv-card {
   width: 100%;
   max-width: 480px;
-  background: #111827;
-  border: 1px solid rgba(255,255,255,0.07);
+  background: #ffffff;
+  border: 1px solid var(--color-border, #e2e8f0);
   border-radius: 20px;
   padding: 2rem;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.02),
-    0 32px 80px rgba(0,0,0,0.6),
-    0 8px 24px rgba(0,0,0,0.3);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 32px rgba(99,102,241,0.07);
 }
 
 .iv-card-header { text-align: center; margin-bottom: 1.5rem; }
@@ -130,10 +125,10 @@ async function handleStart() {
   display: inline-block;
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
-  letter-spacing: 2.5px;
-  color: #f59e0b;
-  background: rgba(245,158,11,0.1);
-  border: 1px solid rgba(245,158,11,0.2);
+  letter-spacing: 2px;
+  color: var(--color-primary, #6366f1);
+  background: var(--color-primary-light, #eef2ff);
+  border: 1px solid var(--color-primary-border, #c7d2fe);
   border-radius: 4px;
   padding: 2px 10px;
   margin-bottom: 12px;
@@ -142,14 +137,14 @@ async function handleStart() {
 .iv-title {
   font-family: 'DM Serif Display', Georgia, serif;
   font-size: 1.875rem;
-  color: #f1f5f9;
+  color: var(--color-text-primary, #0f172a);
   line-height: 1.2;
   margin-bottom: 8px;
 }
 
 .iv-subtitle {
   font-size: 0.8125rem;
-  color: #475569;
+  color: var(--color-text-muted, #64748b);
   line-height: 1.6;
   max-width: 360px;
   margin: 0 auto;
@@ -157,18 +152,18 @@ async function handleStart() {
 
 .iv-divider {
   height: 1px;
-  background: rgba(255,255,255,0.05);
+  background: var(--color-border, #e2e8f0);
   margin: 1.5rem 0;
 }
 
 .iv-section { margin-bottom: 1.5rem; }
 
 .iv-section-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 1.2px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: #475569;
+  color: var(--color-text-muted, #64748b);
   margin-bottom: 10px;
 }
 
@@ -185,23 +180,22 @@ async function handleStart() {
   gap: 4px;
   padding: 14px 8px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.07);
-  background: #0d1117;
-  color: #64748b;
+  border: 1.5px solid var(--color-border, #e2e8f0);
+  background: var(--color-bg, #f8fafc);
+  color: var(--color-text-muted, #64748b);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .iv-role:hover {
-  border-color: rgba(255,255,255,0.14);
-  color: #94a3b8;
+  border-color: var(--color-border-hover, #a5b4fc);
+  color: var(--color-text-primary, #0f172a);
 }
 
 .iv-role--on {
-  border-color: rgba(245,158,11,0.5);
-  background: rgba(245,158,11,0.07);
-  color: #fbbf24;
-  box-shadow: 0 0 16px rgba(245,158,11,0.1);
+  border-color: var(--color-primary, #6366f1);
+  background: var(--color-primary-light, #eef2ff);
+  color: var(--color-primary, #6366f1);
 }
 
 .iv-role-icon { font-size: 1.25rem; line-height: 1; }
@@ -215,7 +209,7 @@ async function handleStart() {
 
 .iv-role-sub {
   font-size: 10px;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .iv-tags { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -223,12 +217,11 @@ async function handleStart() {
 .iv-tag {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
   padding: 6px 14px;
   border-radius: 100px;
-  border: 1px solid rgba(255,255,255,0.07);
-  background: #0d1117;
-  color: #64748b;
+  border: 1.5px solid var(--color-border, #e2e8f0);
+  background: #ffffff;
+  color: var(--color-text-secondary, #374151);
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
@@ -237,30 +230,24 @@ async function handleStart() {
 }
 
 .iv-tag:hover {
-  border-color: rgba(255,255,255,0.14);
-  color: #94a3b8;
+  border-color: var(--color-border-hover, #a5b4fc);
+  color: var(--color-primary, #6366f1);
 }
 
 .iv-tag--on {
-  border-color: rgba(99,102,241,0.5);
-  background: rgba(99,102,241,0.1);
-  color: #a5b4fc;
-}
-
-.iv-tag-check {
-  font-size: 10px;
-  color: #818cf8;
-  font-weight: 700;
+  border-color: var(--color-primary, #6366f1);
+  background: var(--color-primary, #6366f1);
+  color: #ffffff;
 }
 
 .iv-notice {
   font-size: 11px;
-  color: #334155;
+  color: var(--color-text-muted, #64748b);
   line-height: 1.6;
   padding: 10px 12px;
-  background: rgba(0,0,0,0.3);
+  background: var(--color-bg, #f8fafc);
   border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.04);
+  border: 1px solid var(--color-border, #e2e8f0);
   margin-bottom: 1.5rem;
 }
 
@@ -270,22 +257,23 @@ async function handleStart() {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 14px;
+  padding: 13px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%);
+  background: var(--color-primary, #6366f1);
   color: white;
   font-size: 15px;
   font-weight: 600;
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 20px rgba(99,102,241,0.3);
+  box-shadow: 0 2px 12px rgba(99,102,241,0.25);
   letter-spacing: 0.3px;
 }
 
 .iv-cta:hover:not(:disabled) {
+  background: #4f46e5;
+  box-shadow: 0 4px 18px rgba(99,102,241,0.35);
   transform: translateY(-1px);
-  box-shadow: 0 8px 28px rgba(99,102,241,0.4);
 }
 
 .iv-cta:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
@@ -295,7 +283,7 @@ async function handleStart() {
 .iv-spin {
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(255,255,255,0.25);
+  border: 2px solid rgba(255,255,255,0.3);
   border-top-color: white;
   border-radius: 50%;
   animation: iv-spin 0.7s linear infinite;

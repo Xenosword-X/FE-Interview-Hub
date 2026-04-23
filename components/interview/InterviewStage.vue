@@ -61,7 +61,9 @@ async function confirmEnd() {
 
     <!-- Error banner -->
     <div v-if="state === 'error'" class="iv-error-banner">
-      <span class="iv-error-icon">⚠</span>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0zm-9 3.75h.008v.008H12v-.008z"/>
+      </svg>
       <span>{{ t('interview.errors.session_error') }}</span>
       <NuxtLink :to="localePath('/interview')" class="iv-error-link">
         {{ t('interview.errors.back_to_setup') }}
@@ -93,7 +95,6 @@ async function confirmEnd() {
     <Teleport to="body">
       <div v-if="showEndConfirm" class="iv-overlay" @click.self="showEndConfirm = false">
         <div class="iv-dialog">
-          <div class="iv-dialog-icon">■</div>
           <p class="iv-dialog-title">{{ t('interview.stage.end_confirm') }}</p>
           <div class="iv-dialog-actions">
             <button @click="confirmEnd" class="iv-dialog-btn iv-dialog-btn--danger">
@@ -115,38 +116,36 @@ async function confirmEnd() {
   display: flex;
   flex-direction: column;
   height: calc(100vh - 3.5rem);
-  background: #0a0d12;
+  background: var(--color-bg, #f8fafc);
 }
 
 .iv-error-banner {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 16px;
-  background: rgba(239,68,68,0.08);
-  border-bottom: 1px solid rgba(239,68,68,0.2);
+  gap: 8px;
+  padding: 12px 16px;
+  background: #fef2f2;
+  border-bottom: 1px solid #fecaca;
   font-size: 13px;
-  color: #fca5a5;
+  color: #ef4444;
 }
-
-.iv-error-icon { font-size: 16px; }
 
 .iv-error-link {
   margin-left: auto;
-  color: #f87171;
+  color: #ef4444;
   text-decoration: underline;
   font-size: 12px;
 }
 
 .iv-recorder-wrap {
-  border-top: 1px solid rgba(255,255,255,0.05);
+  border-top: 1px solid var(--color-border, #e2e8f0);
   flex-shrink: 0;
 }
 
 .iv-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.7);
+  background: rgba(15,23,42,0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,41 +155,29 @@ async function confirmEnd() {
   animation: iv-fade-in 0.15s ease;
 }
 
-@keyframes iv-fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
+@keyframes iv-fade-in { from { opacity: 0; } to { opacity: 1; } }
 
 .iv-dialog {
-  background: #131920;
-  border: 1px solid rgba(255,255,255,0.08);
+  background: #ffffff;
+  border: 1px solid var(--color-border, #e2e8f0);
   border-radius: 16px;
-  padding: 28px 24px 24px;
+  padding: 24px;
   max-width: 360px;
   width: 100%;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.7);
-  animation: iv-slide-up 0.2s ease;
+  box-shadow: 0 20px 60px rgba(15,23,42,0.15);
+  animation: iv-slide-up 0.18s ease;
 }
 
 @keyframes iv-slide-up {
-  from { transform: translateY(12px); opacity: 0; }
+  from { transform: translateY(10px); opacity: 0; }
   to   { transform: translateY(0); opacity: 1; }
-}
-
-.iv-dialog-icon {
-  font-size: 28px;
-  text-align: center;
-  margin-bottom: 12px;
-  color: #ef4444;
-  letter-spacing: -2px;
 }
 
 .iv-dialog-title {
   font-size: 14px;
-  color: #cbd5e1;
+  color: var(--color-text-primary, #0f172a);
   line-height: 1.6;
-  text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .iv-dialog-actions {
@@ -211,21 +198,16 @@ async function confirmEnd() {
 }
 
 .iv-dialog-btn--danger {
-  background: rgba(239,68,68,0.15);
-  color: #f87171;
-  border: 1px solid rgba(239,68,68,0.25);
+  background: #fef2f2;
+  color: #ef4444;
+  border: 1px solid #fecaca;
 }
-.iv-dialog-btn--danger:hover {
-  background: rgba(239,68,68,0.25);
-}
+.iv-dialog-btn--danger:hover { background: #fee2e2; }
 
 .iv-dialog-btn--ghost {
-  background: rgba(255,255,255,0.04);
-  color: #475569;
-  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--color-bg, #f8fafc);
+  color: var(--color-text-muted, #64748b);
+  border: 1px solid var(--color-border, #e2e8f0);
 }
-.iv-dialog-btn--ghost:hover {
-  background: rgba(255,255,255,0.08);
-  color: #64748b;
-}
+.iv-dialog-btn--ghost:hover { background: var(--color-border, #e2e8f0); }
 </style>

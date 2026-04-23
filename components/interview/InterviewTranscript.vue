@@ -30,14 +30,14 @@ watch(() => props.turns.length, async () => {
 .iv-transcript {
   flex: 1;
   overflow-y: auto;
-  background: #0a0d12;
+  background: var(--color-bg, #f8fafc);
   scrollbar-width: thin;
-  scrollbar-color: #1e2a3a transparent;
+  scrollbar-color: var(--color-border, #e2e8f0) transparent;
 }
 
 .iv-transcript::-webkit-scrollbar { width: 4px; }
 .iv-transcript::-webkit-scrollbar-track { background: transparent; }
-.iv-transcript::-webkit-scrollbar-thumb { background: #1e2a3a; border-radius: 4px; }
+.iv-transcript::-webkit-scrollbar-thumb { background: var(--color-border, #e2e8f0); border-radius: 4px; }
 
 .iv-transcript-inner {
   padding: 20px 16px;
