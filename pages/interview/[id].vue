@@ -2,6 +2,8 @@
 <script setup lang="ts">
 import type { InterviewSession, InterviewSummary, InterviewTurn } from '~/server/utils/interview/types'
 
+definePageMeta({ layout: 'home' })
+
 const route = useRoute()
 const { t } = useI18n()
 const localePath = useLocalePath()

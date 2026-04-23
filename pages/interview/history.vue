@@ -1,5 +1,7 @@
 <!-- pages/interview/history.vue -->
 <script setup lang="ts">
+definePageMeta({ layout: 'home' })
+
 const { t } = useI18n()
 const localePath = useLocalePath()
 
