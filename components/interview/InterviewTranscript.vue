@@ -13,13 +13,38 @@ watch(() => props.turns.length, async () => {
 </script>
 
 <template>
-  <div ref="scrollEl" class="flex-1 overflow-y-auto px-4 py-4 space-y-1">
-    <InterviewTurnCard
-      v-for="turn in turns"
-      :key="turn.turnIndex"
-      :role="turn.role"
-      :content="turn.content"
-      :turn-index="turn.turnIndex"
-    />
+  <div ref="scrollEl" class="iv-transcript">
+    <div class="iv-transcript-inner">
+      <InterviewTurnCard
+        v-for="turn in turns"
+        :key="turn.turnIndex"
+        :role="turn.role"
+        :content="turn.content"
+        :turn-index="turn.turnIndex"
+      />
+    </div>
   </div>
 </template>
+
+<style scoped>
+.iv-transcript {
+  flex: 1;
+  overflow-y: auto;
+  background: #0a0d12;
+  scrollbar-width: thin;
+  scrollbar-color: #1e2a3a transparent;
+}
+
+.iv-transcript::-webkit-scrollbar { width: 4px; }
+.iv-transcript::-webkit-scrollbar-track { background: transparent; }
+.iv-transcript::-webkit-scrollbar-thumb { background: #1e2a3a; border-radius: 4px; }
+
+.iv-transcript-inner {
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+</style>

@@ -31,104 +31,458 @@ async function deleteSession(id: string) {
   }
 }
 
-function statusIcon(status: string) {
-  if (status === 'completed') return '✅'
-  if (status === 'error') return '⚠️'
-  return '🔚'
+function statusColor(status: string) {
+  if (status === 'completed') return '#22c55e'
+  if (status === 'error') return '#f59e0b'
+  return '#475569'
 }
 
 function formatDate(iso: string) {
-  return new Date(iso).toLocaleString()
+  return new Date(iso).toLocaleString('zh-TW', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+}
+
+function roleShort(targetRole: string) {
+  return t(`interview.setup.role_${targetRole.split('-')[1]}`)
 }
 </script>
 
 <template>
-  <div class="max-w-2xl mx-auto px-4 py-8">
-    <!-- 未登入：顯示登入提示 -->
-    <div
-      v-if="!user"
-      class="mt-12 text-center border border-[--color-border] rounded-2xl bg-white shadow-sm px-6 py-10"
-    >
-      <p class="text-lg font-semibold text-[--color-text-primary] mb-2">
-        {{ t('interview.history.title') }}
-      </p>
-      <p class="text-sm text-[--color-text-muted] mb-6">
-        {{ t('auth.login_required') }}
-      </p>
-      <ClientOnly>
-        <LoginButton />
-      </ClientOnly>
+  <div class="iv-hist-shell">
+
+    <!-- Not logged in -->
+    <div v-if="!user" class="iv-hist-login">
+      <div class="iv-hist-login-card">
+        <div class="iv-login-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0zM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+          </svg>
+        </div>
+        <h2 class="iv-hist-login-title">{{ t('interview.history.title') }}</h2>
+        <p class="iv-hist-login-desc">{{ t('auth.login_required') }}</p>
+        <ClientOnly>
+          <LoginButton />
+        </ClientOnly>
+      </div>
     </div>
 
-    <!-- 已登入：顯示面試紀錄 -->
+    <!-- Logged in -->
     <template v-else>
-    <div class="flex items-center justify-between mb-6">
-      <h1 class="text-xl font-bold text-[--color-text-primary]">{{ t('interview.history.title') }}</h1>
-      <NuxtLink :to="localePath('/interview')" class="text-sm text-[--color-primary] hover:underline">
-        + {{ t('interview.history.new_session') }}
-      </NuxtLink>
-    </div>
+      <div class="iv-hist-inner">
 
-    <div v-if="pending" class="text-sm text-[--color-text-muted] text-center py-12">
-      {{ t('interview.loading') }}
-    </div>
+        <!-- Header -->
+        <div class="iv-hist-header">
+          <div>
+            <span class="iv-hist-eyebrow">HISTORY</span>
+            <h1 class="iv-hist-title">{{ t('interview.history.title') }}</h1>
+          </div>
+          <NuxtLink :to="localePath('/interview')" class="iv-hist-new-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+            </svg>
+            {{ t('interview.history.new_session') }}
+          </NuxtLink>
+        </div>
 
-    <div v-else-if="!data?.items?.length" class="text-sm text-[--color-text-muted] text-center py-12">
-      {{ t('interview.history.empty') }}
-    </div>
+        <!-- Loading -->
+        <div v-if="pending" class="iv-hist-loading">
+          <span class="iv-hist-spin" />
+          <span>{{ t('interview.loading') }}</span>
+        </div>
 
-    <div v-else class="space-y-3">
-      <div
-        v-for="item in data.items"
-        :key="item.id"
-        class="border border-[--color-border] rounded-xl p-4 bg-white"
-      >
-        <div class="flex items-start justify-between gap-3">
-          <div class="flex items-center gap-2 min-w-0">
-            <span class="text-lg shrink-0">{{ statusIcon(item.status) }}</span>
-            <div class="min-w-0">
-              <p class="text-sm font-medium text-[--color-text-primary] truncate">
-                {{ t(`interview.setup.role_${item.targetRole.split('-')[1]}`) }}
-                · {{ item.targetCategories.join(', ') }}
-              </p>
-              <p class="text-xs text-[--color-text-muted]">{{ formatDate(item.startedAt) }}</p>
+        <!-- Empty -->
+        <div v-else-if="!data?.items?.length" class="iv-hist-empty">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z"/>
+          </svg>
+          <p>{{ t('interview.history.empty') }}</p>
+        </div>
+
+        <!-- List -->
+        <div v-else class="iv-hist-list">
+          <div
+            v-for="item in data.items"
+            :key="item.id"
+            class="iv-hist-item"
+          >
+            <div class="iv-hist-item-left">
+              <span class="iv-hist-dot" :style="{ background: statusColor(item.status), boxShadow: `0 0 6px ${statusColor(item.status)}` }" />
+              <div class="iv-hist-item-info">
+                <p class="iv-hist-item-role">
+                  {{ roleShort(item.targetRole) }}
+                  <span class="iv-hist-item-cats">· {{ item.targetCategories.join(', ') }}</span>
+                </p>
+                <p class="iv-hist-item-date">{{ formatDate(item.startedAt) }} · {{ item.totalTurns }} turns</p>
+              </div>
+            </div>
+
+            <div class="iv-hist-item-actions">
+              <NuxtLink
+                v-if="item.hasSummary"
+                :to="localePath(`/interview/${item.id}`)"
+                class="iv-hist-view-btn"
+              >
+                {{ t('interview.history.view_report') }}
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6"/>
+                </svg>
+              </NuxtLink>
+              <button
+                @click="confirmDeleteId = item.id"
+                :disabled="deletingId === item.id"
+                class="iv-hist-del-btn"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/>
+                </svg>
+              </button>
             </div>
           </div>
+        </div>
 
-          <div class="flex items-center gap-2 shrink-0">
-            <NuxtLink
-              v-if="item.hasSummary"
-              :to="localePath(`/interview/${item.id}`)"
-              class="text-xs text-[--color-primary] hover:underline"
-            >
-              {{ t('interview.history.view_report') }} →
-            </NuxtLink>
-            <button
-              @click="confirmDeleteId = item.id"
-              :disabled="deletingId === item.id"
-              class="text-xs text-red-400 hover:text-red-600 transition-colors"
-            >
-              {{ t('interview.history.delete') }}
+      </div>
+    </template>
+
+    <!-- Delete confirm dialog -->
+    <Teleport to="body">
+      <div v-if="confirmDeleteId" class="iv-overlay" @click.self="confirmDeleteId = null">
+        <div class="iv-dialog">
+          <p class="iv-dialog-title">{{ t('interview.history.delete_confirm') }}</p>
+          <div class="iv-dialog-actions">
+            <button @click="deleteSession(confirmDeleteId!)" :disabled="!!deletingId" class="iv-dialog-btn iv-dialog-btn--danger">
+              <span v-if="deletingId" class="iv-btn-spin-sm" />
+              {{ t('interview.history.confirm_delete') }}
+            </button>
+            <button @click="confirmDeleteId = null" class="iv-dialog-btn iv-dialog-btn--ghost">
+              {{ t('interview.stage.cancel') }}
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </Teleport>
 
-    <!-- Delete confirm dialog -->
-    <div v-if="confirmDeleteId" class="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4">
-      <div class="bg-white rounded-xl p-6 max-w-sm w-full shadow-xl">
-        <p class="text-sm mb-4">{{ t('interview.history.delete_confirm') }}</p>
-        <div class="flex gap-3">
-          <AppButton class="flex-1" @click="deleteSession(confirmDeleteId!)">
-            {{ t('interview.history.confirm_delete') }}
-          </AppButton>
-          <button @click="confirmDeleteId = null" class="flex-1 text-sm border border-[--color-border] rounded-lg py-2">
-            {{ t('interview.stage.cancel') }}
-          </button>
-        </div>
-      </div>
-    </div>
-    </template><!-- end v-else (logged in) -->
   </div>
 </template>
+
+<style scoped>
+.iv-hist-shell {
+  min-height: calc(100vh - 3.5rem);
+  background: #090c11;
+  padding: 2rem 1rem 4rem;
+}
+
+.iv-hist-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 3.5rem);
+  padding: 2rem 1rem;
+}
+
+.iv-hist-login-card {
+  max-width: 360px;
+  width: 100%;
+  background: #111827;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.iv-login-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  color: #64748b;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+.iv-hist-login-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.25rem;
+  color: #e2e8f0;
+  margin-bottom: 8px;
+}
+
+.iv-hist-login-desc {
+  font-size: 13px;
+  color: #475569;
+  margin-bottom: 20px;
+}
+
+.iv-hist-inner {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.iv-hist-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-top: 0.5rem;
+}
+
+.iv-hist-eyebrow {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  color: #f59e0b;
+  margin-bottom: 4px;
+}
+
+.iv-hist-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.75rem;
+  color: #f1f5f9;
+}
+
+.iv-hist-new-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.2);
+  color: #818cf8;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.iv-hist-new-btn:hover {
+  background: rgba(99,102,241,0.18);
+  border-color: rgba(99,102,241,0.35);
+}
+
+.iv-hist-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 4rem 0;
+  font-size: 13px;
+  color: #334155;
+}
+
+.iv-hist-spin {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.08);
+  border-top-color: #475569;
+  border-radius: 50%;
+  animation: iv-spin 0.7s linear infinite;
+}
+
+@keyframes iv-spin { to { transform: rotate(360deg); } }
+
+.iv-hist-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 4rem 0;
+  color: #334155;
+  font-size: 13px;
+  text-align: center;
+}
+
+.iv-hist-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.iv-hist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #111827;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  transition: border-color 0.15s;
+}
+
+.iv-hist-item:hover {
+  border-color: rgba(255,255,255,0.1);
+}
+
+.iv-hist-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.iv-hist-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.iv-hist-item-info { min-width: 0; }
+
+.iv-hist-item-role {
+  font-size: 13px;
+  font-weight: 500;
+  color: #cbd5e1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.iv-hist-item-cats {
+  color: #475569;
+  font-weight: 400;
+}
+
+.iv-hist-item-date {
+  font-size: 11px;
+  color: #334155;
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: 2px;
+}
+
+.iv-hist-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.iv-hist-view-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #818cf8;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: rgba(99,102,241,0.08);
+  border: 1px solid rgba(99,102,241,0.15);
+  transition: all 0.15s ease;
+}
+
+.iv-hist-view-btn:hover {
+  background: rgba(99,102,241,0.15);
+  border-color: rgba(99,102,241,0.3);
+}
+
+.iv-hist-del-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #334155;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.iv-hist-del-btn:hover:not(:disabled) {
+  background: rgba(239,68,68,0.08);
+  border-color: rgba(239,68,68,0.2);
+  color: #f87171;
+}
+
+.iv-hist-del-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.iv-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+  backdrop-filter: blur(4px);
+}
+
+.iv-dialog {
+  background: #131920;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.7);
+}
+
+.iv-dialog-title {
+  font-size: 14px;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.iv-dialog-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.iv-dialog-btn {
+  width: 100%;
+  padding: 11px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.iv-dialog-btn--danger {
+  background: rgba(239,68,68,0.12);
+  color: #f87171;
+  border: 1px solid rgba(239,68,68,0.2);
+}
+.iv-dialog-btn--danger:hover:not(:disabled) {
+  background: rgba(239,68,68,0.2);
+}
+.iv-dialog-btn--danger:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.iv-dialog-btn--ghost {
+  background: rgba(255,255,255,0.04);
+  color: #475569;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.iv-dialog-btn--ghost:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.iv-btn-spin-sm {
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(255,255,255,0.15);
+  border-top-color: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  animation: iv-spin 0.7s linear infinite;
+}
+</style>
