@@ -115,4 +115,74 @@
     "error_timeout": "Scoring service unavailable. Please try again later.",
     "error_generic": "Scoring failed. Please retry."
   }
+  ,
+  "interview": {
+    "loading": "Loading...",
+    "setup": {
+      "title": "AI Mock Interview",
+      "subtitle": "Go through a full 15-25 minute frontend engineer interview simulation",
+      "role_label": "Target Role",
+      "role_junior": "Frontend Engineer (Junior)",
+      "role_mid": "Frontend Engineer (Mid-level)",
+      "role_senior": "Frontend Engineer (Senior)",
+      "categories_label": "Technical Areas (select at least 1)",
+      "privacy_notice": "⚠️ 1 session per day. Your voice is sent to OpenAI for transcription and not stored. Text transcripts are saved to your account and can be deleted anytime.",
+      "start_btn": "Start Interview",
+      "view_history": "View History"
+    },
+    "stage": {
+      "end_btn": "End Interview",
+      "end_confirm": "Are you sure you want to end? The final report will be generated based on your conversation so far.",
+      "confirm_end": "End Interview",
+      "cancel": "Cancel",
+      "start_btn": "Start Answer",
+      "stop_btn": "Stop & Submit",
+      "status_idle": "🎤 Your turn",
+      "status_recording": "🔴 Recording — click again when done",
+      "status_uploading": "⏳ Uploading...",
+      "status_thinking": "⏳ Interviewer is thinking...",
+      "status_speaking": "🔊 Interviewer is speaking, please wait",
+      "status_error": "❌ Connection error"
+    },
+    "phase": {
+      "intro": "Introduction",
+      "behavioral": "Behavioral",
+      "technical": "Technical",
+      "wrapup": "Closing",
+      "completed": "Completed",
+      "aborted": "Aborted"
+    },
+    "summary": {
+      "overall": "Overall Evaluation",
+      "strengths": "Highlights",
+      "improvements": "Areas to Improve",
+      "study_areas": "Recommended Study Areas",
+      "per_question": "Per-Question Feedback",
+      "key_points": "Key Points Covered",
+      "feedback": "Feedback",
+      "back_to_setup": "Back to Setup",
+      "view_history": "View History"
+    },
+    "history": {
+      "title": "My Interview History",
+      "new_session": "Start New Interview",
+      "empty": "No interview history yet. Give it a try!",
+      "view_report": "View Report",
+      "delete": "Delete",
+      "delete_confirm": "Delete this interview? This cannot be undone and will not refund today's quota.",
+      "confirm_delete": "Delete"
+    },
+    "errors": {
+      "quota_exceeded": "You've used today's 1 interview session. Come back tomorrow!",
+      "start_failed": "Failed to start interview. Please try again.",
+      "no_mic": "Microphone permission required. Please allow it in your browser settings.",
+      "not_found": "Interview session not found",
+      "back_to_setup": "Back to Setup",
+      "session_error": "System error occurred. Quota not deducted.",
+      "session_error_title": "Interview Interrupted",
+      "session_error_desc": "A system error occurred. Today's quota was not deducted. You can start a new interview.",
+      "session_aborted_title": "Interview Aborted",
+      "session_aborted_desc": "This session was aborted (e.g., page was refreshed). Today's quota has been used."
+    }
+  }
 }
