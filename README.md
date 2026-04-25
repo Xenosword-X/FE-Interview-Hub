@@ -1,6 +1,6 @@
 # FE Interview Hub — 前端工程師面試題庫
 
-> 精選 80+ 前端面試題，涵蓋 JavaScript / Vue / CSS / TypeScript / HTML / 瀏覽器原理 / Web Vitals / 行為面試，搭配 OpenAI 即時評分，幫你把「會答」練成「答好」。
+> 精選 80+ 前端面試題，涵蓋 JavaScript / Vue / CSS / HTML / 瀏覽器原理 / Web Vitals / 行為面試，搭配 OpenAI 即時評分與完整 AI 模擬面試流程，幫你把「會答」練成「答好」。
 
 ![FE Interview Hub OG image](public/og-image.png)
 
@@ -13,11 +13,13 @@
 | 功能 | 說明 |
 |------|------|
 | **雙語題庫** | zh-TW / en-US 全站 i18n，題目 + UI 同時切換，各語系有獨立的 canonical URL 與 hreflang |
-| **分類瀏覽** | 8 大分類：JavaScript、Vue、CSS、TypeScript、HTML、Web Vitals、Browser 原理、行為面試，分類頁帶題目計數 |
+| **分類瀏覽** | 8 大分類：JavaScript、Vue、CSS、HTML、Web Vitals、Browser 原理、行為面試，分類頁帶題目計數 |
 | **題目詳解** | Markdown 渲染，自動產生側欄 TOC、麵包屑、上下題導覽、Callout 語法支援 |
-| **AI 模擬面試** | 輸入答案後呼叫 GPT-4o-mini 給 0-100 精準度分數、列出缺漏要點、產生優化後範例答案 |
-| **語音作答** | 使用 Whisper 把中文/英文語音轉文字，比 Web Speech API 準確度高 |
-| **每日次數限制** | 免費額度預設 10 次/人/日，白名單 email 無限制 |
+| **AI 單題評分** | 輸入答案後呼叫 GPT-4o-mini 給 0-100 精準度分數、列出缺漏要點、產生優化後範例答案 |
+| **AI 模擬面試** | 完整模擬前端面試流程（intro → 行為題 → 4 題技術題 → wrapup），AI 擔任面試官，語音雙向互動，結束後生成評測報告 |
+| **語音作答** | 使用 `gpt-4o-mini-transcribe` 把中文/英文語音轉文字，AI 面試回覆透過 `tts-1` 合成語音播放 |
+| **每日次數限制** | 免費額度預設 10 次/人/日，白名單 email 無限制（AI 評分與 AI 面試共用計數） |
+| **面試歷史** | 登入後可查看所有歷史面試記錄與詳細評測報告 |
 | **收藏功能** | 登入後可收藏題目，集中在「我的收藏」頁複習 |
 | **Google OAuth 登入** | 透過 Supabase Auth 實作，零密碼管理 |
 
@@ -77,7 +79,7 @@
 
 | 類別 | 工具 |
 |------|------|
-| 測試 | Vitest + `@vue/test-utils` + `happy-dom`（`@nuxt/test-utils`） |
+| 測試 | Vitest + `@vue/test-utils` + `happy-dom`（`@nuxt/test-utils`）；E2E：Playwright |
 | 圖片生成 | `@resvg/resvg-js`（把 `og-image.svg` 編成 PNG） |
 | TypeScript | v5.8 |
 
@@ -119,6 +121,31 @@ practice_logs
 ├── ai_feedback    jsonb          -- { accuracy: {score, summary}, gaps: [], example: '' }
 ├── locale         text
 └── created_at     timestamptz
+
+interview_sessions
+├── id               uuid primary key
+├── user_id          uuid → auth.users.id
+├── locale           text            -- 'zh' or 'en'
+├── target_role      text            -- frontend-junior / frontend-mid / frontend-senior
+├── target_categories text[]         -- fixed to 6 frontend areas
+├── phase            text            -- intro / behavioral / technical / wrapup / completed / aborted
+├── status           text            -- active / completed / aborted / error
+├── total_turns      int             -- running count of AI turns
+├── summary          jsonb           -- { overall, strengths[], improvements[], studyAreas[], perQuestion[] }
+├── started_at       timestamptz
+└── ended_at         timestamptz
+
+interview_turns
+├── id               uuid primary key
+├── session_id       uuid → interview_sessions.id (cascade)
+├── turn_index       int             -- monotonically increasing within session
+├── role             text            -- 'assistant' or 'user'
+├── phase            text            -- which phase this turn belongs to
+├── content          text            -- transcript or AI reply text
+├── question_id      uuid → questions.id (nullable, technical turns only)
+├── is_generated     boolean         -- true if AI generated the question (not from DB pool)
+├── audio_duration_sec float (nullable)
+└── created_at       timestamptz
 ```
 
 > RLS：新表預設停用 RLS，所有 mutation 透過 `serverSupabaseServiceRole`（server-only）進行，不會洩漏 service key 到客戶端。
@@ -144,6 +171,12 @@ practice_logs
 | POST | `/api/bookmarks/toggle` | `{ slug, action: 'add' \| 'remove' }` |
 | POST | `/api/ai/evaluate` | `{ slug, questionText, answer }` → AI 評分結果 |
 | POST | `/api/ai/transcribe` | FormData(audio + locale) → Whisper 轉文字 |
+| POST | `/api/interview/start` | `{ locale, targetRole }` → 建立面試 session，返回開場語音 |
+| POST | `/api/interview/turn` | FormData(sessionId + audio) → STT → LLM → TTS，返回 AI 回覆語音 |
+| POST | `/api/interview/end` | `{ sessionId, abort? }` → 結束 session，生成評測報告（abort 則跳過） |
+| GET | `/api/interview/history` | 取得當前使用者的歷史面試列表 |
+| GET | `/api/interview/:id` | 取得單次面試詳情（turns + summary） |
+| DELETE | `/api/interview/:id` | 刪除指定面試記錄 |
 
 ### 管理後台（需要 admin session）
 
@@ -164,7 +197,7 @@ practice_logs
 | 服務 | 用途 | 費用 |
 |------|------|------|
 | **Supabase** | PostgreSQL 資料庫 + Google OAuth | 免費層（500MB DB / 50k MAU） |
-| **OpenAI** | `gpt-4o-mini`（AI 評分）、`whisper-1`（語音辨識） | 按使用量計費，已設日次數限制 |
+| **OpenAI** | `gpt-5.4-nano`（AI 評分 + 面試 LLM）、`gpt-4o-mini-transcribe`（STT，單題 + 面試共用）、`tts-1`（面試語音合成） | 按使用量計費，已設日次數限制 |
 | **Cloudflare Pages** | Static + Functions 部署 | 免費 |
 | **Google Cloud Console** | OAuth 2.0 憑證設定（供 Supabase 使用） | 免費 |
 
@@ -264,6 +297,35 @@ create table practice_logs (
   locale text,
   created_at timestamptz default now()
 );
+
+-- interview_sessions
+create table interview_sessions (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete cascade,
+  locale text not null,
+  target_role text not null,
+  target_categories text[] default '{}',
+  phase text not null default 'intro',
+  status text not null default 'active',
+  total_turns int not null default 0,
+  summary jsonb,
+  started_at timestamptz default now(),
+  ended_at timestamptz
+);
+
+-- interview_turns
+create table interview_turns (
+  id uuid primary key default gen_random_uuid(),
+  session_id uuid references interview_sessions(id) on delete cascade,
+  turn_index int not null,
+  role text not null,
+  phase text not null,
+  content text not null,
+  question_id uuid references questions(id) on delete set null,
+  is_generated boolean not null default false,
+  audio_duration_sec float,
+  created_at timestamptz default now()
+);
 ```
 
 ---
@@ -285,6 +347,8 @@ create table practice_logs (
 │   ├── useQuestions.ts            # 題目列表 + 過濾
 │   ├── useCategories.ts           # 8 大分類 + 題目計數
 │   ├── useBookmarks.ts            # 收藏 toggle
+│   ├── useInterviewSession.ts     # AI 模擬面試 state machine（turn 提交、音訊播放）
+│   ├── useVoiceInput.ts           # 麥克風錄音 + STT 上傳
 │   └── useSiteUrl.ts              # 取得 NUXT_PUBLIC_SITE_URL
 ├── i18n/i18n/                     # zh.json / en.json（langDir 指向 i18n/）
 ├── layouts/
@@ -296,7 +360,11 @@ create table practice_logs (
 │   ├── index.vue                  # 首頁（分類 grid + 熱門題）
 │   ├── questions/
 │   │   ├── index.vue              # 題目列表
-│   │   └── [slug].vue             # 題目詳解（含 AI 面試）
+│   │   └── [slug].vue             # 題目詳解（含 AI 單題評分）
+│   ├── interview/
+│   │   ├── index.vue              # AI 模擬面試入口（設定角色/語系，開始面試）
+│   │   ├── [id].vue               # 面試進行頁（語音互動 + 即時對話記錄）
+│   │   └── history.vue            # 歷史面試列表 + 報告查看
 │   ├── bookmarks/index.vue        # 我的收藏
 │   ├── auth/callback.vue          # Supabase OAuth callback
 │   └── admin/                     # 後台所有頁面
@@ -310,7 +378,16 @@ create table practice_logs (
 │   ├── api/                       # 所有 API 端點（見上方 API 表）
 │   ├── middleware/admin-auth.ts   # 守衛 /admin/* 與 /api/admin/*
 │   ├── routes/robots.txt.ts       # 動態 robots.txt
-│   └── utils/admin-session.ts     # 共用 session 設定
+│   ├── utils/admin-session.ts     # 共用 session 設定
+│   └── utils/interview/           # AI 面試核心邏輯
+│       ├── types.ts               # Phase / SessionStatus / InterviewSummary 等型別
+│       ├── prompts.ts             # 系統提示詞（zh/en）+ 固定開場白
+│       ├── buildTurnMessages.ts   # 組裝 LLM messages array
+│       ├── pickQuestionPool.ts    # 從 DB 題目中取樣技術題 pool
+│       ├── validateAiResponse.ts  # planUpcomingTurn + AI 回覆 schema 驗證
+│       ├── schemas.ts             # parseTurnResponse（zod schema）
+│       ├── applyFallback.ts       # 靜音偵測 + fallback 回覆
+│       └── quotaCheck.ts         # 每日次數配額檢查
 ├── tests/                         # Vitest
 └── utils/seo.ts                   # stripMarkdown / excerpt（SEO description）
 ```

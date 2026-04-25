@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
   try {
     const transcription = await openai.audio.transcriptions.create({
       file:     audioFile,
-      model:    'whisper-1',
+      model:    'gpt-4o-mini-transcribe',
       language: locale === 'zh' ? 'zh' : 'en',
     })
     return { text: transcription.text }

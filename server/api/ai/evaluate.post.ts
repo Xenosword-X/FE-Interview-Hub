@@ -85,9 +85,9 @@ export default defineEventHandler(async (event) => {
   let feedback: AiFeedback
   try {
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      temperature: 0.3,
-      max_tokens: 800,
+      model: 'gpt-5.4-nano',
+      reasoning_effort: 'none',
+      max_completion_tokens: 800,
       response_format: { type: 'json_object' },
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
