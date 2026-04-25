@@ -11,19 +11,19 @@ export default defineEventHandler(async (event) => {
   if (!userId) throw createError({ statusCode: 401, message: 'Unauthorized' })
 
   // 2. Validate body
-  const { locale, targetRole, targetCategories } = await readBody<{
+  const { locale, targetRole } = await readBody<{
     locale: string
     targetRole: string
-    targetCategories: string[]
   }>(event)
 
   if (!['zh', 'en'].includes(locale)) throw createError({ statusCode: 400, message: 'Invalid locale' })
   if (!['frontend-junior', 'frontend-mid', 'frontend-senior'].includes(targetRole)) {
     throw createError({ statusCode: 400, message: 'Invalid targetRole' })
   }
-  if (!Array.isArray(targetCategories) || targetCategories.length === 0) {
-    throw createError({ statusCode: 400, message: 'targetCategories required' })
-  }
+
+  // Categories are no longer user-selectable — the AI samples from all 6 frontend
+  // areas to ensure variety across the 4 technical questions.
+  const targetCategories = ['javascript', 'react', 'vue', 'css', 'browser', 'web-vitals']
 
   const config = useRuntimeConfig()
   const userEmail: string = (user as any)?.email ?? ''
@@ -31,18 +31,13 @@ export default defineEventHandler(async (event) => {
 
   const db = serverSupabaseServiceRole(event)
 
-  // 3. Check for existing active session (idempotent)
-  const { data: activeSession } = await db
+  // 3. Auto-abort any leftover active session — user explicitly clicked "start",
+  // they want a fresh interview, not silent resumption of stale state.
+  await db
     .from('interview_sessions')
-    .select('id, phase, total_turns')
+    .update({ status: 'aborted', ended_at: new Date().toISOString() })
     .eq('user_id', userId)
     .eq('status', 'active')
-    .single()
-
-  if (activeSession) {
-    // Return existing session — client can resume or call /end first
-    return { sessionId: activeSession.id, resumed: true, phase: activeSession.phase }
-  }
 
   // 4. Quota check (count today's active+completed+aborted sessions)
   if (!whitelisted) {

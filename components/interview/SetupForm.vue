@@ -1,10 +1,9 @@
 <!-- components/interview/SetupForm.vue -->
 <script setup lang="ts">
-const emit = defineEmits<{ start: [payload: { locale: string; targetRole: string; targetCategories: string[] }] }>()
+const emit = defineEmits<{ start: [payload: { locale: string; targetRole: string }] }>()
 const { locale, t } = useI18n()
 
 const targetRole = ref('frontend-mid')
-const targetCategories = ref<string[]>(['react', 'javascript'])
 const isLoading = ref(false)
 
 const roles = [
@@ -13,33 +12,14 @@ const roles = [
   { value: 'frontend-senior', label: t('interview.setup.role_senior'), icon: '🎯', sub: '資深' },
 ]
 
-const categories = [
-  { value: 'javascript', label: 'JavaScript' },
-  { value: 'react',      label: 'React' },
-  { value: 'vue',        label: 'Vue 3' },
-  { value: 'css',        label: 'CSS' },
-  { value: 'browser',    label: t('categories.browser') },
-  { value: 'web-vitals', label: 'Web Vitals' },
-]
-
-function toggleCategory(val: string) {
-  const idx = targetCategories.value.indexOf(val)
-  if (idx >= 0) {
-    if (targetCategories.value.length > 1) targetCategories.value.splice(idx, 1)
-  } else {
-    targetCategories.value.push(val)
-  }
-}
-
 async function handleStart() {
   isLoading.value = true
-  emit('start', { locale: locale.value, targetRole: targetRole.value, targetCategories: targetCategories.value })
+  emit('start', { locale: locale.value, targetRole: targetRole.value })
 }
 </script>
 
 <template>
-  <div class="iv-shell">
-    <div class="iv-card">
+  <div class="iv-card">
 
       <!-- Header -->
       <div class="iv-card-header">
@@ -67,21 +47,6 @@ async function handleStart() {
         </div>
       </div>
 
-      <!-- Categories -->
-      <div class="iv-section">
-        <p class="iv-section-label">{{ t('interview.setup.categories_label') }}</p>
-        <div class="iv-tags">
-          <button
-            v-for="c in categories"
-            :key="c.value"
-            @click="toggleCategory(c.value)"
-            :class="['iv-tag', targetCategories.includes(c.value) && 'iv-tag--on']"
-          >
-            {{ c.label }}
-          </button>
-        </div>
-      </div>
-
       <!-- Notice -->
       <p class="iv-notice">{{ t('interview.setup.privacy_notice') }}</p>
 
@@ -96,19 +61,9 @@ async function handleStart() {
       </button>
 
     </div>
-  </div>
 </template>
 
 <style scoped>
-.iv-shell {
-  min-height: calc(100vh - 3.5rem);
-  background: var(--color-bg, #f8fafc);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem 1rem;
-}
-
 .iv-card {
   width: 100%;
   max-width: 480px;
@@ -210,34 +165,6 @@ async function handleStart() {
 .iv-role-sub {
   font-size: 10px;
   opacity: 0.7;
-}
-
-.iv-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-
-.iv-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 14px;
-  border-radius: 100px;
-  border: 1.5px solid var(--color-border, #e2e8f0);
-  background: #ffffff;
-  color: var(--color-text-secondary, #374151);
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  user-select: none;
-}
-
-.iv-tag:hover {
-  border-color: var(--color-border-hover, #a5b4fc);
-  color: var(--color-primary, #6366f1);
-}
-
-.iv-tag--on {
-  border-color: var(--color-primary, #6366f1);
-  background: var(--color-primary, #6366f1);
-  color: #ffffff;
 }
 
 .iv-notice {

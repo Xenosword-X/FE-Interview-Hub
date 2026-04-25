@@ -17,8 +17,14 @@ const { data, pending, error } = await useFetch<{
   summary: InterviewSummary | null
 }>(`/api/interview/${sessionId}`, { immediate: !!user.value })
 
+const localSummary = ref<InterviewSummary | null>(null)
+
 const view = computed(() => {
   if (!data.value) return 'loading'
+  // localSummary is set after end API succeeds; data.value.session.status is the SSR
+  // snapshot and never refetches, so we must check local state too — otherwise the
+  // page stays stuck on InterviewStage even after the user confirmed end.
+  if (localSummary.value) return 'summary'
   const s = data.value.session
   if (s.status === 'completed') return 'summary'
   if (s.status === 'error') return 'error'
@@ -28,8 +34,6 @@ const view = computed(() => {
 
 const initialAiText = computed(() => data.value?.turns?.[0]?.content ?? '')
 const initialAudioBase64 = ref('')
-
-const localSummary = ref<InterviewSummary | null>(null)
 
 onMounted(() => {
   const stored = sessionStorage.getItem(`interview_init_${sessionId}`)

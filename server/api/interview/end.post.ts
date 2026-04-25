@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
   const userId: string | undefined = (user as any)?.id ?? (user as any)?.sub
   if (!userId) throw createError({ statusCode: 401, message: 'Unauthorized' })
 
-  const { sessionId } = await readBody<{ sessionId: string }>(event)
+  const { sessionId, abort } = await readBody<{ sessionId?: string; abort?: boolean }>(event)
   if (!sessionId) throw createError({ statusCode: 400, message: 'sessionId required' })
 
   const db = serverSupabaseServiceRole(event)
@@ -26,6 +26,18 @@ export default defineEventHandler(async (event) => {
   // Idempotent: already completed
   if (session.status === 'completed' && session.summary) {
     return { summary: session.summary }
+  }
+  if (session.status === 'aborted') {
+    return { aborted: true }
+  }
+
+  // Manual cancellation: mark aborted, skip summary generation, no LLM cost.
+  if (abort) {
+    await db.from('interview_sessions').update({
+      status: 'aborted',
+      ended_at: new Date().toISOString(),
+    }).eq('id', sessionId)
+    return { aborted: true }
   }
 
   // Load full transcript
@@ -47,16 +59,24 @@ export default defineEventHandler(async (event) => {
   let summary: ReturnType<typeof parseSummaryResponse>
   try {
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      temperature: 0.5,
-      max_tokens: 1500,
+      model: 'gpt-5.4-nano',
+      // gpt-5 series spends tokens on reasoning by default; for a structured-output
+      // task like this, minimal reasoning leaves the whole budget for the JSON.
+      reasoning_effort: 'none',
+      max_completion_tokens: 6000,
       response_format: { type: 'json_object' },
       messages: [
         { role: 'system', content: summaryPrompt },
         { role: 'user', content: `Interview Transcript:\n\n${transcript}` },
       ],
     })
-    summary = parseSummaryResponse(completion.choices[0].message.content ?? '{}')
+    const raw = completion.choices[0]?.message?.content ?? '{}'
+    const finishReason = completion.choices[0]?.finish_reason
+    if (finishReason !== 'stop') {
+      // Surfacing this is the only way to know the JSON got chopped — caught below.
+      throw new Error(`Summary output truncated (finish_reason=${finishReason})`)
+    }
+    summary = parseSummaryResponse(raw)
   } catch (e) {
     console.error('[interview/end] summary generation error:', e)
     throw createError({ statusCode: 500, message: 'Summary generation failed' })

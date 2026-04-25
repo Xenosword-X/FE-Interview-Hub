@@ -129,15 +129,17 @@
       "role_junior": "Frontend Engineer (Junior)",
       "role_mid": "Frontend Engineer (Mid-level)",
       "role_senior": "Frontend Engineer (Senior)",
-      "categories_label": "Technical Areas (select at least 1)",
       "privacy_notice": "⚠️ 1 session per day. Your voice is sent to OpenAI for transcription and not stored. Text transcripts are saved to your account and can be deleted anytime.",
       "start_btn": "Start Interview",
-      "view_history": "View History"
+      "view_history": "View History",
+      "recent_label": "Last session",
+      "view_all": "View all",
+      "view_report": "View report"
     },
     "stage": {
       "end_btn": "End Interview",
-      "end_confirm": "Are you sure you want to end? The final report will be generated based on your conversation so far.",
-      "confirm_end": "End Interview",
+      "end_confirm": "Stop the interview now? No report will be generated and you'll return to the setup page.",
+      "confirm_end": "Stop Interview",
       "cancel": "Cancel",
       "start_btn": "Start Answer",
       "stop_btn": "Stop & Submit",
@@ -146,7 +148,9 @@
       "status_uploading": "⏳ Uploading...",
       "status_thinking": "⏳ Interviewer is thinking...",
       "status_speaking": "🔊 Interviewer is speaking, please wait",
-      "status_error": "❌ Connection error"
+      "status_error": "❌ Connection error",
+      "finalizing_title": "Interview complete — generating your report",
+      "finalizing_desc": "Analyzing your conversation. This takes about 10–30 seconds."
     },
     "phase": {
       "intro": "Introduction",

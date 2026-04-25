@@ -36,8 +36,6 @@ const roleLabel = computed(() => {
           <span>{{ formatDate(session.started_at) }}</span>
           <span class="iv-sum-meta-sep">·</span>
           <span>{{ roleLabel }}</span>
-          <span class="iv-sum-meta-sep">·</span>
-          <span>{{ session.target_categories.join(', ') }}</span>
         </div>
       </div>
 

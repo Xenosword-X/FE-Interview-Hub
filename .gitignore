@@ -31,3 +31,6 @@ client_secret_*.json
 
 # Git worktrees
 .worktrees/
+
+# Playwright MCP captures
+.playwright-mcp/

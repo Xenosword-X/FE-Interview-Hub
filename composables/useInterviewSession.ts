@@ -14,7 +14,8 @@ interface TurnResult {
   progress: { current: number; totalInPhase: number; phaseLabel: string }
   isFinal: boolean
   silent?: boolean
-  forceEnd?: { reason: string }
+  forceEnd?: boolean
+  forceEndReason?: string
 }
 
 export function useInterviewSession(sessionId: Ref<string>) {
@@ -81,6 +82,20 @@ export function useInterviewSession(sessionId: Ref<string>) {
     }
   }
 
+  // Manual cancellation — server marks session as 'aborted' and skips summary.
+  async function abortInterview(): Promise<boolean> {
+    try {
+      await $fetch('/api/interview/end', {
+        method: 'POST',
+        body: { sessionId: sessionId.value, abort: true },
+      })
+      return true
+    } catch (e) {
+      console.error('[useInterviewSession] abort error:', e)
+      return false
+    }
+  }
+
   function playAudio(base64: string, mimeType: string): Promise<void> {
     return new Promise((resolve) => {
       if (!process.client) { resolve(); return }
@@ -96,5 +111,5 @@ export function useInterviewSession(sessionId: Ref<string>) {
     turns.value = [{ role: 'assistant', content: initialAiText, turnIndex: 0 }]
   }
 
-  return { state, turns, phase, progress, isFinal, consecutiveErrors, summary, submitTurn, endInterview, initTurns }
+  return { state, turns, phase, progress, isFinal, consecutiveErrors, summary, submitTurn, endInterview, abortInterview, initTurns }
 }

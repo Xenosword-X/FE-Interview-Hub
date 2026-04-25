@@ -129,15 +129,17 @@
       "role_junior": "前端工程師（初階）",
       "role_mid": "前端工程師（中階）",
       "role_senior": "前端工程師（資深）",
-      "categories_label": "技術領域（至少選 1 個）",
       "privacy_notice": "⚠️ 每日 1 場。語音將傳至 OpenAI 轉錄，錄音不存檔；文字 transcript 保存於帳號下，可隨時刪除。",
       "start_btn": "開始面試",
-      "view_history": "查看歷史紀錄"
+      "view_history": "查看歷史紀錄",
+      "recent_label": "上一場",
+      "view_all": "查看全部",
+      "view_report": "查看報告"
     },
     "stage": {
       "end_btn": "結束面試",
-      "end_confirm": "確定要結束？最終報告會根據目前對話生成，無法再續問。",
-      "confirm_end": "確定結束",
+      "end_confirm": "確定要中斷面試？此次面試將不會生成報告，並回到設定頁。",
+      "confirm_end": "確定中斷",
       "cancel": "取消",
       "start_btn": "開始回答",
       "stop_btn": "停止並送出",
@@ -146,7 +148,9 @@
       "status_uploading": "⏳ 上傳中...",
       "status_thinking": "⏳ 面試官思考中...",
       "status_speaking": "🔊 面試官發言中，請稍候",
-      "status_error": "❌ 連線錯誤"
+      "status_error": "❌ 連線錯誤",
+      "finalizing_title": "面試結束，正在生成報告",
+      "finalizing_desc": "AI 正在分析你的整場對話，約 10–30 秒"
     },
     "phase": {
       "intro": "自我介紹",
