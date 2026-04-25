@@ -9,16 +9,19 @@
     "badge": "AI 模擬面試 · 即時評分",
     "title": "前端工程師",
     "title_accent": "面試題庫",
-    "description": "精選 80+ 道高頻前端面試題，涵蓋 JS、Vue、CSS、TypeScript 等核心領域，搭配 AI 即時診斷你的答題品質。",
+    "description": "精選 80+ 道高頻前端面試題，搭配 AI 即時評分與完整 AI 模擬面試流程，全面提升你的面試準備。",
     "stat_questions": "精選題目",
     "stat_categories": "技術分類",
     "stat_ai": "即時評分",
     "section_categories": "依分類複習",
     "section_hot": "高頻面試題",
     "view_all": "全部題目 →",
-    "cta_title": "用 AI 診斷你的答題品質",
-    "cta_desc": "輸入你的答案，AI 即時分析精準度、指出缺漏、給出優化範例",
-    "cta_btn": "立即試用 AI 面試",
+    "cta_practice_title": "AI 單題評分",
+    "cta_practice_desc": "輸入你的答案，AI 即時分析精準度、指出缺漏、給出優化範例",
+    "cta_practice_btn": "試用 AI 評分",
+    "cta_interview_title": "AI 模擬面試",
+    "cta_interview_desc": "模擬完整前端面試流程，AI 擔任面試官，支援語音互動，結束後生成詳細評測報告",
+    "cta_interview_btn": "立即開始面試",
     "seo_title": "前端工程師 - 面試題庫 | 精選高頻面試題 + AI 即時評分",
     "seo_description": "精選 80+ 道前端面試題，涵蓋 JavaScript、Vue、React、CSS、TypeScript、瀏覽器原理、Web Vitals、行為面試，搭配 AI 即時診斷答題品質，前端面試必備。"
   },
@@ -80,7 +83,8 @@
   "auth": {
     "sign_in_google": "使用 Google 登入",
     "sign_out": "登出",
-    "my_bookmarks": "我的收藏"
+    "my_bookmarks": "我的收藏",
+    "login_required": "請先登入才能使用此功能"
   },
   "bookmark": {
     "add": "收藏",
@@ -114,5 +118,79 @@
     "login_prompt": "登入後即可使用 AI 評分",
     "error_timeout": "評分服務暫時無法使用，請稍後再試",
     "error_generic": "評分失敗，請重試"
+  }
+  ,
+  "interview": {
+    "loading": "載入中...",
+    "setup": {
+      "title": "AI 模擬面試",
+      "subtitle": "走完完整 15-25 分鐘面試流程，模擬真實前端工程師面試",
+      "role_label": "目標職位",
+      "role_junior": "前端工程師（初階）",
+      "role_mid": "前端工程師（中階）",
+      "role_senior": "前端工程師（資深）",
+      "privacy_notice": "⚠️ 每日 1 場。語音將傳至 OpenAI 轉錄，錄音不存檔；文字 transcript 保存於帳號下，可隨時刪除。",
+      "start_btn": "開始面試",
+      "view_history": "查看歷史紀錄",
+      "recent_label": "上一場",
+      "view_all": "查看全部",
+      "view_report": "查看報告"
+    },
+    "stage": {
+      "end_btn": "結束面試",
+      "end_confirm": "確定要中斷面試？此次面試將不會生成報告，並回到設定頁。",
+      "confirm_end": "確定中斷",
+      "cancel": "取消",
+      "start_btn": "開始回答",
+      "stop_btn": "停止並送出",
+      "status_idle": "🎤 請回答",
+      "status_recording": "🔴 錄音中，說完請再按一次",
+      "status_uploading": "⏳ 上傳中...",
+      "status_thinking": "⏳ 面試官思考中...",
+      "status_speaking": "🔊 面試官發言中，請稍候",
+      "status_error": "❌ 連線錯誤",
+      "finalizing_title": "面試結束，正在生成報告",
+      "finalizing_desc": "AI 正在分析你的整場對話，約 10–30 秒"
+    },
+    "phase": {
+      "intro": "自我介紹",
+      "behavioral": "行為面試",
+      "technical": "技術面試",
+      "wrapup": "結語",
+      "completed": "已完成",
+      "aborted": "已中止"
+    },
+    "summary": {
+      "overall": "總體評價",
+      "strengths": "表現亮點",
+      "improvements": "需要改善",
+      "study_areas": "建議加強的知識領域",
+      "per_question": "逐題簡評",
+      "key_points": "候選人要點",
+      "feedback": "建議",
+      "back_to_setup": "回到設定頁",
+      "view_history": "查看歷史紀錄"
+    },
+    "history": {
+      "title": "我的面試紀錄",
+      "new_session": "開始新面試",
+      "empty": "還沒有面試紀錄，來試試看吧！",
+      "view_report": "查看報告",
+      "delete": "刪除",
+      "delete_confirm": "確定要刪除此場面試紀錄嗎？此操作無法復原，且不會退還今日額度。",
+      "confirm_delete": "確定刪除"
+    },
+    "errors": {
+      "quota_exceeded": "今日已使用 1 次面試額度，明天再來！",
+      "start_failed": "建立面試失敗，請重試",
+      "no_mic": "需要麥克風權限才能開始，請到瀏覽器設定開啟",
+      "not_found": "找不到此場面試",
+      "back_to_setup": "回到設定頁",
+      "session_error": "系統發生異常，配額未扣除",
+      "session_error_title": "面試異常中止",
+      "session_error_desc": "系統發生異常，今日配額未被扣除，可以重新開始一場面試。",
+      "session_aborted_title": "面試已中止",
+      "session_aborted_desc": "此場次已中止（例如重新整理頁面），今日配額已使用。"
+    }
   }
 }

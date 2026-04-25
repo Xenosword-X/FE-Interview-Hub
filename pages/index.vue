@@ -130,20 +130,44 @@ useHead({
       </section>
     </div>
 
-    <!-- AI CTA Banner -->
+    <!-- AI Feature CTAs -->
     <div class="max-w-360 mx-auto px-4 lg:px-6 mb-8">
-    <section class="rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 p-6 flex flex-col md:flex-row items-start md:items-center gap-4">
-      <div class="flex-1">
-        <h2 class="text-base font-bold text-white mb-1">{{ t('home.cta_title') }}</h2>
-        <p class="text-sm text-white/75 leading-relaxed">{{ t('home.cta_desc') }}</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <!-- Card: AI Practice (per-question) -->
+        <section class="rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 p-6 flex flex-col gap-4">
+          <div class="flex-1">
+            <p class="text-[10px] font-bold tracking-widest text-white/50 uppercase mb-2">Per Question</p>
+            <h2 class="text-base font-bold text-white mb-1">{{ t('home.cta_practice_title') }}</h2>
+            <p class="text-sm text-white/75 leading-relaxed">{{ t('home.cta_practice_desc') }}</p>
+          </div>
+          <NuxtLink
+            :to="localePath('/questions/event-loop')"
+            class="self-start bg-white text-[--color-primary] text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-indigo-50 transition-colors focus-visible:ring-2 focus-visible:ring-white"
+          >
+            {{ t('home.cta_practice_btn') }}
+          </NuxtLink>
+        </section>
+
+        <!-- Card: AI Mock Interview (full simulation) -->
+        <section class="rounded-xl bg-gradient-to-br from-violet-600 to-purple-700 p-6 flex flex-col gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <p class="text-[10px] font-bold tracking-widest text-white/50 uppercase">Full Simulation</p>
+              <span class="text-[9px] font-bold bg-white/20 text-white px-1.5 py-0.5 rounded-full tracking-wide">NEW</span>
+            </div>
+            <h2 class="text-base font-bold text-white mb-1">{{ t('home.cta_interview_title') }}</h2>
+            <p class="text-sm text-white/75 leading-relaxed">{{ t('home.cta_interview_desc') }}</p>
+          </div>
+          <NuxtLink
+            :to="localePath('/interview')"
+            class="self-start bg-white text-purple-600 text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-purple-50 transition-colors focus-visible:ring-2 focus-visible:ring-white"
+          >
+            {{ t('home.cta_interview_btn') }}
+          </NuxtLink>
+        </section>
+
       </div>
-      <NuxtLink
-        :to="localePath('/questions/event-loop')"
-        class="shrink-0 bg-white text-[--color-primary] text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-indigo-50 transition-colors focus-visible:ring-2 focus-visible:ring-white"
-      >
-        {{ t('home.cta_btn') }}
-      </NuxtLink>
-    </section>
     </div>
   </div>
 </template>

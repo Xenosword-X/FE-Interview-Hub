@@ -34,6 +34,12 @@ function toggleLocale() {
       >
         {{ t('nav.questions') }}
       </NuxtLink>
+      <NuxtLink
+        :to="localePath('/interview')"
+        class="text-sm text-[--color-text-secondary] px-3 py-2 rounded-md hover:bg-slate-100 transition-colors"
+      >
+        {{ t('nav.ai_interview') }}
+      </NuxtLink>
     </nav>
 
     <div class="hidden lg:block w-px h-5 bg-[--color-border]" aria-hidden="true" />
