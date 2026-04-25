@@ -31,3 +31,9 @@ client_secret_*.json
 
 # Git worktrees
 .worktrees/
+
+# Playwright test artifacts
+.playwright-mcp/
+test-results/
+playwright-report/
+tests/e2e/screenshots/
