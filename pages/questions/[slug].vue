@@ -163,9 +163,11 @@ useHead({
           <TagBadge :category="question?.category" />
           <DifficultyBadge :difficulty="question?.difficulty" />
         </div>
-        <h1 class="text-[22px] font-bold text-[--color-text-primary] leading-snug mb-4">
-          {{ question?.title }}
-        </h1>
+        <div :class="['iv-qd-title-wrap', `iv-qd-cat--${question?.category}`]">
+          <h1 class="text-[22px] font-bold text-[--color-text-primary] leading-snug mb-4">
+            {{ question?.title }}
+          </h1>
+        </div>
         <div class="flex items-center gap-2 flex-wrap">
           <!-- Bookmark (functional) -->
           <BookmarkButton :slug="slug" />
@@ -248,9 +250,27 @@ useHead({
 
       <!-- Prev/Next -->
       <QuestionNav :prev="prevQuestion" :next="nextQuestion" />
+
     </article>
 
     <!-- Right TOC -->
     <QuestionToc :links="tocLinks" />
   </div>
 </template>
+
+<style scoped>
+/* Category-coloured accent on the question title */
+.iv-qd-title-wrap {
+  padding-left: 14px;
+  border-left: 3px solid var(--qd-cat, #6366f1);
+}
+
+.iv-qd-cat--javascript        { --qd-cat: #f59e0b; }
+.iv-qd-cat--vue               { --qd-cat: #22c55e; }
+.iv-qd-cat--css               { --qd-cat: #ec4899; }
+.iv-qd-cat--network-security  { --qd-cat: #3b82f6; }
+.iv-qd-cat--html              { --qd-cat: #f97316; }
+.iv-qd-cat--web-vitals        { --qd-cat: #8b5cf6; }
+.iv-qd-cat--browser           { --qd-cat: #0ea5e9; }
+.iv-qd-cat--behavioral        { --qd-cat: #14b8a6; }
+</style>

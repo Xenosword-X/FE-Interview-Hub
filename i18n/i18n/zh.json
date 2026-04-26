@@ -22,6 +22,8 @@
     "cta_interview_title": "AI 模擬面試",
     "cta_interview_desc": "模擬完整前端面試流程，AI 擔任面試官，支援語音互動，結束後生成詳細評測報告",
     "cta_interview_btn": "立即開始面試",
+    "hero_cta_primary": "瀏覽題庫",
+    "hero_cta_secondary": "體驗 AI 面試",
     "seo_title": "前端工程師 - 面試題庫 | 精選高頻面試題 + AI 即時評分",
     "seo_description": "精選 80+ 道前端面試題，涵蓋 JavaScript、Vue、React、CSS、TypeScript、瀏覽器原理、Web Vitals、行為面試，搭配 AI 即時診斷答題品質，前端面試必備。"
   },
