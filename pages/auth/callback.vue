@@ -7,7 +7,9 @@ const localePath = useLocalePath()
 
 watchEffect(() => {
   if (user.value) {
-    navigateTo(localePath('/'))
+    const dest = sessionStorage.getItem('auth_redirect') ?? localePath('/')
+    sessionStorage.removeItem('auth_redirect')
+    navigateTo(dest)
   }
 })
 </script>

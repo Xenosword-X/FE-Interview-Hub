@@ -5,6 +5,7 @@ const client = useSupabaseClient()
 const localePath = useLocalePath()
 
 async function signIn() {
+  sessionStorage.setItem('auth_redirect', window.location.pathname)
   await client.auth.signInWithOAuth({
     provider: 'google',
     options: {
