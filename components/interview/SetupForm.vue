@@ -6,11 +6,11 @@ const { locale, t } = useI18n()
 const targetRole = ref('frontend-mid')
 const isLoading = ref(false)
 
-const roles = [
-  { value: 'frontend-junior', label: t('interview.setup.role_junior'), icon: '🌱', sub: '初階' },
-  { value: 'frontend-mid',    label: t('interview.setup.role_mid'),    icon: '⚡', sub: '中階' },
-  { value: 'frontend-senior', label: t('interview.setup.role_senior'), icon: '🎯', sub: '資深' },
-]
+const roles = computed(() => [
+  { value: 'frontend-junior', label: t('interview.setup.role_junior'), icon: '🌱', sub: t('interview.setup.role_junior_sub') },
+  { value: 'frontend-mid',    label: t('interview.setup.role_mid'),    icon: '⚡', sub: t('interview.setup.role_mid_sub') },
+  { value: 'frontend-senior', label: t('interview.setup.role_senior'), icon: '🎯', sub: t('interview.setup.role_senior_sub') },
+])
 
 async function handleStart() {
   isLoading.value = true
@@ -41,7 +41,7 @@ async function handleStart() {
             :class="['iv-role', targetRole === r.value && 'iv-role--on']"
           >
             <span class="iv-role-icon">{{ r.icon }}</span>
-            <span class="iv-role-name">前端工程師</span>
+            <span class="iv-role-name">{{ t('interview.setup.role_name') }}</span>
             <span class="iv-role-sub">{{ r.sub }}</span>
           </button>
         </div>

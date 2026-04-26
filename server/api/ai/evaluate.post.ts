@@ -8,7 +8,7 @@ interface AiFeedback {
   example: string
 }
 
-const SYSTEM_PROMPT = `你是一位資深前端工程師面試官。
+const SYSTEM_PROMPT_ZH = `你是一位資深前端工程師面試官。
 請針對以下前端面試題，評估應試者的回答品質。
 
 請以 JSON 格式回應，格式如下：
@@ -27,8 +27,30 @@ const SYSTEM_PROMPT = `你是一位資深前端工程師面試官。
 - 40-59：部分正確，有明顯錯誤
 - 0-39：回答方向有誤或過於簡略
 
-語言：回答語言與題目語言相同（繁體中文或英文）。
+語言：所有回覆必須使用繁體中文。
 只回傳 JSON，不要有任何額外說明文字。`
+
+const SYSTEM_PROMPT_EN = `You are a senior frontend engineering interviewer.
+Evaluate the quality of the candidate's answer to the following frontend interview question.
+
+Respond in JSON with this exact format:
+{
+  "accuracy": {
+    "score": <integer 0-100>,
+    "summary": "<one-sentence evaluation, max 20 words>"
+  },
+  "gaps": ["<missing point 1>", "<missing point 2>"],
+  "example": "<complete improved model answer>"
+}
+
+Scoring criteria:
+- 80-100: Core concept correct with specific details
+- 60-79: Mostly correct but lacking depth
+- 40-59: Partially correct with notable errors
+- 0-39: Wrong direction or too vague
+
+Language: ALL fields must be in English.
+Return ONLY the JSON object, no extra text.`
 
 export default defineEventHandler(async (event) => {
   // 1. Auth — extract user ID (sub or id, handles @nuxtjs/supabase v2 JWT quirk)
@@ -37,10 +59,11 @@ export default defineEventHandler(async (event) => {
   if (!userId) throw createError({ statusCode: 401, message: 'Unauthorized' })
 
   // 2. Parse body
-  const { slug, questionText, answer } = await readBody<{
+  const { slug, questionText, answer, locale: bodyLocale } = await readBody<{
     slug: string
     questionText: string
     answer: string
+    locale?: string
   }>(event)
 
   if (!slug || !questionText || !answer?.trim()) {
@@ -75,9 +98,16 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  // 4. Detect locale from Accept-Language header
+  // 4. Determine locale: prefer body locale, fall back to Accept-Language header
   const acceptLang = getHeader(event, 'accept-language') ?? ''
-  const locale = acceptLang.toLowerCase().startsWith('zh') ? 'zh' : 'en'
+  const locale = (bodyLocale === 'en' || bodyLocale === 'zh')
+    ? bodyLocale
+    : (acceptLang.toLowerCase().startsWith('zh') ? 'zh' : 'en')
+
+  const systemPrompt = locale === 'zh' ? SYSTEM_PROMPT_ZH : SYSTEM_PROMPT_EN
+  const userMessage = locale === 'zh'
+    ? `面試題目：${questionText}\n\n應試者回答：${answer}`
+    : `Interview question: ${questionText}\n\nCandidate's answer: ${answer}`
 
   // 5. OpenAI call
   const openai = new OpenAI({ apiKey: config.openaiApiKey as string })
@@ -90,8 +120,8 @@ export default defineEventHandler(async (event) => {
       max_completion_tokens: 800,
       response_format: { type: 'json_object' },
       messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        { role: 'user', content: `面試題目：${questionText}\n\n應試者回答：${answer}` },
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userMessage },
       ],
     })
     feedback = JSON.parse(completion.choices[0].message.content ?? '{}') as AiFeedback

@@ -52,6 +52,7 @@ async function submit() {
         slug:         props.slug,
         questionText: props.questionText,
         answer:       answer.value,
+        locale:       locale.value,
       },
     })
     feedback.value   = res.feedback
