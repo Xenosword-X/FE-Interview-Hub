@@ -75,13 +75,18 @@ export default defineEventHandler(async (event) => {
   // 7. Silent fallback
   if (isSilentTranscript(userTranscript)) {
     const fallbackText = FALLBACK_REPLIES[locale]
-    const speech = await openai.audio.speech.create({ model: 'tts-1', voice: 'alloy', input: fallbackText })
-    const buffer = Buffer.from(await speech.arrayBuffer())
+    let buffer = Buffer.alloc(0)
+    try {
+      const speech = await openai.audio.speech.create({ model: 'tts-1', voice: 'alloy', input: fallbackText })
+      buffer = Buffer.from(await speech.arrayBuffer())
+    } catch (e) {
+      console.error('[interview/turn] silent fallback TTS error:', e)
+    }
     return {
       userTranscript: '',
       userTurnIndex: -1,
       aiText: fallbackText,
-      aiAudioBase64: buffer.toString('base64'),
+      aiAudioBase64: buffer.length ? buffer.toString('base64') : '',
       aiAudioMimeType: 'audio/mpeg',
       aiTurnIndex: -1,
       phase: session.phase,

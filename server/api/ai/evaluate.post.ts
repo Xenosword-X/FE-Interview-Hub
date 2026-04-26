@@ -1,6 +1,7 @@
 // server/api/ai/evaluate.post.ts
 import { serverSupabaseServiceRole, serverSupabaseUser } from '#supabase/server'
 import OpenAI from 'openai'
+import { isWhitelisted } from '~/server/utils/interview/quotaCheck'
 
 interface AiFeedback {
   accuracy: { score: number; summary: string }
@@ -69,20 +70,20 @@ export default defineEventHandler(async (event) => {
   if (!slug || !questionText || !answer?.trim()) {
     throw createError({ statusCode: 400, message: 'slug, questionText and answer are required' })
   }
+  if (answer.length > 2000 || questionText.length > 1000) {
+    throw createError({ statusCode: 400, message: 'Input too long' })
+  }
 
   // 3. Rate limit check
   const config = useRuntimeConfig()
   const userEmail: string = (user as any)?.email ?? ''
-  const bypassEmails = (config.bypassEmails as string)
-    .split(',')
-    .map((e: string) => e.trim().toLowerCase())
-  const isDevBypass = bypassEmails.includes(userEmail.toLowerCase())
+  const isDevBypass = isWhitelisted(userEmail, config.bypassEmails as string)
+  const dbClient = serverSupabaseServiceRole(event)
 
   const dailyLimit = parseInt(config.dailyAiLimit as string) || 10
   let usedToday = 0
 
   if (!isDevBypass) {
-    const dbClient = serverSupabaseServiceRole(event)
     const today = new Date()
     today.setHours(0, 0, 0, 0)
 
@@ -124,14 +125,13 @@ export default defineEventHandler(async (event) => {
         { role: 'user', content: userMessage },
       ],
     })
-    feedback = JSON.parse(completion.choices[0].message.content ?? '{}') as AiFeedback
+    feedback = JSON.parse(completion.choices[0]?.message.content ?? '{}') as AiFeedback
   } catch (e) {
     console.error('[/api/ai/evaluate] OpenAI error:', e)
     throw createError({ statusCode: 500, message: 'AI scoring failed' })
   }
 
   // 6. Save to practice_logs
-  const dbClient = serverSupabaseServiceRole(event)
   await dbClient.from('practice_logs').insert({
     user_id:       userId,
     question_slug: slug,

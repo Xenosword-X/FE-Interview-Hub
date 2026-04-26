@@ -1,10 +1,10 @@
 <!-- components/interview/SetupForm.vue -->
 <script setup lang="ts">
+const props = defineProps<{ loading?: boolean }>()
 const emit = defineEmits<{ start: [payload: { locale: string; targetRole: string }] }>()
 const { locale, t } = useI18n()
 
 const targetRole = ref('frontend-mid')
-const isLoading = ref(false)
 
 const roles = computed(() => [
   { value: 'frontend-junior', label: t('interview.setup.role_junior'), icon: '🌱', sub: t('interview.setup.role_junior_sub') },
@@ -12,8 +12,7 @@ const roles = computed(() => [
   { value: 'frontend-senior', label: t('interview.setup.role_senior'), icon: '🎯', sub: t('interview.setup.role_senior_sub') },
 ])
 
-async function handleStart() {
-  isLoading.value = true
+function handleStart() {
   emit('start', { locale: locale.value, targetRole: targetRole.value })
 }
 </script>
@@ -41,7 +40,7 @@ async function handleStart() {
             :class="['iv-role', targetRole === r.value && 'iv-role--on']"
           >
             <span class="iv-role-icon">{{ r.icon }}</span>
-            <span class="iv-role-name">{{ t('interview.setup.role_name') }}</span>
+            <span class="iv-role-name">{{ r.label }}</span>
             <span class="iv-role-sub">{{ r.sub }}</span>
           </button>
         </div>
@@ -51,8 +50,8 @@ async function handleStart() {
       <p class="iv-notice">{{ t('interview.setup.privacy_notice') }}</p>
 
       <!-- CTA -->
-      <button :disabled="isLoading" @click="handleStart" class="iv-cta">
-        <span v-if="isLoading" class="iv-spin" />
+      <button :disabled="loading" @click="handleStart" class="iv-cta">
+        <span v-if="loading" class="iv-spin" />
         <svg v-else class="iv-cta-icon" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/>
           <path d="M19 11a7 7 0 0 1-14 0H3a9 9 0 0 0 8 8.94V22h2v-2.06A9 9 0 0 0 21 11h-2z"/>

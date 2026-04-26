@@ -40,6 +40,11 @@ export default defineEventHandler(async (event) => {
     return { aborted: true }
   }
 
+  // Guard: only generate summary for active sessions
+  if (session.status !== 'active') {
+    return { summary: session.summary ?? null }
+  }
+
   // Load full transcript
   const { data: turns } = await db
     .from('interview_turns')
@@ -47,8 +52,12 @@ export default defineEventHandler(async (event) => {
     .eq('session_id', sessionId)
     .order('turn_index', { ascending: true })
 
+  const roleLabel = (role: string) => locale === 'zh'
+    ? (role === 'assistant' ? '面試官' : '候選人')
+    : (role === 'assistant' ? 'Interviewer' : 'Candidate')
+
   const transcript = (turns ?? [])
-    .map(t => `[${t.role === 'assistant' ? '面試官' : '候選人'}] ${t.content}`)
+    .map(t => `[${roleLabel(t.role)}] ${t.content}`)
     .join('\n\n')
 
   const config = useRuntimeConfig()

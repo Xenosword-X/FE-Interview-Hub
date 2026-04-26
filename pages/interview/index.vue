@@ -9,8 +9,10 @@ const { t } = useI18n()
 useHead({ title: t('interview.setup.title') })
 
 const user = useSupabaseUser()
+const isStarting = ref(false)
 
 async function handleStart(payload: { locale: string; targetRole: string }) {
+  isStarting.value = true
   try {
     const result = await $fetch<{ sessionId: string; aiText: string; aiAudioBase64: string; phase: string; resumed: boolean }>('/api/interview/start', {
       method: 'POST',
@@ -29,6 +31,8 @@ async function handleStart(payload: { locale: string; targetRole: string }) {
     } else {
       alert(t('interview.errors.start_failed'))
     }
+  } finally {
+    isStarting.value = false
   }
 }
 
@@ -119,7 +123,7 @@ function recentStatusLabel(status: string) {
             </span>
           </NuxtLink>
 
-          <SetupForm @start="handleStart" />
+          <SetupForm :loading="isStarting" @start="handleStart" />
 
           <NuxtLink :to="localePath('/interview/history')" class="iv-index-hist-btn">
             {{ t('interview.setup.view_history') }} →

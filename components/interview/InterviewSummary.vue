@@ -15,7 +15,8 @@ function toggleQuestion(idx: number) {
 }
 
 function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })
+  const dateLocale = props.session.locale === 'zh' ? 'zh-TW' : 'en-US'
+  return new Date(iso).toLocaleDateString(dateLocale, { year: 'numeric', month: 'long', day: 'numeric' })
 }
 
 const roleLabel = computed(() => {
