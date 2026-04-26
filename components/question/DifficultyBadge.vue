@@ -2,17 +2,36 @@
 <script setup lang="ts">
 defineProps<{ difficulty: 'basic' | 'intermediate' | 'advanced' }>()
 
-const colourMap = {
-  basic:        'bg-slate-100  text-slate-600',
-  intermediate: 'bg-indigo-50  text-indigo-700',
-  advanced:     'bg-violet-100 text-violet-800',
-}
+const styles = {
+  basic:        { cls: 'bg-slate-50  text-slate-600  border-slate-200',   dot: '#94a3b8' },
+  intermediate: { cls: 'bg-indigo-50 text-indigo-700 border-indigo-200',  dot: '#6366f1' },
+  advanced:     { cls: 'bg-violet-50 text-violet-800 border-violet-200',  dot: '#7c3aed' },
+} as const
 </script>
 
 <template>
-  <span
-    :class="['inline-block text-[10px] font-semibold px-2 py-0.5 rounded', colourMap[difficulty]]"
-  >
+  <span :class="['iv-diff border', styles[difficulty].cls]">
+    <span class="iv-diff-dot" :style="{ background: styles[difficulty].dot }" aria-hidden="true" />
     {{ $t(`difficulty.${difficulty}`) }}
   </span>
 </template>
+
+<style scoped>
+.iv-diff {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.iv-diff-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+</style>

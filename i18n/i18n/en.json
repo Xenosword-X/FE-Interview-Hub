@@ -22,6 +22,8 @@
     "cta_interview_title": "AI Mock Interview",
     "cta_interview_desc": "Simulate a full frontend interview with an AI interviewer, voice interaction, and a detailed performance report at the end",
     "cta_interview_btn": "Start Interview",
+    "hero_cta_primary": "Browse Questions",
+    "hero_cta_secondary": "Try AI Interview",
     "seo_title": "Frontend Interview Hub | 80+ Top Questions with AI Scoring",
     "seo_description": "80+ curated frontend interview questions on JavaScript, Vue, React, CSS, TypeScript, browser internals, Web Vitals and behavioural interviews — with AI-powered answer analysis."
   },
