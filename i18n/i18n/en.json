@@ -126,7 +126,7 @@
     "loading": "Loading...",
     "setup": {
       "title": "AI Mock Interview",
-      "subtitle": "Go through a full 15-25 minute frontend engineer interview simulation",
+      "subtitle": "Go through a full 10-20 minute frontend engineer interview simulation",
       "role_label": "Target Role",
       "role_name": "Frontend Engineer",
       "role_junior": "Frontend Engineer (Junior)",
