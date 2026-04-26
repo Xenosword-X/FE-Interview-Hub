@@ -9,5 +9,5 @@ export function isWhitelisted(email: string, bypassEmails: string): boolean {
 
 export function isQuotaExceeded(sessionCount: number, whitelisted: boolean): boolean {
   if (whitelisted) return false
-  return sessionCount >= 1
+  return sessionCount >= 3
 }
