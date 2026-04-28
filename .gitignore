@@ -37,3 +37,6 @@ client_secret_*.json
 test-results/
 playwright-report/
 tests/e2e/screenshots/
+
+# Personal interview prep (local only)
+docs/INTERVIEW_QA.md
