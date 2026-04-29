@@ -2,8 +2,6 @@
 <script setup lang="ts">
 import type { QuestionMeta } from '~/composables/useQuestions'
 
-definePageMeta({ middleware: 'auth' })
-
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const { toggleBookmark } = useBookmarks()
