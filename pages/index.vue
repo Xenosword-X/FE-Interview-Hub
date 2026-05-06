@@ -42,7 +42,7 @@ useHead({
     innerHTML: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'WebSite',
-      name: 'FE Interview Hub',
+      name: 'Engineer Interview Hub',
       url: `${siteUrl}/${locale.value}/`,
       description: t('home.seo_description'),
       inLanguage: locale.value === 'zh' ? 'zh-TW' : 'en-US',
@@ -71,7 +71,7 @@ useHead({
 
         <img
           src="~/assets/img/LOGO.png"
-          alt="FE Interview Hub"
+          alt="Engineer Interview Hub"
           class="iv-hero-logo h-100 w-auto"
         />
 
