@@ -198,5 +198,32 @@
       "session_aborted_title": "Interview Aborted",
       "session_aborted_desc": "This session was aborted (e.g., page was refreshed). Today's quota has been used."
     }
+  },
+  "engineerHub": {
+    "tagline": "Full-Stack Engineer Interview Hub"
+  },
+  "domains": {
+    "all": "All",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "dataEngineering": "Data Engineering",
+    "devops": "DevOps"
+  },
+  "interviewRoles": {
+    "frontend": "Frontend Engineer",
+    "backend": "Backend Engineer",
+    "dataEngineering": "Data Engineer",
+    "devops": "DevOps / SRE",
+    "fullstack": "Full-stack Engineer",
+    "frontendDesc": "HTML, CSS, JavaScript, Vue/React, browser internals",
+    "backendDesc": "API design, databases, system architecture, security",
+    "dataEngineeringDesc": "SQL, pipelines, data warehousing, stream processing",
+    "devopsDesc": "Containers, CI/CD, cloud platforms, observability",
+    "fullstackDesc": "Frontend + backend integration, full-stack architecture"
+  },
+  "interviewSeniority": {
+    "label": "Experience Level",
+    "junior": "Junior (0-3 years)",
+    "senior": "Senior (3+ years)"
   }
 }
